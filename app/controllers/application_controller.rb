@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    root_path
+    if current_user.role == 0
+      admin_root_path
+    else
+      root_path
+    end
   end
 
   def after_sign_out_path_for(resource)
@@ -20,7 +24,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin
-    current_user.role == 2 || unauthorized
+    current_user.role == 0 || unauthorized
   end
 
   def require_player
