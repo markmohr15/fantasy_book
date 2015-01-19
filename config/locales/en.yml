@@ -21,3 +21,6 @@
 
 en:
   hello: "Hello world"
+
+  sessions:
+    unauthorized: "Sorry. You are not authorized to perform this action."

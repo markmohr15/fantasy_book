@@ -37,14 +37,18 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :username, presence: true
-  validates :username, uniqueness: true
-  validates :address, presence: true
-  validates :city, presence: true
-  validates :state, presence: true
-  validates :zip, presence: true
-  validates :country, presence: true
+  validates :username, presence: true, if: :player?
+  validates :username, uniqueness: true, if: :player?
+  validates :address, presence: true, if: :player?
+  validates :city, presence: true, if: :player?
+  validates :state, presence: true, if: :player?
+  validates :zip, presence: true, if: :player?
+  validates :country, presence: true, if: :player?
 
   enum role: [ :admin, :player ]
+
+  def player?
+    role == "player"
+  end
 
 end
