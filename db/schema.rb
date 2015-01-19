@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150119172022) do
+ActiveRecord::Schema.define(version: 20150119175836) do
 
   create_table "players", force: :cascade do |t|
     t.integer  "sport_id",   limit: 4
