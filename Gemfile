@@ -31,5 +31,6 @@ group :development, :test do
   gem "poltergeist"
   gem "factory_girl"
   gem "database_cleaner"
+  gem "pry"
 end
 
