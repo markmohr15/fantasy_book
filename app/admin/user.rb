@@ -1,18 +1,59 @@
 ActiveAdmin.register User do
 
+  actions :all, except: [:new, :create]
+  filter :email
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
+  index do
+    selectable_column
+    column :email
+    column :name
+    column :username
+    column :phone
+    actions
+  end
+
+  show do
+    attributes_table do
+      row :email
+      row :name
+      row :username
+      row :address
+      row :city
+      row :state
+      row :zip
+      row :country
+      row :phone
+      row :current_sign_in_at
+      row :last_sign_in_at
+      row :current_sign_in_ip
+      row :last_sign_in_ip
+      row :created_at
+      row :updated_at
+    end
+  end
+
+  form do |f|
+    f.inputs "User Details" do
+      f.input :email
+      f.input :name
+      f.input :username
+      f.input :address
+      f.input :city
+      f.input :state, as: :select, collection: (us_states)
+      f.input :zip
+      f.input :country, as: :select, collection: ["USA", "Canada", "Mexico"]
+      f.input :phone
+    end
+    f.actions
+  end
+
+  permit_params :email, :name, :username, :address, :city, :state, :zip, :country, :phone
+
+  controller do
+    def scoped_collection
+      User.where(role: 1)
+    end
+  end
 
 
 end

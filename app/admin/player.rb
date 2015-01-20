@@ -1,18 +1,39 @@
 ActiveAdmin.register Player do
 
+  filter :sport
+  filter :name
+  filter :position, as: :select
+  filter :team, as: :select
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
+  index do
+    selectable_column
+    column :sport
+    column :name
+    column :position
+    column :team
+    actions
+  end
 
+  show do
+    attributes_table do
+      row :sport
+      row :name
+      row :position
+      row :team
+    end
+  end
+
+  form do |f|
+    f.inputs "Player Details" do
+      f.input :sport
+      f.input :name
+      f.input :position
+      f.input :team
+    end
+    f.actions
+  end
+
+
+  permit_params :name, :position, :team, :sport_id
 
 end

@@ -11,24 +11,24 @@ class ApplicationController < ActionController::Base
      :password_confirmation, :name, :address, :city, :state, :zip, :country, :phone, :current_password) }
   end
 
-  #def after_sign_in_path_for(resource)
-   # if current_user.role == "admin"
-    #  admin_root_path
-    #else
-     # admin_root_path
-    #end
-  #end
+  def after_sign_in_path_for(resource)
+    if current_user.role == "admin"
+      admin_root_path
+    else
+      root_path
+    end
+  end
 
   def after_sign_out_path_for(resource)
     new_user_session_path
   end
 
   def require_admin
-    current_user.role == 0 || unauthorized
+    current_user.role == "admin" || unauthorized
   end
 
   def require_player
-    current_user.role == 1 || unauthorized
+    current_user.role == "player" || unauthorized
   end
 
   def unauthorized
