@@ -24,11 +24,11 @@ class ApplicationController < ActionController::Base
   end
 
   def require_admin
-    current_user.role == "admin" || unauthorized
+    current_user.role == 0 || unauthorized
   end
 
   def require_player
-    current_user.role == "player" || unauthorized
+    current_user.role == 1 || unauthorized
   end
 
   def unauthorized

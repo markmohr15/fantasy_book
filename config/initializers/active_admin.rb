@@ -12,12 +12,13 @@ ActiveAdmin.setup do |config|
   config.default_namespace = :admin
   config.current_user_method = :current_user
   config.logout_link_path = :destroy_user_session_path
+  config.logout_link_method = :delete
   config.comments = false
   config.show_comments_in_menu = false
   config.batch_actions = true
   config.default_per_page = 50
 
-  config.namespace :my_admin do |ns|
+  config.namespace :admin do |ns|
     ns.authentication_method = :authenticate_active_admin_user!
     ns.site_title = "FantasyBook Admin"
     ns.site_title_link = "/admin"
