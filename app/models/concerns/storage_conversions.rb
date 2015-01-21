@@ -32,5 +32,18 @@ module StorageConversions
       end
     end
 
+    def store_cents *args
+      args.each do |attribute|
+        define_method "#{attribute}_dollars" do
+          cents = read_attribute(attribute) || 0
+          cents / 100.0
+        end
+
+        define_method "#{attribute}_dollars=" do |value|
+          write_attribute attribute, value.to_f * 100
+        end
+      end
+    end
+
   end
 end
