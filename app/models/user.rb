@@ -24,6 +24,7 @@
 #  zip                    :string(255)
 #  role                   :integer          default("1")
 #  name                   :string(255)
+#  balance                :integer          default("0")
 #
 # Indexes
 #
@@ -44,6 +45,7 @@ class User < ActiveRecord::Base
   validates :state, presence: true, if: :player?
   validates :zip, presence: true, if: :player?
   validates :country, presence: true, if: :player?
+  validates :name, presence: true
 
   enum role: [ :admin, :player ]
 
