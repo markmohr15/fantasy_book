@@ -19,6 +19,7 @@
 #
 
 class Prop < ActiveRecord::Base
+  include AASM, StorageConversions
 
   belongs_to :sport
   belongs_to :player1, class_name: "Player"
@@ -33,8 +34,42 @@ class Prop < ActiveRecord::Base
   validates :player4_id, presence: true
   validates :time, presence: true
 
+  display_juice :home_vig, :away_vig
+  display_line :home_spread
+
   enum winner: [ :away, :home ]
 
-  enum state: [ :Offline, :Open, :Closed, :No_Action, :Graded ]
+  enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action ]
 
+  aasm column: :state do
+    state :Offline, initial: true
+
+    event :allow_wager do
+      transitions from: :Offline, to: :Open
+    end
+
+    state :Open
+
+    event :close_wager do
+      transitions from: :Open, to: :Closed
+    end
+
+    event :pause_wager do
+      transitions from: :Open, to: :Offline
+    end
+
+    state :Closed
+
+    event :grade_wager do
+      transitions from: :Closed, to: :Graded
+    end
+
+    state :Graded
+
+    event :void_wager do
+      transitions to: :No_Action
+    end
+
+    state :No_Action
+  end
 end

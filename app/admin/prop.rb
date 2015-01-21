@@ -1,16 +1,18 @@
 ActiveAdmin.register Prop do
 
   filter :sport
-  filter :state
+  filter :state, label: "Status", as: :select, collection: Prop.states
 
   index do
     selectable_column
     column :sport
-    column :state, as: :select, collection: Prop.states
+    column "Status", :state do |prop|
+      prop.aasm_current_state
+    end
     column :time
-    column :home_spread
-    column :away_vig
-    column :home_vig
+    column "Home Spread", :home_spread_line
+    column "Away Vig", :away_vig_juice
+    column "Home Vig", :home_vig_juice
     column :winner
     actions
   end
@@ -18,11 +20,17 @@ ActiveAdmin.register Prop do
   show do
     attributes_table do
       row :sport
-      row :state
+      row "Status", :state do |prop|
+        prop.aasm_current_state
+      end
       row :time
-      row :home_spread
-      row :away_vig
-      row :home_vig
+      row :home_spread_line
+      row "Away Vig" do
+        prop.away_vig_juice
+      end
+      row "Home Vig" do
+        prop.home_vig_juice
+      end
       row :winner
       row :player1
       row :player2
@@ -35,12 +43,12 @@ ActiveAdmin.register Prop do
 
   form do |f|
     f.inputs "Prop Details" do
-      f.input :sport
-      f.input :state
+      f.input :sport, include_blank: false
+      f.input :state, label: "Status", as: :select, collection: f.object.aasm.states.map(&:name), include_blank: false
       f.input :time
-      f.input :home_spread, as: :select, collection: (point_spreads)
-      f.input :away_vig, as: :select, collection: (vigs)
-      f.input :home_vig, as: :select, collection: (vigs)
+      f.input :home_spread, label: "Home Spread", as: :select, collection: (point_spreads)
+      f.input :away_vig, label: "Away Vig", as: :select, collection: (vigs)
+      f.input :home_vig, label: "Home Vig", as: :select, collection: (vigs)
       f.input :player1, label: "Player 1 (Away)"
       f.input :player2, label: "Player 2 (Away)"
       f.input :player3, label: "Player 3 (Home)"
