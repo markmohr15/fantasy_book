@@ -47,6 +47,8 @@ class User < ActiveRecord::Base
   validates :country, presence: true, if: :player?
   validates :name, presence: true
 
+  has_many :wagers
+
   enum role: [ :admin, :player ]
 
   def player?

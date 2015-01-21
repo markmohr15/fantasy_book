@@ -36,7 +36,7 @@ module StorageConversions
       args.each do |attribute|
         define_method "#{attribute}_dollars" do
           cents = read_attribute(attribute) || 0
-          cents / 100.0
+          (cents / 100.0)
         end
 
         define_method "#{attribute}_dollars=" do |value|

@@ -20,11 +20,19 @@ class Wager < ActiveRecord::Base
   belongs_to :user
   belongs_to :prop
 
+  validates :prop_id, presence: true
+  validates :user_id, presence: true
+  validates :risk, presence: true
+  validates :vig, presence: true
+
   display_juice :vig
   store_cents :risk, :win
 
-  enum :state [ :Pending, :Won, :Lost, :No_Action ]
-  enum :pick [ :away, :home ]
+  before_save :get_win
+  before_update
+
+  enum state: [ :Pending, :Won, :Lost, :No_Action ]
+  enum pick: [ :away, :home ]
 
   aasm column: :state do
     state :Pending, initial: true
@@ -46,4 +54,14 @@ class Wager < ActiveRecord::Base
     end
 
     state :No_Action
+  end
+
+  def get_win
+    if vig > 0
+      self.win = (risk * vig / 100.0).round
+    else
+      self.win = (risk * -100.0 / vig).round
+    end
+  end
+
 end
