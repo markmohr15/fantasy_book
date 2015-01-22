@@ -12,6 +12,7 @@
 #  vig        :integer
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  spread     :float(24)
 #
 
 class Wager < ActiveRecord::Base
@@ -25,6 +26,7 @@ class Wager < ActiveRecord::Base
   validates :risk, presence: true
   validates :vig, presence: true
 
+  display_line :spread
   display_juice :vig
   store_cents :risk, :win
 

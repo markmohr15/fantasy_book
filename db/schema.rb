@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150121162025) do
+ActiveRecord::Schema.define(version: 20150122012703) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -90,13 +90,14 @@ ActiveRecord::Schema.define(version: 20150121162025) do
   create_table "wagers", force: :cascade do |t|
     t.integer  "prop_id",    limit: 4
     t.integer  "user_id",    limit: 4
-    t.integer  "state",      limit: 4, default: 0
+    t.integer  "state",      limit: 4,  default: 0
     t.integer  "risk",       limit: 4
     t.integer  "win",        limit: 4
     t.integer  "pick",       limit: 4
     t.integer  "vig",        limit: 4
-    t.datetime "created_at",                       null: false
-    t.datetime "updated_at",                       null: false
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+    t.float    "spread",     limit: 24
   end
 
 end

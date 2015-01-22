@@ -39,7 +39,6 @@ class Prop < ActiveRecord::Base
   display_line :home_spread
 
   enum winner: [ :away, :home ]
-
   enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action ]
 
   aasm column: :state do
