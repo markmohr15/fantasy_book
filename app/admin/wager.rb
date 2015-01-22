@@ -42,10 +42,10 @@ ActiveAdmin.register Wager do
   form do |f|
     f.inputs "Wager Details" do
       f.input :user
-      f.input :prop
+      f.input :prop_id
       f.input :state
-      f.input :risk_dollars
-      f.input :win_dollars
+      f.input :risk_dollars, label: "Risk"
+      f.input :win_dollars, label: "Win"
       f.input :pick, as: :select, collection: ["away", "home"]
       f.input :spread, as: :select, collection: (point_spreads)
       f.input :vig, as: :select, collection: (vigs)
@@ -60,6 +60,6 @@ ActiveAdmin.register Wager do
     #end
   #end
 
-  permit_params :user_id, :prop, :state, :risk_dollars, :win_dollars, :pick, :vig
+  permit_params :user_id, :prop_id, :state, :risk_dollars, :win_dollars, :pick, :spread, :vig
 
 end
