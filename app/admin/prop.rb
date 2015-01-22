@@ -53,6 +53,7 @@ ActiveAdmin.register Prop do
       f.input :player2, label: "Player 2 (Away)"
       f.input :player3, label: "Player 3 (Home)"
       f.input :player4, label: "Player 4 (Home)"
+      f.input :winner, as: :select, collection: ["away", "home"]
     end
     f.actions
   end
