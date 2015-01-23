@@ -12,7 +12,7 @@ ActiveAdmin.register Wager do
     column :user
     column :prop
     column "Status", :state do |wager|
-      wager.aasm_current_state
+      wager.aasm.current_state
     end
     column "Risk", :risk_dollars
     actions
@@ -24,7 +24,7 @@ ActiveAdmin.register Wager do
       row :user
       row :prop
       row "Status", :state do |wager|
-        wager.aasm_current_state
+        wager.aasm.current_state
       end
       row "Risk" do
         wager.risk_dollars

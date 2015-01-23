@@ -14,6 +14,11 @@
 #  updated_at :datetime         not null
 #  spread     :float(24)
 #
+# Indexes
+#
+#  index_wagers_on_prop_id  (prop_id)
+#  index_wagers_on_user_id  (user_id)
+#
 
 class Wager < ActiveRecord::Base
   include AASM, StorageConversions
@@ -25,6 +30,7 @@ class Wager < ActiveRecord::Base
   validates :user_id, presence: true
   validates :risk, presence: true
   validates :vig, presence: true
+  validates :pick, presence: true
 
   display_line :spread
   display_juice :vig

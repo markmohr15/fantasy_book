@@ -17,6 +17,14 @@
 #  winner      :integer
 #  state       :integer          default("0")
 #
+# Indexes
+#
+#  index_props_on_player1_id  (player1_id)
+#  index_props_on_player2_id  (player2_id)
+#  index_props_on_player3_id  (player3_id)
+#  index_props_on_player4_id  (player4_id)
+#  index_props_on_sport_id    (sport_id)
+#
 
 class Prop < ActiveRecord::Base
   include AASM, StorageConversions
@@ -44,32 +52,44 @@ class Prop < ActiveRecord::Base
   aasm column: :state do
     state :Offline, initial: true
 
-    event :allow_wager do
+    event :allow_wagering do
       transitions from: :Offline, to: :Open
     end
 
     state :Open
 
-    event :close_wager do
+    event :close_prop do
       transitions from: :Open, to: :Closed
     end
 
-    event :pause_wager do
+    event :pause_prop do
       transitions from: :Open, to: :Offline
     end
 
     state :Closed
 
-    event :grade_wager do
+    event :grade_prop do
       transitions from: :Closed, to: :Graded
     end
 
-    state :Graded
+    state :Graded, after_enter: :grade_wagers
 
-    event :void_wager do
+    event :void_prop do
       transitions to: :No_Action
     end
 
-    state :No_Action
+    state :No_Action, after_enter: :stuff
   end
+
+  def grade_wagers
+    wagers = Wager.where(prop_id: id)
+    wagers.map do |wager|
+      if wager.pick == winner
+        wager.win_wager!
+      else
+        wager.lose_wager!
+      end
+    end
+  end
+
 end

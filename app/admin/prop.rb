@@ -7,7 +7,7 @@ ActiveAdmin.register Prop do
     selectable_column
     column :sport
     column "Status", :state do |prop|
-      prop.aasm_current_state
+      prop.aasm.current_state
     end
     column :time
     column "Home Spread", :home_spread_line
@@ -21,7 +21,7 @@ ActiveAdmin.register Prop do
     attributes_table do
       row :sport
       row "Status", :state do |prop|
-        prop.aasm_current_state
+        prop.aasm.current_state
       end
       row :time
       row :home_spread_line
@@ -43,8 +43,18 @@ ActiveAdmin.register Prop do
 
   form do |f|
     f.inputs "Prop Details" do
+      unless f.object.new_record?
+        @prop = Prop.find params[:id]
+        if @prop.state == "Closed"
+          f.input :winner, as: :select, collection: ["away", "home"]
+        end
+      end
       f.input :sport, include_blank: false
-      f.input :state, label: "Status", as: :select, collection: f.object.aasm.states.map(&:name), include_blank: false
+      if f.object.new_record?
+        f.input :state, label: "Status", as: :select, collection: ["Offline", "Open"], include_blank: false
+      else
+        f.input :state, label: "Status", as: :select, collection: ["Offline", "Open", "Closed", "No_Action"], include_blank: false
+      end
       f.input :time
       f.input :home_spread, label: "Home Spread", as: :select, collection: (point_spreads)
       f.input :away_vig, label: "Away Vig", as: :select, collection: (vigs)
@@ -53,11 +63,23 @@ ActiveAdmin.register Prop do
       f.input :player2, label: "Player 2 (Away)"
       f.input :player3, label: "Player 3 (Home)"
       f.input :player4, label: "Player 4 (Home)"
-      f.input :winner, as: :select, collection: ["away", "home"]
     end
     f.actions
   end
 
-  permit_params :sport_id, :state, :time, :home_spread, :away_vig, :home_vig, :player1_id, :player2_id, :player3_id, :player4_id
+  controller do
+
+    def update
+      @prop = Prop.find params[:id]
+      if params[:prop][:winner].present?
+        params[:prop].delete :state
+        @prop.grade_prop!
+      end
+      super
+    end
+  end
+
+  permit_params :sport_id, :state, :time, :home_spread, :away_vig, :home_vig,
+   :player1_id, :player2_id, :player3_id, :player4_id, :winner
 
 end
