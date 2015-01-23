@@ -13,7 +13,8 @@ ActiveAdmin.register Prop do
     column "Home Spread", :home_spread_line
     column "Away Vig", :away_vig_juice
     column "Home Vig", :home_vig_juice
-    column :winner
+    column :away_score
+    column :home_score
     actions
   end
 
@@ -31,7 +32,8 @@ ActiveAdmin.register Prop do
       row "Home Vig" do
         prop.home_vig_juice
       end
-      row :winner
+      row :away_score
+      row :home_score
       row :player1
       row :player2
       row :player3
@@ -46,7 +48,8 @@ ActiveAdmin.register Prop do
       unless f.object.new_record?
         @prop = Prop.find params[:id]
         if @prop.state == "Closed"
-          f.input :winner, as: :select, collection: ["away", "home"]
+          f.input :away_score
+          f.input :home_score
         end
       end
       f.input :sport, include_blank: false
@@ -71,7 +74,7 @@ ActiveAdmin.register Prop do
 
     def update
       @prop = Prop.find params[:id]
-      if params[:prop][:winner].present?
+      if params[:prop][:away_score].present? && params[:prop][:home_score].present?
         params[:prop].delete :state
         @prop.grade_prop!
       end

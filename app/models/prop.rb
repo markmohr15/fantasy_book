@@ -83,12 +83,24 @@ class Prop < ActiveRecord::Base
   end
 
   def grade_wagers
-    wagers = Wager.where(prop_id: id)
+    wagers = Wager.where(prop_id: self.id)
     wagers.map do |wager|
-      if wager.pick == winner
-        wager.win_wager!
+      if wager.pick == "away"
+        if self.away_score + wager.spread > self.home_score
+          wager.win_wager!
+        elsif self.away_score + wager.spread < self.home_score
+          wager.lose_wager!
+        else
+          wager.void_wager!
+        end
       else
-        wager.lose_wager!
+        if self.home_score + wager.spread > self.away_score
+          wager.win_wager!
+        elsif self.home_score + wager.spread < self.away_score
+          wager.lose_wager!
+        else
+          wager.void_wager!
+        end
       end
     end
   end
