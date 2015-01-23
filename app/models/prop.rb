@@ -14,8 +14,9 @@
 #  home_spread :float(24)
 #  home_vig    :integer
 #  away_vig    :integer
-#  winner      :integer
 #  state       :integer          default("0")
+#  away_score  :float(24)
+#  home_score  :float(24)
 #
 # Indexes
 #
