@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122012703) do
+ActiveRecord::Schema.define(version: 20150122214835) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -37,6 +37,8 @@ ActiveRecord::Schema.define(version: 20150122012703) do
     t.datetime "updated_at",             null: false
   end
 
+  add_index "players", ["sport_id"], name: "index_players_on_sport_id", using: :btree
+
   create_table "props", force: :cascade do |t|
     t.integer  "sport_id",    limit: 4
     t.integer  "player1_id",  limit: 4
@@ -52,6 +54,12 @@ ActiveRecord::Schema.define(version: 20150122012703) do
     t.integer  "winner",      limit: 4
     t.integer  "state",       limit: 4,  default: 0
   end
+
+  add_index "props", ["player1_id"], name: "index_props_on_player1_id", using: :btree
+  add_index "props", ["player2_id"], name: "index_props_on_player2_id", using: :btree
+  add_index "props", ["player3_id"], name: "index_props_on_player3_id", using: :btree
+  add_index "props", ["player4_id"], name: "index_props_on_player4_id", using: :btree
+  add_index "props", ["sport_id"], name: "index_props_on_sport_id", using: :btree
 
   create_table "sports", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -99,5 +107,8 @@ ActiveRecord::Schema.define(version: 20150122012703) do
     t.datetime "updated_at",                        null: false
     t.float    "spread",     limit: 24
   end
+
+  add_index "wagers", ["prop_id"], name: "index_wagers_on_prop_id", using: :btree
+  add_index "wagers", ["user_id"], name: "index_wagers_on_user_id", using: :btree
 
 end
