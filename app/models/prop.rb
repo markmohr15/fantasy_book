@@ -50,6 +50,14 @@ class Prop < ActiveRecord::Base
   enum winner: [ :away, :home ]
   enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action ]
 
+  after_commit :check_state
+
+  def check_state
+    if self.away_score != nil && self.home_score != nil && self.state == "Closed"
+      self.grade_prop!
+    end
+  end
+
   aasm column: :state do
     state :Offline, initial: true
 
@@ -73,7 +81,7 @@ class Prop < ActiveRecord::Base
       transitions from: :Closed, to: :Graded
     end
 
-    state :Graded, after_enter: :grade_wagers
+    state :Graded, after_commit: :grade_wagers
 
     event :void_prop do
       transitions to: :No_Action

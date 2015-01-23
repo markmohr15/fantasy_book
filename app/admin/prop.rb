@@ -70,17 +70,7 @@ ActiveAdmin.register Prop do
     f.actions
   end
 
-  controller do
 
-    def update
-      @prop = Prop.find params[:id]
-      if params[:prop][:away_score].present? && params[:prop][:home_score].present?
-        params[:prop].delete :state
-        @prop.grade_prop!
-      end
-      super
-    end
-  end
 
   permit_params :sport_id, :state, :time, :home_spread, :away_vig, :home_vig,
    :player1_id, :player2_id, :player3_id, :player4_id, :away_score, :home_score
