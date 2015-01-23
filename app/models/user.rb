@@ -33,6 +33,7 @@
 #
 
 class User < ActiveRecord::Base
+  include StorageConversions
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -50,6 +51,8 @@ class User < ActiveRecord::Base
   has_many :wagers
 
   enum role: [ :admin, :player ]
+
+  store_cents :balance
 
   def player?
     role == "player"
