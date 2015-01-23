@@ -33,7 +33,6 @@ ActiveAdmin.register Player do
     f.actions
   end
 
-
   permit_params :name, :position, :team, :sport_id
 
 end

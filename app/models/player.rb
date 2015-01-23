@@ -10,6 +10,10 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #
+# Indexes
+#
+#  index_players_on_sport_id  (sport_id)
+#
 
 class Player < ActiveRecord::Base
 
