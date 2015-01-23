@@ -83,6 +83,6 @@ ActiveAdmin.register Prop do
   end
 
   permit_params :sport_id, :state, :time, :home_spread, :away_vig, :home_vig,
-   :player1_id, :player2_id, :player3_id, :player4_id, :winner
+   :player1_id, :player2_id, :player3_id, :player4_id, :away_score, :home_score
 
 end
