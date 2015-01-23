@@ -15,7 +15,7 @@ gem "annotate", "~> 2.6.5"
 gem "devise"
 gem "inherited_resources", github: "josevalim/inherited_resources", branch: "rails-4-2"
 gem "activeadmin", github: "lazaronixon/activeadmin", branch: "master"
-gem "aasm"
+gem "aasm", "4.0"
 
 
 group :development, :test do
