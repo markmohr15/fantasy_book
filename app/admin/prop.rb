@@ -11,7 +11,7 @@ ActiveAdmin.register Prop do
       prop.aasm.current_state
     end
     column :time
-    column "Max Wager", :maximum_dollars
+    column "Max Win", :maximum_dollars
     column "Home Spread", :home_spread_line
     column "Away Vig", :away_vig_juice
     column "Home Vig", :home_vig_juice
@@ -27,7 +27,7 @@ ActiveAdmin.register Prop do
         prop.aasm.current_state
       end
       row :time
-      row "Max Wager" do
+      row "Max Win" do
         prop.maximum_dollars
       end
       row :home_spread_line
@@ -66,7 +66,7 @@ ActiveAdmin.register Prop do
       end
       f.input :sport, include_blank: false
       f.input :time
-      f.input :maximum_dollars
+      f.input :maximum_dollars, label: "Max Win"
       f.input :home_spread, label: "Current/Closing Home Spread", as: :select, collection: (point_spreads)
       f.input :away_vig, label: "Current/Closing Away Vig", as: :select, collection: (vigs)
       f.input :home_vig, label: "Current/Closing Home Vig", as: :select, collection: (vigs)

@@ -1,4 +1,4 @@
-ActiveAdmin.register User, :as => "Admin" do
+ActiveAdmin.register User, as: "Admin" do
   menu label: "Admins"
   menu priority: 2
 

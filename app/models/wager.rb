@@ -31,12 +31,13 @@ class Wager < ActiveRecord::Base
   validates :risk, presence: true
   validates :vig, presence: true
   validates :pick, presence: true
+  validate :within_maximum
 
   display_line :spread
   display_juice :vig
   store_cents :risk, :win
 
-  before_save :get_win
+  before_validation :get_win, on: [:create, :update]
 
   enum state: [ :Pending, :Won, :Lost, :No_Action ]
   enum pick: [ :away, :home ]
@@ -84,5 +85,18 @@ class Wager < ActiveRecord::Base
   def return_risk
     self.user.balance += self.risk
     self.user.save
+  end
+
+  def within_maximum
+    existing_wagers = Wager.where(user_id: self.user_id, prop_id: self.prop_id)
+    counter = 0
+    existing_wagers.map do |wager|
+      unless wager.id == self.id
+        counter += wager.win_dollars
+      end
+    end
+    if counter + self.win_dollars > self.prop.maximum_dollars
+      errors.add(:risk, "exceeds limit")
+    end
   end
 end
