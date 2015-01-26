@@ -48,13 +48,21 @@ class Prop < ActiveRecord::Base
   display_line :home_spread
 
   enum winner: [ :away, :home ]
-  enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action ]
+  enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action, :Regrade ]
 
   after_commit :check_state
 
   def check_state
     if self.away_score != nil && self.home_score != nil && self.state == "Closed"
       self.grade_prop!
+    elsif self.state == "Regrade"
+      self.ungrade_wagers
+      self.grade_wagers
+      self.state = "Graded"
+      self.save
+    elsif self.state == "No_Action"
+      self.ungrade_wagers
+      self.void_prop!
     end
   end
 
@@ -87,29 +95,62 @@ class Prop < ActiveRecord::Base
       transitions to: :No_Action
     end
 
-    state :No_Action, after_enter: :stuff
+    state :No_Action, after_commit: :cancel_wagers
+
+    event :regrade_prop do
+      transitions from: :Graded, to: :Regraded
+    end
+
+    state :Regrade
   end
 
   def grade_wagers
-    wagers = Wager.where(prop_id: id)
+    wagers = Wager.where(prop_id: self.id)
     wagers.map do |wager|
       if wager.pick = "away"
-        if away_score + wager.spread > home_score
+        if self.away_score + wager.spread > self.home_score
           wager.win_wager!
-        elsif away_score + wager.spread < home_score
+        elsif self.away_score + wager.spread < self.home_score
           wager.lose_wager!
         else
           wager.void_wager!
         end
       else
-        if home_score + wager.spread > away_score
+        if self.home_score + wager.spread > self.away_score
           wager.win_wager!
-        elsif home_score + wager.spread < away_score
+        elsif self.home_score + wager.spread < self.away_score
           wager.lose_wager!
         else
           wager.void_wager!
         end
       end
+    end
+  end
+
+  def ungrade_wagers
+    wagers = Wager.where(prop_id: self.id)
+    wagers.map do |wager|
+      if wager.state == "Won"
+        wager.user.balance -= (wager.risk + wager.win)
+        wager.user.save
+        wager.state = "Pending"
+        wager.save
+      elsif wager.state == "No_Action"
+        wager.user.balance -= wager.risk
+        wager.user.save
+        wager.state = "Pending"
+        wager.save
+      elsif wager.state == "Lost"
+        wager.state = "Pending"
+        wager.save
+      end
+    end
+  end
+
+  def cancel_wagers
+    wagers = Wager.where(prop_id: self.id)
+    wagers.map do |wager|
+      wager.void_wager!
     end
   end
 

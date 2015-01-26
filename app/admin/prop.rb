@@ -45,23 +45,25 @@ ActiveAdmin.register Prop do
 
   form do |f|
     f.inputs "Prop Details" do
+      @prop = Prop.find params[:id]
+      if f.object.new_record?
+        f.input :state, label: "Status", as: :select, collection: ["Offline", "Open"], include_blank: false
+      elsif @prop.state == "Graded"
+        f.input :state, label: "Status", as: :select, collection: ["Regrade", "No_Action"], include_blank: false
+      else
+        f.input :state, label: "Status", as: :select, collection: ["Offline", "Open", "Closed", "No_Action"], include_blank: false
+      end
       unless f.object.new_record?
-        @prop = Prop.find params[:id]
-        if @prop.state == "Closed"
+        if @prop.state == "Closed" or @prop.state == "Graded"
           f.input :away_score
           f.input :home_score
         end
       end
       f.input :sport, include_blank: false
-      if f.object.new_record?
-        f.input :state, label: "Status", as: :select, collection: ["Offline", "Open"], include_blank: false
-      else
-        f.input :state, label: "Status", as: :select, collection: ["Offline", "Open", "Closed", "No_Action"], include_blank: false
-      end
       f.input :time
-      f.input :home_spread, label: "Home Spread", as: :select, collection: (point_spreads)
-      f.input :away_vig, label: "Away Vig", as: :select, collection: (vigs)
-      f.input :home_vig, label: "Home Vig", as: :select, collection: (vigs)
+      f.input :home_spread, label: "Current/Closing Home Spread", as: :select, collection: (point_spreads)
+      f.input :away_vig, label: "Current/Closing Away Vig", as: :select, collection: (vigs)
+      f.input :home_vig, label: "Current/Closing Home Vig", as: :select, collection: (vigs)
       f.input :player1, label: "Player 1 (Away)"
       f.input :player2, label: "Player 2 (Away)"
       f.input :player3, label: "Player 3 (Home)"
@@ -69,8 +71,6 @@ ActiveAdmin.register Prop do
     end
     f.actions
   end
-
-
 
   permit_params :sport_id, :state, :time, :home_spread, :away_vig, :home_vig,
    :player1_id, :player2_id, :player3_id, :player4_id, :away_score, :home_score

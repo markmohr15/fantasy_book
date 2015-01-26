@@ -37,19 +37,18 @@ class Wager < ActiveRecord::Base
   store_cents :risk, :win
 
   before_save :get_win
-  before_update
 
   enum state: [ :Pending, :Won, :Lost, :No_Action ]
   enum pick: [ :away, :home ]
 
   aasm column: :state do
-    state :Pending, initial: true
+    state :Pending, initial: true, after_commit: :deduct_risk
 
     event :win_wager do
       transitions from: :Pending, to: :Won
     end
 
-    state :Won
+    state :Won, after_commit: :pay_win
 
     event :lose_wager do
       transitions from: :Pending, to: :Lost
@@ -61,7 +60,7 @@ class Wager < ActiveRecord::Base
       transitions to: :No_Action
     end
 
-    state :No_Action
+    state :No_Action, after_commit: :return_risk
   end
 
   def get_win
@@ -72,4 +71,18 @@ class Wager < ActiveRecord::Base
     end
   end
 
+  def deduct_risk
+    self.user.balance -= self.risk
+    self.user.save
+  end
+
+  def pay_win
+    self.user.balance += (self.risk + self.win)
+    self.user.save
+  end
+
+  def return_risk
+    self.user.balance += self.risk
+    self.user.save
+  end
 end
