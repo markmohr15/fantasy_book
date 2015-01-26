@@ -1,15 +1,17 @@
 ActiveAdmin.register Prop do
-
   filter :sport
   filter :state, label: "Status", as: :select, collection: Prop.states
+  menu priority: 6
 
   index do
     selectable_column
+    column :id
     column :sport
     column "Status", :state do |prop|
       prop.aasm.current_state
     end
     column :time
+    column "Max Wager", :maximum_dollars
     column "Home Spread", :home_spread_line
     column "Away Vig", :away_vig_juice
     column "Home Vig", :home_vig_juice
@@ -25,6 +27,9 @@ ActiveAdmin.register Prop do
         prop.aasm.current_state
       end
       row :time
+      row "Max Wager" do
+        prop.maximum_dollars
+      end
       row :home_spread_line
       row "Away Vig" do
         prop.away_vig_juice
@@ -61,6 +66,7 @@ ActiveAdmin.register Prop do
       end
       f.input :sport, include_blank: false
       f.input :time
+      f.input :maximum_dollars
       f.input :home_spread, label: "Current/Closing Home Spread", as: :select, collection: (point_spreads)
       f.input :away_vig, label: "Current/Closing Away Vig", as: :select, collection: (vigs)
       f.input :home_vig, label: "Current/Closing Home Vig", as: :select, collection: (vigs)
@@ -72,7 +78,7 @@ ActiveAdmin.register Prop do
     f.actions
   end
 
-  permit_params :sport_id, :state, :time, :home_spread, :away_vig, :home_vig,
+  permit_params :sport_id, :state, :time, :maximum_dollars, :home_spread, :away_vig, :home_vig,
    :player1_id, :player2_id, :player3_id, :player4_id, :away_score, :home_score
 
 end

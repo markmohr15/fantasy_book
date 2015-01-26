@@ -17,6 +17,7 @@
 #  state       :integer          default("0")
 #  away_score  :float(24)
 #  home_score  :float(24)
+#  maximum     :integer
 #
 # Indexes
 #
@@ -46,6 +47,7 @@ class Prop < ActiveRecord::Base
 
   display_juice :home_vig, :away_vig
   display_line :home_spread
+  store_cents :maximum
 
   enum winner: [ :away, :home ]
   enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action, :Regrade ]
