@@ -1,7 +1,7 @@
 ActiveAdmin.register User do
-
   actions :all, except: [:new, :create]
   filter :email
+  menu priority: 3
 
   index do
     selectable_column

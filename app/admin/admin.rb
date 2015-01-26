@@ -1,5 +1,6 @@
 ActiveAdmin.register User, :as => "Admin" do
-  menu :label => "Admins"
+  menu label: "Admins"
+  menu priority: 2
 
   filter :name
 

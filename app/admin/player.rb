@@ -1,9 +1,9 @@
 ActiveAdmin.register Player do
-
   filter :sport
   filter :name
   filter :position, as: :select
   filter :team, as: :select
+  menu priority: 5
 
   index do
     selectable_column

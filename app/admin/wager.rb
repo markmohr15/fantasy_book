@@ -1,9 +1,9 @@
 ActiveAdmin.register Wager do
-
   filter :id
   filter :user
   filter :prop_id
   filter :state, label: "Status", as: :select, collection: Wager.states
+  menu priority: 7
   #custom risk filter
 
   index do
