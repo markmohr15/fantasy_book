@@ -39,8 +39,8 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :username, presence: true, if: :player?
-  validates :username, uniqueness: true, if: :player?
+  validates :username, presence: true,  if: :player?
+  validates :username, uniqueness: true, case_sensitive: false, if: :player?
   validates :address, presence: true, if: :player?
   validates :city, presence: true, if: :player?
   validates :state, presence: true, if: :player?
@@ -54,8 +54,19 @@ class User < ActiveRecord::Base
 
   store_cents :balance
 
+  attr_accessor :login
+
   def player?
     role == "player"
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    if login = conditions.delete(:login)
+      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+    else
+      where(conditions).first
+    end
   end
 
 end
