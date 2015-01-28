@@ -2,7 +2,7 @@ module ApplicationHelper
 
   def countries
     [
-      ["USA", "USA"],
+      ["United States", "USA"],
       ["Canada", "Canada"],
       ["Mexico", "Mexico"]
     ]

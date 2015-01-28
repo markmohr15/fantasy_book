@@ -21,9 +21,9 @@
           <p class="navbar-text"> Balance: <%= number_to_currency current_user.balance_dollars %> </p>
           <p class="navbar-text">
             <%= link_to "My Account" %> |
+            <%= link_to "My Wagers" %> |
             <%= link_to "Deposit" %> |
             <%= link_to "Withdraw" %> |
-            <%= link_to "My Wagers" %> |
             <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
           </p>
         <% else %>
@@ -39,9 +39,11 @@
   <nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom" role="navigation">
     <div class="container">
       <div class="navbar-left">
-        <p> <%= link_to "Contact Us", contact_us_path %> </p>
-        <p> <%= link_to "Rules", rules_path %> </p>
-        <p> <%= link_to "Privacy Policy", privacy_policy_path %> </p>
+        <p class="navbar-text">
+          <%= link_to "Contact Us", contact_us_path %> |
+          <%= link_to "Rules", rules_path %> |
+          <%= link_to "Privacy Policy", privacy_policy_path %>
+        </p>
       </div>
     </div>
   </nav>
