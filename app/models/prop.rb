@@ -20,26 +20,16 @@ class Prop < ActiveRecord::Base
   include AASM, StorageConversions
 
   belongs_to :sport
-  belongs_to :player1, class_name: "Player"
-  belongs_to :player2, class_name: "Player"
-  belongs_to :player3, class_name: "Player"
-  belongs_to :player4, class_name: "Player"
   has_many :wagers
   has_many :prop_choices
   accepts_nested_attributes_for :prop_choices, allow_destroy: true
 
   validates :sport_id, presence: true
-  validates :player1_id, presence: true
-  validates :player2_id, presence: true
-  validates :player3_id, presence: true
-  validates :player4_id, presence: true
   validates :time, presence: true
+  validates :type, presence: true
 
-  display_juice :home_vig, :away_vig
-  display_line :home_spread
   store_cents :maximum
 
-  enum winner: [ :away, :home ]
   enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action, :Regrade ]
 
   after_commit :check_state

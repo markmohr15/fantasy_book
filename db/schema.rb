@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128174933) do
+ActiveRecord::Schema.define(version: 20150128181529) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -45,9 +45,12 @@ ActiveRecord::Schema.define(version: 20150128174933) do
     t.integer  "odds",       limit: 4
     t.float    "spread",     limit: 24
     t.float    "score",      limit: 24
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.boolean  "winner",     limit: 1,     default: false
   end
+
+  add_index "prop_choices", ["prop_id"], name: "index_prop_choices_on_prop_id", using: :btree
 
   create_table "props", force: :cascade do |t|
     t.integer  "sport_id",   limit: 4
@@ -96,16 +99,16 @@ ActiveRecord::Schema.define(version: 20150128174933) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
 
   create_table "wagers", force: :cascade do |t|
-    t.integer  "prop_id",    limit: 4
-    t.integer  "user_id",    limit: 4
-    t.integer  "state",      limit: 4,  default: 0
-    t.integer  "risk",       limit: 4
-    t.integer  "win",        limit: 4
-    t.integer  "pick",       limit: 4
-    t.integer  "vig",        limit: 4
-    t.datetime "created_at",                        null: false
-    t.datetime "updated_at",                        null: false
-    t.float    "spread",     limit: 24
+    t.integer  "prop_id",        limit: 4
+    t.integer  "user_id",        limit: 4
+    t.integer  "state",          limit: 4,  default: 0
+    t.integer  "risk",           limit: 4
+    t.integer  "win",            limit: 4
+    t.integer  "prop_choice_id", limit: 4
+    t.integer  "odds",           limit: 4
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.float    "spread",         limit: 24
   end
 
   add_index "wagers", ["prop_id"], name: "index_wagers_on_prop_id", using: :btree

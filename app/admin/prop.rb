@@ -12,11 +12,6 @@ ActiveAdmin.register Prop do
     end
     column :time
     column "Max Win", :maximum_dollars
-    column "Home Spread", :home_spread_line
-    column "Away Vig", :away_vig_juice
-    column "Home Vig", :home_vig_juice
-    column :away_score
-    column :home_score
     actions
   end
 

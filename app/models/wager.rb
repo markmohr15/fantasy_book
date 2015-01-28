@@ -2,17 +2,17 @@
 #
 # Table name: wagers
 #
-#  id         :integer          not null, primary key
-#  prop_id    :integer
-#  user_id    :integer
-#  state      :integer          default("0")
-#  risk       :integer
-#  win        :integer
-#  pick       :integer
-#  vig        :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  spread     :float(24)
+#  id             :integer          not null, primary key
+#  prop_id        :integer
+#  user_id        :integer
+#  state          :integer          default("0")
+#  risk           :integer
+#  win            :integer
+#  prop_choice_id :integer
+#  odds           :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  spread         :float(24)
 #
 # Indexes
 #
@@ -25,22 +25,22 @@ class Wager < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :prop
+  belongs_to :prop_choice
 
   validates :prop_id, presence: true
   validates :user_id, presence: true
   validates :risk, presence: true
-  validates :vig, presence: true
-  validates :pick, presence: true
+  validates :odds, presence: true
+  validates :prop_choice_id, presence: true
   validate :within_maximum
 
   display_line :spread
-  display_juice :vig
+  display_juice :odds
   store_cents :risk, :win
 
   before_validation :get_win, on: [:create, :update]
 
   enum state: [ :Pending, :Won, :Lost, :No_Action ]
-  enum pick: [ :away, :home ]
 
   aasm column: :state do
     state :Pending, initial: true, after_commit: :deduct_risk
