@@ -6,61 +6,50 @@
   <%= devise_error_messages! %>
 
   <div class="field">
-    <%= f.label :name %><br />
-    <%= f.text_field :name, autofocus: true %>
+    <%= f.text_field :name, autofocus: true, placeholder: "Full Name" %>
   </div>
-
+    <br />
   <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email %>
+    <%= f.email_field :email, placeholder: "Email" %>
   </div>
-
+    <br />
   <div class="field">
-    <%= f.label :username %><br />
-    <%= f.text_field :username %>
+    <%= f.text_field :username, placeholder: "Username" %>
   </div>
-
+    <br />
    <div class="field">
-    <%= f.label :address %><br />
-    <%= f.text_field :address %>
+    <%= f.text_field :address, placeholder: "Address" %>
   </div>
-
+    <br />
   <div class="field">
-    <%= f.label :city %><br />
-    <%= f.text_field :city %>
+    <%= f.text_field :city, placeholder: "City" %>
   </div>
-
+    <br />
   <div class="field">
-    <%= f.label :state %><br />
-    <%= f.text_field :state %>
+    <%= f.select :state, options_for_select(us_states) %>
   </div>
-
+    <br />
   <div class="field">
-    <%= f.label :zip %><br />
-    <%= f.text_field :zip %>
+    <%= f.text_field :zip, placeholder: "Zip" %>
   </div>
-
+     <br />
   <div class="field">
-    <%= f.label :country %><br />
-    <%= f.text_field :country %>
+    <%= f.select :country, options_for_select(countries) %>
   </div>
-
+     <br />
    <div class="field">
-    <%= f.label :phone %><br />
-    <%= f.text_field :phone %>
+    <%= f.text_field :phone, placeholder: "Phone" %>
   </div>
-
+     <br />
   <div class="field">
-    <%= f.label :password %>
     <% if @validatable %>
     <em>(<%= @minimum_password_length %> characters minimum)</em>
     <% end %><br />
-    <%= f.password_field :password, autocomplete: "off" %>
+    <%= f.password_field :password, autocomplete: "off", placeholder: "Password" %>
   </div>
-
+     <br />
   <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "off" %>
+    <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation" %>
   </div>
 
   <div class="actions">
