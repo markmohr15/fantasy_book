@@ -2,30 +2,18 @@
 #
 # Table name: props
 #
-#  id          :integer          not null, primary key
-#  sport_id    :integer
-#  player1_id  :integer
-#  player2_id  :integer
-#  player3_id  :integer
-#  player4_id  :integer
-#  time        :datetime
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  home_spread :float(24)
-#  home_vig    :integer
-#  away_vig    :integer
-#  state       :integer          default("0")
-#  away_score  :float(24)
-#  home_score  :float(24)
-#  maximum     :integer
+#  id         :integer          not null, primary key
+#  sport_id   :integer
+#  time       :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  state      :integer          default("0")
+#  maximum    :integer
+#  type       :string(255)
 #
 # Indexes
 #
-#  index_props_on_player1_id  (player1_id)
-#  index_props_on_player2_id  (player2_id)
-#  index_props_on_player3_id  (player3_id)
-#  index_props_on_player4_id  (player4_id)
-#  index_props_on_sport_id    (sport_id)
+#  index_props_on_sport_id  (sport_id)
 #
 
 class Prop < ActiveRecord::Base
@@ -37,6 +25,8 @@ class Prop < ActiveRecord::Base
   belongs_to :player3, class_name: "Player"
   belongs_to :player4, class_name: "Player"
   has_many :wagers
+  has_many :prop_choices
+  accepts_nested_attributes_for :prop_choices, allow_destroy: true
 
   validates :sport_id, presence: true
   validates :player1_id, presence: true

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150126171807) do
+ActiveRecord::Schema.define(version: 20150128174933) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -39,28 +39,26 @@ ActiveRecord::Schema.define(version: 20150126171807) do
 
   add_index "players", ["sport_id"], name: "index_players_on_sport_id", using: :btree
 
+  create_table "prop_choices", force: :cascade do |t|
+    t.integer  "prop_id",    limit: 4
+    t.text     "choice",     limit: 65535
+    t.integer  "odds",       limit: 4
+    t.float    "spread",     limit: 24
+    t.float    "score",      limit: 24
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "props", force: :cascade do |t|
-    t.integer  "sport_id",    limit: 4
-    t.integer  "player1_id",  limit: 4
-    t.integer  "player2_id",  limit: 4
-    t.integer  "player3_id",  limit: 4
-    t.integer  "player4_id",  limit: 4
+    t.integer  "sport_id",   limit: 4
     t.datetime "time"
     t.datetime "created_at",                         null: false
     t.datetime "updated_at",                         null: false
-    t.float    "home_spread", limit: 24
-    t.integer  "home_vig",    limit: 4
-    t.integer  "away_vig",    limit: 4
-    t.integer  "state",       limit: 4,  default: 0
-    t.float    "away_score",  limit: 24
-    t.float    "home_score",  limit: 24
-    t.integer  "maximum",     limit: 4
+    t.integer  "state",      limit: 4,   default: 0
+    t.integer  "maximum",    limit: 4
+    t.string   "type",       limit: 255
   end
 
-  add_index "props", ["player1_id"], name: "index_props_on_player1_id", using: :btree
-  add_index "props", ["player2_id"], name: "index_props_on_player2_id", using: :btree
-  add_index "props", ["player3_id"], name: "index_props_on_player3_id", using: :btree
-  add_index "props", ["player4_id"], name: "index_props_on_player4_id", using: :btree
   add_index "props", ["sport_id"], name: "index_props_on_sport_id", using: :btree
 
   create_table "sports", force: :cascade do |t|
