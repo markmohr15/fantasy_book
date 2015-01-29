@@ -6,7 +6,6 @@
 #  prop_id    :integer
 #  choice     :text(65535)
 #  odds       :integer
-#  spread     :float(24)
 #  score      :float(24)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
@@ -26,8 +25,30 @@ class PropChoice < ActiveRecord::Base
   display_juice :odds
   display_line :spread
 
-  validates :prop_id, presence: true
   validates :choice, presence: true
   validates :odds, presence: true
-  validates :spread, presence: true
+
+  attr_accessor :player1, :player2
+
+  def player1=(value)
+    player = Player.find_by name: value
+    self.choice ||= []
+    self.choice[0] = player.id
+  end
+
+  def player2=(value)
+    player = Player.find_by name: value
+    self.choice ||= []
+    self.choice[1] = player.id
+  end
+
+  def player1
+    return if choice.nil?
+    Player.find_by(id: self.choice[0]).name
+  end
+
+  def player2
+    return if choice.nil?
+    Player.find_by(id: self.choice[1]).name
+  end
 end

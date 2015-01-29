@@ -2,14 +2,18 @@
 #
 # Table name: props
 #
-#  id         :integer          not null, primary key
-#  sport_id   :integer
-#  time       :datetime
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  state      :integer          default("0")
-#  maximum    :integer
-#  type       :string(255)
+#  id          :integer          not null, primary key
+#  sport_id    :integer
+#  time        :datetime
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  state       :integer          default("0")
+#  maximum     :integer
+#  variety     :string(255)
+#  proposition :text(65535)
+#  over_under  :float(24)
+#  opt1_spread :float(24)
+#  result      :float(24)
 #
 # Indexes
 #
@@ -26,7 +30,7 @@ class Prop < ActiveRecord::Base
 
   validates :sport_id, presence: true
   validates :time, presence: true
-  validates :type, presence: true
+  validates :variety, presence: true
 
   store_cents :maximum
 
@@ -35,7 +39,7 @@ class Prop < ActiveRecord::Base
   after_commit :check_state
 
   def check_state
-    if self.away_score != nil && self.home_score != nil && self.state == "Closed"
+    if self.state == "Closed" && has_winner?
       self.grade_prop!
     elsif self.state == "Regrade"
       self.ungrade_wagers
@@ -47,6 +51,31 @@ class Prop < ActiveRecord::Base
       self.void_prop!
     end
   end
+
+  def has_winner?
+    pc = self.prop_choices
+    if self.variety == "Other"
+      yes = false
+      pc.each do |x|
+        if x.winner == true
+          yes = true
+        end
+      end
+    elsif self.variety == "Over/Under"
+      yes = false
+      yes = true if self.result != nil
+    else
+      yes = true
+      pc.each do |x|
+        if x.score == nil
+          yes = false
+        end
+      end
+    end
+
+    yes
+  end
+
 
   aasm column: :state do
     state :Offline, initial: true
@@ -89,21 +118,50 @@ class Prop < ActiveRecord::Base
   def grade_wagers
     wagers = Wager.where(prop_id: self.id)
     wagers.map do |wager|
-      if wager.pick = "away"
-        if self.away_score + wager.spread > self.home_score
-          wager.win_wager!
-        elsif self.away_score + wager.spread < self.home_score
-          wager.lose_wager!
+      if self.variety == "Other"
+        winner = PropChoice.find_by(prop_id: self.id, winner: true).id
+        if wager.prop_choice_id == winner
+            wager.win_wager!
         else
-          wager.void_wager!
+            wager.lose_wager!
+        end
+      elsif self.variety == "Over/Under"
+        if wager.prop_choice.choice == "Over"
+          if self.result > wager.spread
+            wager.win_wager!
+          elsif self.result == wager.spread
+            wager.void_wager!
+          else
+            wager.lose_wager!
+          end
+        else
+          if self.result < wager.spread
+            wager.win_wager!
+          elsif self.result == wager.spread
+            wager.void_wager!
+          else
+            wager.lose_wager!
+          end
         end
       else
-        if self.home_score + wager.spread > self.away_score
-          wager.win_wager!
-        elsif self.home_score + wager.spread < self.away_score
-          wager.lose_wager!
+        choice1 = PropChoice.where(prop_id: self.id).first
+        choice2 = PropChoice.where(prop_id: self.id).last
+        if wager.prop_choice == choice1
+          if wager.prop_choice.score + wager.spread > choice2.score
+            wager.win_wager!
+          elsif wager.prop_choice.score + wager.spread == choice2.score
+            wager.void_wager!
+          else
+            wager.lose_wager!
+          end
         else
-          wager.void_wager!
+          if wager.prop_choice.score + wager.spread > choice1.score
+            wager.win_wager!
+          elsif wager.prop_choice.score + wager.spread == choice1.score
+            wager.void_wager!
+          else
+            wager.lose_wager!
+          end
         end
       end
     end

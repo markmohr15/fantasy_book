@@ -33,17 +33,13 @@ ActiveAdmin.register Wager do
         wager.win_dollars
       end
       row "Pick" do |wager|
-        if wager.pick == "away"
-          wager.prop.player1.name + " & " + wager.prop.player2.name
-        else
-          wager.prop.player3.name + " & " + wager.prop.player4.name
-        end
+        wager.prop_choice
       end
       row "Spread" do
         wager.spread_line
       end
-      row "Vig" do
-        wager.vig_juice
+      row "Odds" do
+        wager.odds_juice
       end
       row :created_at
       row :updated_at
@@ -57,10 +53,9 @@ ActiveAdmin.register Wager do
       f.input :state, label: "Status", as: :select, collection: f.object.aasm.states.map(&:name), include_blank: false
       f.input :risk_dollars, label: "Risk"
       f.input :win_dollars, label: "Win"
-      f.input :pick, as: :select, collection: ["away", "home"]
+      f.input :prop_choice
       f.input :spread, as: :select, collection: (point_spreads)
-      f.input :vig, as: :select, collection: (vigs)
-
+      f.input :odds, as: :select, collection: (vigs)
     end
     f.actions
   end
@@ -71,6 +66,6 @@ ActiveAdmin.register Wager do
     #end
   #end
 
-  permit_params :user_id, :prop_id, :state, :risk_dollars, :win_dollars, :pick, :spread, :vig
+  permit_params :user_id, :prop_id, :state, :risk_dollars, :win_dollars, :prop_choice_id, :spread, :odds
 
 end

@@ -25,27 +25,15 @@ ActiveAdmin.register Prop do
       row "Max Win" do
         prop.maximum_dollars
       end
-      row :home_spread_line
-      row "Away Vig" do
-        prop.away_vig_juice
-      end
-      row "Home Vig" do
-        prop.home_vig_juice
-      end
-      row :away_score
-      row :home_score
-      row :player1
-      row :player2
-      row :player3
-      row :player4
       row :created_at
       row :updated_at
     end
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs "Prop Details" do
-      @prop = Prop.find params[:id]
+      @prop = Prop.find params[:id] unless f.object.new_record?
       if f.object.new_record?
         f.input :state, label: "Status", as: :select, collection: ["Offline", "Open"], include_blank: false
       elsif @prop.state == "Graded"
@@ -53,27 +41,26 @@ ActiveAdmin.register Prop do
       else
         f.input :state, label: "Status", as: :select, collection: ["Offline", "Open", "Closed", "No_Action"], include_blank: false
       end
-      unless f.object.new_record?
-        if @prop.state == "Closed" or @prop.state == "Graded"
-          f.input :away_score
-          f.input :home_score
-        end
-      end
+      f.input :variety, label: "Type", as: :select, collection: ["PvP", "2Pv2P", "Over/Under", "Other"]
+      f.input :proposition
       f.input :sport, include_blank: false
       f.input :time
       f.input :maximum_dollars, label: "Max Win"
-      f.input :home_spread, label: "Current/Closing Home Spread", as: :select, collection: (point_spreads)
-      f.input :away_vig, label: "Current/Closing Away Vig", as: :select, collection: (vigs)
-      f.input :home_vig, label: "Current/Closing Home Vig", as: :select, collection: (vigs)
-      f.input :player1, label: "Player 1 (Away)"
-      f.input :player2, label: "Player 2 (Away)"
-      f.input :player3, label: "Player 3 (Home)"
-      f.input :player4, label: "Player 4 (Home)"
+      f.input :opt1_spread, label: "Option 1 Spread", as: :select, collection: (point_spreads)
+    end
+    f.inputs do
+      f.has_many :prop_choices, new_record: "New Option" do |s|
+        s.input :choice
+        s.input :player1
+        s.input :player2
+        s.input :odds, as: :select, collection: (vigs)
+        s.input :score
+      end
     end
     f.actions
   end
 
-  permit_params :sport_id, :state, :time, :maximum_dollars, :home_spread, :away_vig, :home_vig,
-   :player1_id, :player2_id, :player3_id, :player4_id, :away_score, :home_score
+  permit_params :sport_id, :state, :variety, :proposition, :time, :maximum_dollars, prop_choices_attributes: [:id, :choice,
+    :odds, :spread, :score, :player1, :player2]
 
 end

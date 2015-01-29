@@ -26,7 +26,6 @@ class Wager < ActiveRecord::Base
   belongs_to :user
   belongs_to :prop
   belongs_to :prop_choice
-
   validates :prop_id, presence: true
   validates :user_id, presence: true
   validates :risk, presence: true
@@ -65,10 +64,10 @@ class Wager < ActiveRecord::Base
   end
 
   def get_win
-    if vig > 0
-      self.win = (risk * vig / 100.0).round
+    if self.odds > 0
+      self.win = (risk * self.odds / 100.0).round
     else
-      self.win = (risk * -100.0 / vig).round
+      self.win = (risk * -100.0 / self.odds).round
     end
   end
 
