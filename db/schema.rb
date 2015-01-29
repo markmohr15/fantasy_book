@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150128181529) do
+ActiveRecord::Schema.define(version: 20150129173208) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -43,7 +43,6 @@ ActiveRecord::Schema.define(version: 20150128181529) do
     t.integer  "prop_id",    limit: 4
     t.text     "choice",     limit: 65535
     t.integer  "odds",       limit: 4
-    t.float    "spread",     limit: 24
     t.float    "score",      limit: 24
     t.datetime "created_at",                               null: false
     t.datetime "updated_at",                               null: false
@@ -53,13 +52,17 @@ ActiveRecord::Schema.define(version: 20150128181529) do
   add_index "prop_choices", ["prop_id"], name: "index_prop_choices_on_prop_id", using: :btree
 
   create_table "props", force: :cascade do |t|
-    t.integer  "sport_id",   limit: 4
+    t.integer  "sport_id",    limit: 4
     t.datetime "time"
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "state",      limit: 4,   default: 0
-    t.integer  "maximum",    limit: 4
-    t.string   "type",       limit: 255
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "state",       limit: 4,     default: 0
+    t.integer  "maximum",     limit: 4
+    t.string   "variety",     limit: 255
+    t.text     "proposition", limit: 65535
+    t.float    "over_under",  limit: 24
+    t.float    "opt1_spread", limit: 24
+    t.float    "result",      limit: 24
   end
 
   add_index "props", ["sport_id"], name: "index_props_on_sport_id", using: :btree
