@@ -28,15 +28,26 @@ class PropChoice < ActiveRecord::Base
   validates :choice, presence: true
   validates :odds, presence: true
 
-  attr_accessor :player1, :player2
+  attr_accessor :player1, :player2, :choice_raw
+
+  def choice_raw
+    self.choice.join("\n") unless self.choice.nil?
+  end
+
+  def choice_raw=(values)
+    self.choice = []
+    self.choice = values.split("\n")
+  end
 
   def player1=(value)
+    return if value.blank?
     player = Player.find_by name: value
     self.choice ||= []
     self.choice[0] = player.id
   end
 
   def player2=(value)
+    return if value.blank?
     player = Player.find_by name: value
     self.choice ||= []
     self.choice[1] = player.id
