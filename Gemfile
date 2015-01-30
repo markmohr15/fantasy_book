@@ -17,6 +17,7 @@ gem "inherited_resources", github: "josevalim/inherited_resources", branch: "rai
 gem "activeadmin", github: "lazaronixon/activeadmin", branch: "master"
 gem "aasm", "3.4"
 gem "bootstrap-sass", "~> 3.3.3"
+gem "just-datetime-picker"
 
 
 group :development, :test do

@@ -33,6 +33,7 @@ class Prop < ActiveRecord::Base
   validates :variety, presence: true
 
   store_cents :maximum
+  just_define_datetime_picker :time
 
   enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action, :Regrade ]
 
