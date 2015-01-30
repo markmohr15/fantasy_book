@@ -17,10 +17,6 @@
 //= require_tree .
 
 $(document).ready(function() {
-  var type = document.getElementById("edit_prop").elements.namedItem("prop_variety").value
-  if (type != "Other") {
-    $('.has_many_add').remove()
-  }
 
   document.getElementById("new_prop").elements.namedItem("prop_variety").onchange = function () {
   if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "PvP") {
