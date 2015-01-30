@@ -17,6 +17,7 @@ ActiveAdmin.setup do |config|
   config.show_comments_in_menu = false
   config.batch_actions = true
   config.default_per_page = 50
+  config.register_javascript "application.js"
 
   config.namespace :admin do |ns|
     ns.authentication_method = :authenticate_active_admin_user!
