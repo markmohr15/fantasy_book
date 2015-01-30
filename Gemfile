@@ -18,6 +18,7 @@ gem "activeadmin", github: "lazaronixon/activeadmin", branch: "master"
 gem "aasm", "3.4"
 gem "bootstrap-sass", "~> 3.3.3"
 gem "just-datetime-picker"
+gem "rails_12factor"
 
 
 group :development, :test do
