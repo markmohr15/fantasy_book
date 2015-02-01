@@ -33,7 +33,7 @@ $(window).load(function() {
                 document.getElementById("prop_prop_choices_attributes_6_player2_input").className += ' hidden'
                 document.getElementById("prop_prop_choices_attributes_7_player2_input").className += ' hidden'
             },
-            25);
+            40);
     })
 
     document.getElementById("new_prop").elements.namedItem("prop_variety").onchange = function () {
