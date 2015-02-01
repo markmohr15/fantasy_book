@@ -31,7 +31,6 @@ ActiveAdmin.register User do
       row :last_sign_in_ip
       row :created_at
       row :updated_at
-      row
     end
   end
 
