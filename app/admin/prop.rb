@@ -46,10 +46,10 @@ ActiveAdmin.register Prop do
       else
         f.input :state, label: "Status", as: :select, collection: ["Offline", "Open", "Closed", "No_Action"], include_blank: false
       end
-      f.input :variety, label: "Type", as: :select, collection: ["PvP", "2Pv2P", "Over/Under", "Other"]
-      f.input :proposition
+      f.input :variety, label: "Type", required: true, as: :select, collection: ["PvP", "2Pv2P", "Over/Under", "Other"]
+      f.input :proposition, required: true
       f.input :sport, include_blank: false
-      f.input :time, as: :just_datetime_picker
+      f.input :time, as: :just_datetime_picker, required: true
       f.input :maximum_dollars, label: "Max Win"
       f.input :opt1_spread, label: "Option 1 Spread", as: :select, collection: (point_spreads)
       f.input :over_under, label: "Over/Under"
@@ -61,8 +61,8 @@ ActiveAdmin.register Prop do
       f.has_many :prop_choices, new_record: "New Option" do |s|
         if f.object.new_record?
           s.input :choice_raw, label: "Choice"
-          s.input :player1
-          s.input :player2
+          s.input :player1, as: :select, collection: (Player.all)
+          s.input :player2, as: :select, collection: (Player.all)
           s.input :odds, as: :select, collection: (vigs)
         else
           if @prop.variety == "PvP"
@@ -88,7 +88,25 @@ ActiveAdmin.register Prop do
     f.actions
   end
 
+  controller do
+    def create
+      params[:prop][:prop_choices_attributes].each do |k,v|
+        if v['choice_raw'] == ""
+          params[:prop][:prop_choices_attributes].delete k
+        end
+      end
+      super
+    end
 
+    def update
+      params[:prop][:prop_choices_attributes].each do |k,v|
+        if v['choice_raw'] == ""
+          params[:prop][:prop_choices_attributes].delete k
+        end
+      end
+      super
+    end
+  end
 
   permit_params :sport_id, :state, :variety, :proposition, :time_date,
   :time_time_hour, :time_time_minute, :maximum_dollars, :opt1_spread, :over_under,

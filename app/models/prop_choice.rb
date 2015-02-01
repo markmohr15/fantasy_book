@@ -41,14 +41,14 @@ class PropChoice < ActiveRecord::Base
 
   def player1=(value)
     return if value.blank?
-    player = Player.find_by name: value
+    player = Player.find_by id: value
     self.choice ||= []
     self.choice[0] = player.id
   end
 
   def player2=(value)
     return if value.blank?
-    player = Player.find_by name: value
+    player = Player.find_by id: value
     self.choice ||= []
     self.choice[1] = player.id
   end
