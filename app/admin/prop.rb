@@ -53,6 +53,11 @@ ActiveAdmin.register Prop do
       f.input :maximum_dollars, label: "Max Win"
       f.input :opt1_spread, label: "Option 1 Spread", as: :select, collection: (point_spreads)
       f.input :over_under, label: "Over/Under"
+      unless f.object.new_record?
+        if @prop.variety == "Over/Under"
+          f.input :result
+        end
+      end
     end
     f.inputs "Prop Choices" do
       (2 - f.object.prop_choices.count).times do
