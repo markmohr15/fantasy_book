@@ -9,7 +9,7 @@ ActiveAdmin.register User do
     column :name
     column :username
     column :phone
-    column :balance
+    column "Balance", :balance_dollars
     actions
   end
 
@@ -18,7 +18,9 @@ ActiveAdmin.register User do
       row :email
       row :name
       row :username
-      row :balance
+      row "Balance" do
+        user.balance_dollars
+      end
       row :address
       row :city
       row :state
@@ -39,7 +41,7 @@ ActiveAdmin.register User do
       f.input :email
       f.input :name
       f.input :username
-      f.input :balance
+      f.input :balance_dollars, label: "Balance"
       f.input :address
       f.input :city
       f.input :state, as: :select, collection: (us_states)
@@ -50,7 +52,7 @@ ActiveAdmin.register User do
     f.actions
   end
 
-  permit_params :email, :name, :username, :balance, :address, :city, :state, :zip, :country, :phone
+  permit_params :email, :name, :username, :balance_dollars, :address, :city, :state, :zip, :country, :phone
 
   controller do
     def scoped_collection
