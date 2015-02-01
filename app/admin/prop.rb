@@ -91,7 +91,7 @@ ActiveAdmin.register Prop do
   controller do
     def create
       params[:prop][:prop_choices_attributes].each do |k,v|
-        if v['choice_raw'] == ""
+        if v['choice_raw'] == "" && v['player1'] == ""
           params[:prop][:prop_choices_attributes].delete k
         end
       end
@@ -100,7 +100,7 @@ ActiveAdmin.register Prop do
 
     def update
       params[:prop][:prop_choices_attributes].each do |k,v|
-        if v['choice_raw'] == ""
+        if v['choice_raw'] == "" && v['player1'] == ""
           params[:prop][:prop_choices_attributes].delete k
         end
       end
