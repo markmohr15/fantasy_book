@@ -114,7 +114,7 @@ ActiveAdmin.register Prop do
   end
 
   permit_params :sport_id, :state, :variety, :proposition, :time_date,
-  :time_time_hour, :time_time_minute, :maximum_dollars, :opt1_spread, :over_under,
+  :time_time_hour, :time_time_minute, :maximum_dollars, :opt1_spread, :over_under, :result
    prop_choices_attributes: [:id, :choice_raw, :odds, :score, :player1, :player2, :winner]
 
 end
