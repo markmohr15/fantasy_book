@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150129173208) do
+ActiveRecord::Schema.define(version: 20150202071154) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -112,6 +112,7 @@ ActiveRecord::Schema.define(version: 20150129173208) do
     t.datetime "created_at",                            null: false
     t.datetime "updated_at",                            null: false
     t.float    "spread",         limit: 24
+    t.float    "total",          limit: 24
   end
 
   add_index "wagers", ["prop_id"], name: "index_wagers_on_prop_id", using: :btree
