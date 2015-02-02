@@ -38,6 +38,7 @@ ActiveAdmin.register Wager do
       row "Spread" do
         wager.spread_line
       end
+      row :total
       row "Odds" do
         wager.odds_juice
       end
@@ -55,6 +56,7 @@ ActiveAdmin.register Wager do
       f.input :win_dollars, label: "Win"
       f.input :prop_choice_id
       f.input :spread, as: :select, collection: (point_spreads)
+      f.input :total
       f.input :odds, as: :select, collection: (vigs)
     end
     f.actions
@@ -66,6 +68,6 @@ ActiveAdmin.register Wager do
     #end
   #end
 
-  permit_params :user_id, :prop_id, :state, :risk_dollars, :win_dollars, :prop_choice_id, :spread, :odds
+  permit_params :user_id, :prop_id, :state, :risk_dollars, :win_dollars, :prop_choice_id, :spread, :total, :odds
 
 end
