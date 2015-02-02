@@ -9,7 +9,9 @@ ActiveAdmin.register User do
     column :name
     column :username
     column :phone
-    column "Balance", :balance_dollars
+    column "Balance", :balance_dollars do |user|
+      number_to_currency user.balance_dollars
+    end
     actions
   end
 
@@ -18,8 +20,8 @@ ActiveAdmin.register User do
       row :email
       row :name
       row :username
-      row "Balance" do
-        user.balance_dollars
+      row "Balance", :balance_dollars do |user|
+        number_to_currency user.balance_dollars
       end
       row :address
       row :city
