@@ -2,6 +2,7 @@ ActiveAdmin.register Prop do
   filter :sport
   filter :state, label: "Status", as: :select, collection: Prop.states
   filter :variety, label: "Type"
+  filter :time, label: "Event Time"
   menu priority: 6
 
   index do
