@@ -15,6 +15,7 @@ ActiveAdmin.register Wager do
       wager.aasm.current_state
     end
     column "Risk", :risk_dollars
+    column "Win", :win_dollars
     actions
   end
 
