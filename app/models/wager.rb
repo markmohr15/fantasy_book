@@ -41,9 +41,10 @@ class Wager < ActiveRecord::Base
   before_validation :get_win, on: [:create, :update]
 
   enum state: [ :Pending, :Won, :Lost, :No_Action ]
+  after_create :deduct_risk
 
   aasm column: :state do
-    state :Pending, initial: true, after_commit: :deduct_risk
+    state :Pending, initial: true
 
     event :win_wager do
       transitions from: :Pending, to: :Won
@@ -89,19 +90,14 @@ class Wager < ActiveRecord::Base
 
   def ungrade_wager
     if self.state == "Won"
-      self.user.balance -= self.win
+      self.user.balance -= (self.risk + self.win)
       self.user.save
-      self.state = "Pending"
-      self.save
-    elsif self.state == "Lost"
-      self.user.balance += self.risk
-      self.user.save
-      self.state = "Pending"
-      self.save
     elsif self.state == "No_Action"
-      self.state = "Pending"
-      self.save
+      self.user.balance -= self.risk
+      self.user.save
     end
+    self.state = "Pending"
+    self.save
   end
 
   def within_maximum
