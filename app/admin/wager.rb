@@ -55,9 +55,18 @@ ActiveAdmin.register Wager do
       f.input :risk_dollars, label: "Risk"
       f.input :win_dollars, label: "Win"
       f.input :prop_choice_id
-      f.input :spread, as: :select, collection: (point_spreads)
-      f.input :total
-      f.input :odds, as: :select, collection: (vigs)
+      if f.object.new_record?
+        f.input :spread, as: :select, collection: (point_spreads)
+        f.input :total
+        f.input :odds, as: :select, collection: (vigs)
+      else
+        @wager = Wager.find params[:id]
+        if @wager.prop.variety == "Over/Under"
+          f.input :total
+        elsif @wager.prop.variety == "PvP" || @wager.prop.variety == "2Pv2P"
+          f.input :spread_line
+        end
+        f.input :odds_juice
     end
     f.actions
   end
