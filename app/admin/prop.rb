@@ -12,21 +12,54 @@ ActiveAdmin.register Prop do
       prop.aasm.current_state
     end
     column "Type", :variety
-    column :time
+    column "Event Time", :time
     column "Max Win", :maximum_dollars
     actions
   end
 
   show do
-    attributes_table do
-      row :sport
+    panel "Prop Choices" do
+      table_for prop.prop_choices do
+        if prop.variety == "PvP"
+          column "Choice", :player1
+        elsif prop.variety == "2Pv2P"
+          column "Choice" do |choice|
+            choice.player1 + " & " + choice.player2
+          end
+        else
+          column "Choice", :choice_raw
+        end
+        column "Odds", :odds_juice
+        if prop.variety == "Other"
+          column :winner
+        elsif prop.variety == "PvP" || prop.variety == "2Pv2P"
+          column :score
+        end
+      end
+    end
+  end
+
+  sidebar "Prop Info", only: [:show] do
+    attributes_table_for prop do
       row "Status", :state do |prop|
         prop.aasm.current_state
       end
       row "Type" do
         prop.variety
       end
-      row :time
+      row :sport
+      row :proposition
+      if prop.variety == "Over/Under"
+        row :over_under
+        row :result
+      elsif prop.variety == "PvP" || prop.variety == "2Pv2P"
+        row "Choice 1 Spread" do
+          prop.opt1_spread_line
+        end
+      end
+      row "Event Time" do
+        prop.time
+      end
       row "Max Win" do
         prop.maximum_dollars
       end
@@ -51,7 +84,7 @@ ActiveAdmin.register Prop do
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
       f.input :maximum_dollars, label: "Max Win"
-      f.input :opt1_spread, label: "Option 1 Spread", as: :select, collection: (point_spreads)
+      f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads)
       f.input :over_under, label: "Over/Under"
       unless f.object.new_record?
         if @prop.variety == "Over/Under"

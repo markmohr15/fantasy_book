@@ -34,6 +34,7 @@ class Prop < ActiveRecord::Base
 
   store_cents :maximum
   just_define_datetime_picker :time
+  display_line :opt1_spread
 
   enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action, :Regrade ]
 
