@@ -53,7 +53,7 @@ ActiveAdmin.register Wager do
       f.input :state, label: "Status", as: :select, collection: f.object.aasm.states.map(&:name), include_blank: false
       f.input :risk_dollars, label: "Risk"
       f.input :win_dollars, label: "Win"
-      f.input :prop_choice
+      f.input :prop_choice_id
       f.input :spread, as: :select, collection: (point_spreads)
       f.input :odds, as: :select, collection: (vigs)
     end
