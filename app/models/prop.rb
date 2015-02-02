@@ -127,7 +127,7 @@ class Prop < ActiveRecord::Base
             wager.lose_wager!
         end
       elsif self.variety == "Over/Under"
-        if wager.prop_choice.choice == "Over"
+        if wager.prop_choice.choice_raw == "Over"
           if self.result > wager.total
             wager.win_wager!
           elsif self.result == wager.total
