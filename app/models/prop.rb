@@ -49,7 +49,7 @@ class Prop < ActiveRecord::Base
       self.save
     elsif self.state == "No_Action"
       self.ungrade_wagers
-      self.void_prop!
+      self.cancel_wagers
     end
   end
 
@@ -76,7 +76,6 @@ class Prop < ActiveRecord::Base
 
     yes
   end
-
 
   aasm column: :state do
     state :Offline, initial: true
@@ -107,7 +106,7 @@ class Prop < ActiveRecord::Base
       transitions to: :No_Action
     end
 
-    state :No_Action, after_commit: :cancel_wagers
+    state :No_Action
 
     event :regrade_prop do
       transitions from: :Graded, to: :Regraded
@@ -171,20 +170,7 @@ class Prop < ActiveRecord::Base
   def ungrade_wagers
     wagers = Wager.where(prop_id: self.id)
     wagers.map do |wager|
-      if wager.state == "Won"
-        wager.user.balance -= (wager.risk + wager.win)
-        wager.user.save
-        wager.state = "Pending"
-        wager.save
-      elsif wager.state == "No_Action"
-        wager.user.balance -= wager.risk
-        wager.user.save
-        wager.state = "Pending"
-        wager.save
-      elsif wager.state == "Lost"
-        wager.state = "Pending"
-        wager.save
-      end
+      wager.ungrade_wager
     end
   end
 

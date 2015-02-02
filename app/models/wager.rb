@@ -87,6 +87,23 @@ class Wager < ActiveRecord::Base
     self.user.save
   end
 
+  def ungrade_wager
+    if self.state == "Won"
+      self.user.balance -= self.win
+      self.user.save
+      self.state = "Pending"
+      self.save
+    elsif self.state == "Lost"
+      self.user.balance += self.risk
+      self.user.save
+      self.state = "Pending"
+      self.save
+    elsif self.state == "No_Action"
+      self.state = "Pending"
+      self.save
+    end
+  end
+
   def within_maximum
     existing_wagers = Wager.where(user_id: self.user_id, prop_id: self.prop_id)
     counter = 0
