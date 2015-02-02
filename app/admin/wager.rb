@@ -67,6 +67,7 @@ ActiveAdmin.register Wager do
           f.input :spread_line
         end
         f.input :odds_juice
+      end
     end
     f.actions
   end
