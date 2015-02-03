@@ -64,7 +64,8 @@ module ApplicationHelper
   end
 
   def point_spreads
-    ([
+    [
+      ["pk", 0, { :'selected' => 'selected' }],  #default spread
       [-50, -50],
       [-49.5, -49.5],
       [-49, -49],
@@ -165,7 +166,6 @@ module ApplicationHelper
       [-1.5, -1.5],
       [-1, -1],
       [-0.5, -0.5],
-      ["pk", 0],
       ["+0.5", 0.5],
       ["+1", 1],
       ["+1.5", 1.5],
@@ -266,11 +266,12 @@ module ApplicationHelper
       ["+49", 49],
       ["+49.5", 49.5],
       ["+50", 50]
-    ] ["pk", 0])
+    ]
   end
 
   def vigs
-    ([
+    [
+      [-110, -110, { :'selected' => 'selected' }], #default vig
       [-1000, -1000],
       [-990, -990],
       [-980, -980],
@@ -379,7 +380,6 @@ module ApplicationHelper
       [-125, -125],
       [-120, -120],
       [-115, -115],
-      [-110, -110],
       [-105, -105],
       ["+100", 100],
       ["+105", 105],
@@ -492,6 +492,6 @@ module ApplicationHelper
       ["+980", 980],
       ["+990", 990],
       ["+1000", 1000]
-    ] [-110, -110])
+    ]
   end
 end
