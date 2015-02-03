@@ -5,6 +5,7 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
+
 </head>
 <body>
   <nav class="navbar navbar-default navbar-inverse" role="navigation">
@@ -13,15 +14,15 @@
         <%= link_to root_path do %>
           <%= image_tag "fb-silver2.png", title: "FantasyBook Logo", width: "221", height: "109" %>
         <% end %>
-    </div>
+      </div>
 
       <div class="navbar-right">
         <% if current_user %>
           <p class="navbar-text">Welcome, <%= current_user.username %> </p>
           <p class="navbar-text"> Balance: <%= number_to_currency current_user.balance_dollars %> </p>
           <p class="navbar-text">
-            <%= link_to "My Account" %> |
-            <%= link_to "My Wagers" %> |
+            <%= link_to "My Fantasy" %> |
+            <%= link_to "My Account", edit_user_registration_path %> |
             <%= link_to "Deposit" %> |
             <%= link_to "Withdraw" %> |
             <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
@@ -32,7 +33,6 @@
             <%= link_to "Sign Up", new_user_registration_path %> </p>
         <% end %>
       </div>
-
     </div>
   </nav>
 
