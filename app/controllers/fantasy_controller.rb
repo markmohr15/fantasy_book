@@ -1,5 +1,4 @@
 class FantasyController < ApplicationController
-  layout "fantasy"
 
   def my_action
     render
