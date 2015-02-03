@@ -22,7 +22,7 @@
     <br />
     <div class="field">
       <%= f.label :state %>
-      <%= f.select :state, options_for_select(us_states) %>
+      <%= f.select :state, options_for_select(us_states, f.object.state || "Alaska") %>
     </div>
     <br />
     <div class="field">
@@ -37,7 +37,7 @@
     <br />
     <div class="field">
       <%= f.label :country %>
-      <%= f.text_field :country %>
+      <%= f.select :country, options_for_select(countries, f.object.country || "United States") %>
     </div>
     <br />
     <div class="field">
@@ -53,7 +53,7 @@
     <br />
     <div class="field">
       <%= f.label :current_password %>
-      <%= f.password_field :current_password, autocomplete: "off" %> <br />
+      <%= f.password_field :current_password, autocomplete: "off" %>
       <i>(we need your current password to confirm your changes)</i>
     </div>
     <br />
