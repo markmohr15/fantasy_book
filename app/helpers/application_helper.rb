@@ -64,7 +64,7 @@ module ApplicationHelper
   end
 
   def point_spreads
-    [
+    ([
       [-50, -50],
       [-49.5, -49.5],
       [-49, -49],
@@ -266,11 +266,11 @@ module ApplicationHelper
       ["+49", 49],
       ["+49.5", 49.5],
       ["+50", 50]
-    ]
+    ] ["pk", 0])
   end
 
   def vigs
-    [
+    ([
       [-1000, -1000],
       [-990, -990],
       [-980, -980],
@@ -492,6 +492,6 @@ module ApplicationHelper
       ["+980", 980],
       ["+990", 990],
       ["+1000", 1000]
-    ]
+    ] [-110, -110])
   end
 end

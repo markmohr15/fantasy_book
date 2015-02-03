@@ -57,9 +57,9 @@ ActiveAdmin.register Wager do
       f.input :win_dollars, label: "Win"
       f.input :prop_choice_id
       if f.object.new_record?
-        f.input :spread, collection: options_for_select(["4", "5", "pk"], "pk")
+        f.input :spread, as: :select, collection: (point_spreads)
         f.input :total
-        f.input :odds, collection: options_for_select(["-110", "-114", "-118"], "-110")
+        f.input :odds, as: :select, collection: (vigs)
       else
         @wager = Wager.find params[:id]
         if @wager.prop.variety == "Over/Under"
