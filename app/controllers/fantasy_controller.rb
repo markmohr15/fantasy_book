@@ -1,15 +1,15 @@
 class FantasyController < ApplicationController
   layout "fantasy"
 
-  def action
+  def my_action
     render
   end
 
-  def history
+  def my_history
     render
   end
 
-  def stats
+  def my_stats
     render
   end
 
