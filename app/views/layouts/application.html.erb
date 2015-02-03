@@ -23,8 +23,8 @@
           <p class="navbar-text">
             <%= link_to "My Fantasy" %> |
             <%= link_to "My Account", edit_user_registration_path %> |
-            <%= link_to "Deposit" %> |
-            <%= link_to "Withdraw" %> |
+            <%= link_to "Deposit", my_account_deposit_path %> |
+            <%= link_to "Withdraw", my_account_withdraw_path %> |
             <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
           </p>
         <% else %>
