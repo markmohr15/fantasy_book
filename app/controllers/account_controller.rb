@@ -1,4 +1,6 @@
 class AccountController < ApplicationController
+  layout "account"
+
   def deposit
     render
   end

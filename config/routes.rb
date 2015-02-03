@@ -9,6 +9,10 @@ Rails.application.routes.draw do
   get "/my_account/deposit", to: "account#deposit"
   get "/my_account/withdraw", to: "account#withdraw"
   get "/my_account/transfer", to: "account#transfer"
+  get "/my_fantasy/my_action", to: "fantasy#action"
+  get "/my_fantasy/my_history", to: "fantasy#history"
+  get "/my_fantasy/my_stats", to: "fantasy#stats"
+  get "/my_fantasy/leaderboard", to: "fantasy#leaderboard"
 
   root to: "pages#home"
 end

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>FantasyBook</title>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= csrf_meta_tags %>
+
+</head>
+<body>
+  <nav class="navbar navbar-default navbar-inverse" role="navigation">
+    <div class="container">
+      <div class="navbar-left">
+        <%= link_to root_path do %>
+          <%= image_tag "fb-silver2.png", title: "FantasyBook Logo", width: "221", height: "109" %>
+        <% end %>
+      </div>
+
+      <div class="navbar-right">
+        <% if current_user %>
+          <p class="navbar-text">Welcome, <%= current_user.username %> </p>
+          <p class="navbar-text"> Balance: <%= number_to_currency current_user.balance_dollars %> </p>
+          <p class="navbar-text">
+            <%= link_to "My Fantasy" %> |
+            <%= link_to "My Account", edit_user_registration_path %> |
+            <%= link_to "Deposit", my_account_deposit_path %> |
+            <%= link_to "Withdraw", my_account_withdraw_path %> |
+            <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+          </p>
+        <% else %>
+          <p class="navbar-text">
+            <%= link_to "Sign In", new_user_session_path %> |
+            <%= link_to "Sign Up", new_user_registration_path %> </p>
+        <% end %>
+      </div>
+    </div>
+  </nav>
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <li role="presentation"> <%= link_to "My Action", my_fantasy_action_path %></li>
+        <li role="presentation"> <%= link_to "My History", my_fantasy_history_path %></li>
+        <li role="presentation"> <%= link_to "My Stats", my_fantasy_stats_path %></li>
+        <li role="presentation"> <%= link_to "Leaderboard", my_fantasy_leaderboard_path %></li>
+      </ul>
+    </div>
+  </nav>
+
+  <nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom" role="navigation">
+    <div class="container">
+      <div class="navbar-left">
+        <p class="navbar-text">
+          <%= link_to "Contact Us", contact_us_path %> |
+          <%= link_to "Rules", rules_path %> |
+          <%= link_to "Privacy Policy", privacy_policy_path %>
+        </p>
+      </div>
+    </div>
+  </nav>
+
+<%= yield %>
+
+</body>
+</html>
