@@ -1,1 +1,24 @@
 <h2> My Action </h2>
+
+<table class="table table-striped">
+<thead>
+<tr>
+  <th> Ticket # </th>
+  <th> Event Time </th>
+  <th> Selection </th>
+  <th> Risk </th>
+  <th> Win </th>
+  <th> Placed At </th>
+</tr>
+</thead>
+  <% @wagers.each do |wager| %>
+    <tr>
+    <td><%= wager.id %> </td>
+    <td><%= wager.prop.time.strftime("%b %d,%y %l:%M %P") %> </td>
+    <td><%= wager.prop_choice.name %> </td>
+    <td><%= number_to_currency wager.risk_dollars %> </td>
+    <td><%= number_to_currency wager.win_dollars %> </td>
+    <td><%= wager.created_at.strftime("%b %d,%y %l:%M %p") %> </td>
+  <% end %>
+</tr>
+</table>

@@ -1,7 +1,8 @@
 class FantasyController < ApplicationController
+  layout "fantasy"
 
   def my_action
-    render
+    @wagers = Wager.where(user_id: current_user.id, state: 0)
   end
 
   def my_history

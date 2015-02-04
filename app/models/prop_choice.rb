@@ -39,6 +39,16 @@ class PropChoice < ActiveRecord::Base
     self.choice = values.split("\n")
   end
 
+  def name
+    if self.prop.variety == "Other" || self.prop.variety == "Over/Under"
+      self.choice_raw
+    elsif self.prop.variety == "PvP"
+      self.player1
+    else
+      self.player1 + " & " + self.player2
+    end
+  end
+
   def player1=(value)
     return if value.blank?
     if value.is_a? String
