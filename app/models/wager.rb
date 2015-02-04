@@ -65,6 +65,16 @@ class Wager < ActiveRecord::Base
     state :No_Action, after_commit: :return_risk
   end
 
+  def result
+    if self.state == "Won"
+      self.win
+    elsif self.state == "Lost"
+      self.risk * -1
+    else
+      0
+    end
+  end
+
   def get_win
     if self.odds > 0
       self.win = (risk * self.odds / 100.0).round
