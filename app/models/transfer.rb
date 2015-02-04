@@ -24,4 +24,23 @@ class Transfer < ActiveRecord::Base
   enum state: [ :Pending, :Approved, :Rejected ]
 
   store_cents :amount
+
+  after_create :deduct
+  after_save :process
+
+  def deduct
+    self.sender.balance -= self.amount
+    self.sender.save
+  end
+
+  def process
+    if self.state == "Approved"
+      self.receiver.balance += self.amount
+      self.receiver.save
+    elsif self.state == "Rejected"
+      self.sender.balance += self.amount
+      self.sender.save
+    end
+  end
+
 end
