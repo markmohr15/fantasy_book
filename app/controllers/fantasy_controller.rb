@@ -6,7 +6,7 @@ class FantasyController < ApplicationController
   end
 
   def my_history
-    render
+    @wagers = Wager.where(user_id: current_user.id, state: 1..3)
   end
 
   def my_stats
