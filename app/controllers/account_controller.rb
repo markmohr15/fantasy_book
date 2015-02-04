@@ -12,4 +12,16 @@ class AccountController < ApplicationController
     render
   end
 
+  def balance
+    render
+  end
+
+  def challenge
+    render
+  end
+
+  def social
+    render
+  end
+
 end
