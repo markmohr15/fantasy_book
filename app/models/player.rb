@@ -22,5 +22,4 @@ class Player < ActiveRecord::Base
   validates :name, presence: true
   validates :sport_id, presence: true
 
-
 end

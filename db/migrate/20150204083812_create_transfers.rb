@@ -4,7 +4,7 @@ class CreateTransfers < ActiveRecord::Migration
       t.integer :sender_id
       t.integer :receiver_id
       t.integer :amount
-      t.integer :status
+      t.integer :state, default: 0
 
       t.timestamps null: false
     end
