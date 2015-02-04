@@ -43,4 +43,11 @@ class Transfer < ActiveRecord::Base
     end
   end
 
+  def side(user)
+    if self.sender == user
+      "Send"
+    else
+      "Receive"
+    end
+  end
 end
