@@ -14,8 +14,12 @@ ActiveAdmin.register Wager do
     column "Status", :state do |wager|
       wager.aasm.current_state
     end
-    column "Risk", :risk_dollars
-    column "Win", :win_dollars
+    column "Risk", :risk_dollars do |wager|
+      number_to_currency wager.risk_dollars
+    end
+    column "Win", :win_dollars do |wager|
+      number_to_currency wager.win_dollars
+    end
     actions
   end
 
@@ -28,10 +32,10 @@ ActiveAdmin.register Wager do
         wager.aasm.current_state
       end
       row "Risk" do
-        wager.risk_dollars
+        number_to_currency wager.risk_dollars
       end
       row "Win" do
-        wager.win_dollars
+        number_to_currency wager.win_dollars
       end
       row "Pick" do |wager|
         wager.prop_choice
@@ -54,7 +58,6 @@ ActiveAdmin.register Wager do
       f.input :prop_id
       f.input :state, label: "Status", as: :select, collection: f.object.aasm.states.map(&:name), include_blank: false
       f.input :risk_dollars, label: "Risk"
-      f.input :win_dollars, label: "Win"
       f.input :prop_choice_id
       if f.object.new_record?
         f.input :spread, as: :select, collection: (point_spreads)
@@ -79,7 +82,7 @@ ActiveAdmin.register Wager do
     #end
   #end
 
-  permit_params :user_id, :prop_id, :state, :risk_dollars, :win_dollars, :prop_choice_id,
+  permit_params :user_id, :prop_id, :state, :risk_dollars, :prop_choice_id,
    :spread, :spread_line, :total, :odds, :odds_juice
 
 end
