@@ -51,10 +51,10 @@ class PropChoice < ActiveRecord::Base
 
   def player1=(value)
     return if value.blank?
-    if value.is_a? String
+    binding.pry
+    player = Player.find_by id: value
+    if player.nil?
       player = Player.find_by name: value
-    else
-      player = Player.find_by id: value
     end
     self.choice ||= []
     self.choice[0] = player.id
@@ -62,10 +62,9 @@ class PropChoice < ActiveRecord::Base
 
   def player2=(value)
     return if value.blank?
-    if value.is_a? String
+    player = Player.find_by id: value
+    if player.nil?
       player = Player.find_by name: value
-    else
-      player = Player.find_by id: value
     end
     self.choice ||= []
     self.choice[1] = player.id
