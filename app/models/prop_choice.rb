@@ -51,7 +51,6 @@ class PropChoice < ActiveRecord::Base
 
   def player1=(value)
     return if value.blank?
-    binding.pry
     player = Player.find_by id: value
     if player.nil?
       player = Player.find_by name: value
