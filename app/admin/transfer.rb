@@ -13,7 +13,9 @@ ActiveAdmin.register Transfer do
       link_to(transfer.receiver.name, admin_user_path(transfer.receiver.id))
     end
     column "Amount", :amount_dollars
-    column "Status", :state
+    column "Status", :state do |transfer|
+      transfer.state
+    end
     column :created_at
     actions
   end
