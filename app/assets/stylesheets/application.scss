@@ -1,15 +1,24 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.devise {
+.devise, .account-details {
   margin: auto;
   width: 350px;
   text-align: center;
+}
+
+.account-details {
   label {
     float: left;
   }
-  input {
+  input, select {
     float: right;
+    width: 175px;
+    height: 30px;
+  }
+  i {
+    font-size: 10px;
+    float: left;
   }
 }
 

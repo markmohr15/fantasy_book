@@ -1,6 +1,4 @@
-<div class="devise">
-
-  <h2>Account Details </h2>
+<div class="account-details">
 
   <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
     <%= devise_error_messages! %>
@@ -42,7 +40,7 @@
     <br />
     <div class="field">
       <%= f.label :password %>
-      <%= f.password_field :password, autocomplete: "off" %> <br />
+      <%= f.password_field :password, "New Password" autocomplete: "off" %> <br />
       <i>(leave blank if you don't want to change it)</i>
     </div>
     <br />
