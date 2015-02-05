@@ -3,18 +3,28 @@
 
 .devise, .account-details {
   margin: auto;
-  width: 350px;
   text-align: center;
 }
 
+.devise {
+  width: 350px;
+}
+
 .account-details {
+  width: 400px;
   label {
     float: left;
   }
   input, select {
     float: right;
-    width: 175px;
-    height: 30px;
+    width: 250px;
+    height: 24px;
+  }
+  input {
+    font-size: small;
+  }
+  select {
+    font-size: 25px;
   }
   i {
     font-size: 10px;

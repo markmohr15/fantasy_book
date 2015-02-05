@@ -31,6 +31,7 @@
       <%= f.label :country %>
       <%= f.select :country, options_for_select(countries, f.object.country || "United States") %>
     <br />
+    <br />
     <div class="field">
       <%= f.label :password, "New Password" %>
       <%= f.password_field :password, autocomplete: "off" %> <br />
