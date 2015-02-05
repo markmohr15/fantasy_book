@@ -9,7 +9,9 @@ ActiveAdmin.register Wager do
   index do
     selectable_column
     column :id
-    column :user
+    column "User" do |wager|
+      link_to(wager.user.name, admin_user_path(wager.user.id))
+    end
     column :prop
     column "Status", :state do |wager|
       wager.aasm.current_state
@@ -26,7 +28,9 @@ ActiveAdmin.register Wager do
   show do
     attributes_table do
       row :id
-      row :user
+      row "User" do |wager|
+        link_to(wager.user.name, admin_user_path(wager.user.id))
+      end
       row :prop
       row "Status", :state do |wager|
         wager.aasm.current_state

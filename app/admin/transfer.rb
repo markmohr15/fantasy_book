@@ -6,8 +6,12 @@ ActiveAdmin.register Transfer do
 
   index do
     selectable_column
-    column :sender
-    column :receiver
+    column "Sender" do |transfer|
+      link_to(transfer.sender.name, admin_user_path(transfer.sender.id))
+    end
+    column "Receiver" do |transfer|
+      link_to(transfer.receiver.name, admin_user_path(transfer.receiver.id))
+    end
     column "Amount", :amount_dollars
     column "Status", :state
     column :created_at
@@ -16,8 +20,12 @@ ActiveAdmin.register Transfer do
 
   show do
     attributes_table do
-      row :sender
-      row :receiver
+      row "Sender" do |transfer|
+        link_to(transfer.sender.name, admin_user_path(transfer.sender.id))
+      end
+      row "Receiver" do |transfer|
+        link_to(transfer.receiver.name, admin_user_path(transfer.receiver.id))
+      end
       row "Amount" do
         number_to_currency transfer.amount_dollars
       end
