@@ -17,11 +17,14 @@
   }
   input, select {
     float: right;
-    width: 250px;
+    width: 225px;
     height: 24px;
   }
   input {
     font-size: small;
+  }
+  input[type="submit"] {
+    float: none;
   }
   select {
     font-size: 25px;
@@ -29,6 +32,27 @@
   i {
     font-size: 10px;
     float: left;
+  }
+  .field {
+    padding-bottom: 40px;
+  }
+}
+
+.transfer-form {
+  input[type="submit"] {
+    float: none;
+  }
+  p {
+    float: right;
+  }
+  label {
+    float: left;
+  }
+  input {
+    float: right;
+    width: 225px;
+    height: 24px;
+    font-size: small;
   }
   .field {
     padding-bottom: 40px;
