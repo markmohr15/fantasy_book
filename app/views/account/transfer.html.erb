@@ -1,8 +1,8 @@
 <div class="container padding-large-horizontal">
 
   <div class ="col-md-6 transfer-form">
-    <%= label_tag "Current Balance:" %> <p> <%= number_to_currency current_user.balance_dollars %> </p>
-    <%= label_tag "Sender:" %> <p> <%= current_user.username %> </p>
+    <%= label_tag "Current Balance:" %> <%= number_to_currency current_user.balance_dollars %>
+    <%= label_tag "Sender:" %> <%= current_user.username %>
     <%= form_tag transfers_path do %>
       <%= label_tag :receiver %>
       <%= text_field_tag :receiver %>
