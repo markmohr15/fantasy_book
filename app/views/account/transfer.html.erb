@@ -2,9 +2,9 @@
   <div class ="col-md-6">
     <div class = "transfer-form">
     <%= form_tag transfers_path do %>
-      <label> Current Balance: </label>
-      <span> <%= number_to_currency current_user.balance_dollars %> </span> <br />
-      <label> Sender: </label>
+      <label> Current Balance </label>
+      <span> <%= number_to_currency current_user.balance_dollars %> </span> <br /> <br />
+      <label> Sender </label>
       <span> <%= current_user.username %> </span> <br /><br />
       <%= label_tag :receiver %>
       <%= text_field_tag :receiver %> <br /><br />
