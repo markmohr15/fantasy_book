@@ -40,12 +40,14 @@
 
 .left {
   float: left;
-  width: 50%;
+  min-width: 50%;
+  height: 20px;
 }
 
 .right {
   float: right;
-  width: 50%;
+  min-width: 50%;
+  height: 20px;
 }
 
 .transfer-form {
