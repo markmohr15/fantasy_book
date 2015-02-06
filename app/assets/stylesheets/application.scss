@@ -1,7 +1,7 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.devise, .account-details {
+.devise, .account-details, .transfer-form {
   margin: auto;
   text-align: center;
 }
@@ -51,6 +51,7 @@
 }
 
 .transfer-form {
+  width: 400px;
   label {
     float: left;
   }
@@ -62,6 +63,9 @@
   }
   .field {
     padding-bottom: 40px;
+  }
+  input[type="submit"] {
+    float: none;
   }
 }
 
