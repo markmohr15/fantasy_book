@@ -1,13 +1,19 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
-.devise, .account-details, .transfer-form {
+.devise, .account-details {
   margin: auto;
   text-align: center;
 }
 
 .devise {
   width: 350px;
+}
+
+.form-actions {
+    margin: 0;
+    background-color: transparent;
+    text-align: center;
 }
 
 .account-details {
@@ -38,31 +44,18 @@
   }
 }
 
-.left {
-  float: left;
-  min-width: 50%;
-  height: 20px;
-}
-
-.right {
-  float: right;
-  min-width: 50%;
-  height: 20px;
-}
-
 .transfer-form {
-  width: 400px;
   label {
     float: left;
+  }
+  span {
+    float: right;
   }
   input {
     float: right;
     width: 150px;
-    height: 24px;
     font-size: small;
-  }
-  .field {
-    padding-bottom: 40px;
+    margin-bottom: 15px;
   }
   input[type="submit"] {
     float: none;

@@ -1,15 +1,15 @@
 <div class="container padding-large-horizontal">
-
-  <div class ="col-md-6 transfer-form">
-     <div class="left"> Current Balance: </div> <div class="right"> <%= number_to_currency current_user.balance_dollars %> </div>
-     <div class="left"> Sender: </div> <div class="right"> <%= current_user.username %> </div>
-
+  <div class ="col-md-6">
     <%= form_tag transfers_path do %>
+      <label> Current Balance: </label>
+      <span> <%= number_to_currency current_user.balance_dollars %> </span> <br />
+      <label> Sender: </label>
+      <span> <%= current_user.username %> </span> <br />
       <%= label_tag :receiver %>
-      <%= text_field_tag :receiver %>
+      <%= text_field_tag :receiver %> <br />
       <%= label_tag :amount_dollars, "Amount" %>
-      <%= number_field_tag :amount_dollars %>
-      <%= submit_tag "Transfer" %>
+      <%= number_field_tag :amount_dollars %> <br />
+      <div class="form-actions"> <%= submit_tag "Transfer" %> </div>
     <% end %>
   </div>
 
@@ -21,6 +21,7 @@
           <th> Status </th>
           <th> Side </th>
           <th> Amount </th>
+          <th> To/From </th>
         </tr>
       </thead>
       <% @transfers.each do |transfer| %>
@@ -29,14 +30,9 @@
         <td><%= transfer.state %> </td>
         <td><%= transfer.side(current_user) %> </td>
         <td><%= number_to_currency transfer.amount_dollars %> </td>
+        <td><%= transfer.counterparty(current_user) %> </td>
       <% end %>
-</tr>
-</table>
-
-
-
+        </tr>
+    </table>
   </div>
-
-
-
 </div>

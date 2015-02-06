@@ -50,4 +50,12 @@ class Transfer < ActiveRecord::Base
       "Receive"
     end
   end
+
+  def counterparty(user)
+    if self.sender == user
+      self.receiver.username
+    else
+      self.sender.username
+    end
+  end
 end
