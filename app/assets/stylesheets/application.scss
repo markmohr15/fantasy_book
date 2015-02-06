@@ -38,19 +38,23 @@
   }
 }
 
+.left {
+  float: left;
+  width: 50%;
+}
+
+.right {
+  float: right;
+  width: 50%;
+}
+
 .transfer-form {
-  input[type="submit"] {
-    float: none;
-  }
-  p {
-    float: right;
-  }
   label {
     float: left;
   }
   input {
     float: right;
-    width: 225px;
+    width: 150px;
     height: 24px;
     font-size: small;
   }
