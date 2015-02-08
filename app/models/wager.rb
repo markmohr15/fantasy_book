@@ -67,9 +67,9 @@ class Wager < ActiveRecord::Base
 
   def result
     if self.state == "Won"
-      self.win
+      self.win_dollars
     elsif self.state == "Lost"
-      self.risk * -1
+      self.risk_dollars * -1
     else
       0
     end
