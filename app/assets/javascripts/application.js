@@ -20,15 +20,15 @@ $(function(){
 
   $('.seeMore').on('click', function(e) {
     e.preventDefault();
-    var container = $(this).closest('.wager');
+    var container = $(this).closest('tr');
     var moreContent = container.find('.moreContent');
     var seeMore = container.find('.seeMore');
 
     if (moreContent.is(':hidden')) {
-      moreContent.slideDown();
+      moreContent.removeClass('hidden');
       seeMore.text("-");
     } else {
-      moreContent.slideUp();
+      moreContent.addClass('hidden');
       seeMore.text("+");
     }
   });
