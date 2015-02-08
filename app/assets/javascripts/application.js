@@ -16,4 +16,24 @@
 //= require turbolinks
 //= require_tree .
 
+$(function(){
+  $(document).ready();
+
+  $('.seeMore').on('click', function(e) {
+    e.preventDefault();
+    var container = $(this).closest('tr');
+    var moreContent = container.find('.moreContent');
+    var seeMore = container.find('.seeMore');
+
+    if (moreContent.is(':hidden')) {
+      moreContent.slideDown();
+      seeMore.text("-");
+    } else {
+      moreContent.slideUp();
+      seeMore.text("+");
+    }
+  });
+
+
+});
 
