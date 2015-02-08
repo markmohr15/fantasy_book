@@ -13,11 +13,9 @@
 </tr>
 </thead>
   <% @wagers.each do |wager| %>
+    <div class="wager">
     <tr>
     <td> <a href="#" class="seeMore">+</a> <%= wager.id %> </td>
-      <div class="hidden moreContent">
-      more info
-      </div>
     <td><%= wager.prop.time.strftime("%m/%d/%y  %H:%M EST") %> </td>
     <td><%= wager.prop_choice.name %> </td>
     <td><%= number_to_currency wager.risk_dollars %> </td>
@@ -25,6 +23,14 @@
     <td><%= number_to_currency wager.result %> </td>
     <td><%= wager.created_at.strftime("%m/%d/%y  %H:%M EST") %> </td>
     </tr>
+    <tr>
+    <td>
+      <div class="hidden moreContent">
+      more info
+      </div>
+    </td>
+    </tr>
+    </div>
   <% end %>
 </table>
 

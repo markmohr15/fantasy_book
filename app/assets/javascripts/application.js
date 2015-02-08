@@ -17,11 +17,10 @@
 //= require_tree .
 
 $(function(){
-  $(document).ready();
 
   $('.seeMore').on('click', function(e) {
     e.preventDefault();
-    var container = $(this).closest('tr');
+    var container = $(this).closest('.wager');
     var moreContent = container.find('.moreContent');
     var seeMore = container.find('.seeMore');
 
@@ -33,7 +32,6 @@ $(function(){
       seeMore.text("+");
     }
   });
-
 
 });
 
