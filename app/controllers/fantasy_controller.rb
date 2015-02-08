@@ -3,6 +3,8 @@ class FantasyController < ApplicationController
 
   def my_action
     @wagers = Wager.where(user_id: current_user.id, state: 0)
+    @risk_counter = 0
+    @win_counter = 0
   end
 
   def my_history

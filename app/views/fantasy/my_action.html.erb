@@ -4,24 +4,52 @@
 <thead>
 <tr>
   <th> Ticket # </th>
-  <th> Event Time </th>
   <th> Selection </th>
+  <th> Event Time </th>
   <th> Risk </th>
   <th> Win </th>
-  <th> Placed At </th>
 </tr>
 </thead>
   <% @wagers.each do |wager| %>
+    <% @risk_counter += wager.risk_dollars %>
+    <% @win_counter += wager.win_dollars %>
     <tr>
-    <td><%= wager.id %> </td>
-    <td><%= wager.prop.time.strftime("%m/%d/%y  %H:%M EST") %> </td>
-    <td><%= wager.prop_choice.name %> </td>
-    <td><%= number_to_currency wager.risk_dollars %> </td>
-    <td><%= number_to_currency wager.win_dollars %> </td>
-    <td><%= wager.created_at.strftime("%m/%d/%y  %H:%M EST") %> </td>
+    <td> <a href="#" class="seeMore">+</a> <%= wager.id %> </td>
+    <td class="more"> <p class="selection"> <%= wager.prop_choice.name %> </p>
+      <table class="hidden moreContent">
+        <tr>
+          <td> Event Time: </td>
+          <td class="pad"> <%= wager.prop.time.strftime("%m/%d/%y  %H:%M EST") %> </td>
+        </tr>
+        <tr>
+          <td> Bet Accepted At: </td>
+          <td class="pad"> <%= wager.created_at.strftime("%m/%d/%y  %H:%M EST") %> </td>
+        </tr>
+        <tr>
+          <td> Sport: </td>
+          <td class="pad"> <%= wager.prop.sport.name %> </td>
+        </tr>
+        <tr>
+          <td> Event: </td>
+          <td class="pad"> <%= wager.prop.proposition %> </td>
+        </tr>
+        <tr>
+          <td> Odds: </td>
+          <td class="pad"> <%= wager.odds_juice %> </td>
+        </tr>
+      </table> </td>
+    <td> <%= wager.prop.time.strftime("%m/%d/%y  %H:%M EST") %> </td>
+    <td> <%= number_to_currency wager.risk_dollars %> </td>
+    <td> <%= number_to_currency wager.win_dollars %> </td>
     </tr>
   <% end %>
-
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td> <%= number_to_currency @risk_counter %> </td>
+      <td> <%= number_to_currency @win_counter %> </td>
+    </tr>
 </table>
 
 </div>
