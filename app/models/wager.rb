@@ -122,4 +122,13 @@ class Wager < ActiveRecord::Base
       errors.add(:risk, "exceeds limit")
     end
   end
+
+  def self.pending_wagers(user)
+    wagers = Wager.where(user_id: user.id, state: "Pending")
+    counter = 0
+    wagers.map do |wager|
+      counter += wager.risk_dollars
+    end
+    counter
+  end
 end
