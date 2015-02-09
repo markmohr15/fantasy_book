@@ -85,8 +85,8 @@ ActiveAdmin.register Prop do
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
       f.input :maximum_dollars, label: "Max Win"
-      f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread hidden"}
-      f.input :over_under, label: "Over/Under", :wrapper_html => { id: "over-under hidden"}
+      f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread hidden", class: "hidden"}
+      f.input :over_under, label: "Over/Under", :wrapper_html => { id: "over-under", class: "hidden"}
       unless f.object.new_record?
         if @prop.variety == "Over/Under"
           f.input :result
