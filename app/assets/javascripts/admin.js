@@ -9,13 +9,12 @@ $(window).load(function() {
         $(".has_many_add")[0].style.visibility = 'hidden'
     }
 
-
     $(".has_many_add").on('click', function() {
         setTimeout(
             function() {
                 var players = $(".player"), i;
                 for (var i = 0; i < players.length; i ++) {
-                $players[i].className += ' hidden'
+                    $(players[i]).addClass("hidden")
             }
             },
             40);
@@ -32,11 +31,11 @@ $(window).load(function() {
         }
         var player2s = $("li.player2"), i;
         for (var i = 0; i < player2s.length; i ++) {
-            $(player2s[i]).addClass += ' hidden'
+            $(player2s[i]).addClass("hidden")
         }
         var player1s = $("li.player1"), i;
         for (var i = 0; i < player1s.length; i ++) {
-            $(player1s[i]).removeClass -= ' hidden'
+            $(player1s[i]).removeClass("hidden")
         }
         $(".has_many_add")[0].style.visibility = 'hidden'
         var removes = $(".has_many_remove"), i;
@@ -48,11 +47,11 @@ $(window).load(function() {
         document.getElementById("opt1-spread").className -= ' hidden'
         var choices = $("li.choice-raw"), i;
         for (var i = 0; i < choices.length; i ++) {
-            $(choices[i]).addClass += ' hidden'
+            $(choices[i]).addClass("hidden")
         }
         var players = $("li.player"), i;
         for (var i = 0; i < players.length; i ++) {
-            $(players[i]).removeClass -= ' hidden'
+            $(players[i]).removeClass("hidden")
         }
         $(".has_many_add")[0].style.visibility = 'hidden'
         var removes = $(".has_many_remove"), i;
@@ -64,11 +63,11 @@ $(window).load(function() {
         document.getElementById("over-under").className -= ' hidden'
         var players = $("li.player"), i;
         for (var i = 0; i < players.length; i ++) {
-            $(players[i]).addClass += ' hidden'
+            $(players[i]).addClass("hidden")
         }
         var choices = $("li.choice-raw"), i;
         for (var i = 0; i < choices.length; i ++) {
-            $(choices[i]).removeClass -= ' hidden'
+            $(choices[i]).removeClass("hidden")
         }
         choices[0].value = "Over"
         choices[1].value = "Under"
@@ -82,14 +81,14 @@ $(window).load(function() {
         document.getElementById("over-under").className += ' hidden'
         var players = $("li.player"), i;
         for (var i = 0; i < players.length; i ++) {
-            $(players[i]).addClass += ' hidden'
+            $(players[i]).addClass("hidden")
         }
         var choices = $("li.choice-raw"), i;
         choices[0].value = ""
         choices[1].value = ""
         var choices = $("li.choice-raw"), i;
         for (var i = 0; i < choices.length; i ++) {
-            $(choices[i]).removeClass -= ' hidden'
+            $(choices[i]).removeClass("hidden")
         }
         $(".has_many_add")[0].style.visibility = 'visible'
         var removes = $(".has_many_remove"), i;
