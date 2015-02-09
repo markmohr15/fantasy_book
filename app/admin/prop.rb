@@ -85,8 +85,8 @@ ActiveAdmin.register Prop do
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
       f.input :maximum_dollars, label: "Max Win"
-      f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads)
-      f.input :over_under, label: "Over/Under"
+      f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread"}
+      f.input :over_under, label: "Over/Under", :wrapper_html => { id: "over-under"}
       unless f.object.new_record?
         if @prop.variety == "Over/Under"
           f.input :result
@@ -99,9 +99,9 @@ ActiveAdmin.register Prop do
       end
       f.has_many :prop_choices, new_record: "New Option" do |s|
         if f.object.new_record?
-          s.input :choice_raw, label: "Choice"
-          s.input :player1, as: :select, collection: (Player.all)
-          s.input :player2, as: :select, collection: (Player.all)
+          s.input :choice_raw, label: "Choice", :wrapper_html => { class: "choice-raw hidden"}
+          s.input :player1, as: :select, collection: (Player.all), :wrapper_html => { class: "player player1 hidden"}
+          s.input :player2, as: :select, collection: (Player.all), :wrapper_html => { class: "player player2 hidden"}
           s.input :odds, as: :select, collection: (vigs)
         else
           if @prop.variety == "PvP"
