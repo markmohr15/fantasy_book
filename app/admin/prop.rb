@@ -71,39 +71,63 @@ ActiveAdmin.register Prop do
 
   form do |f|
     f.semantic_errors *f.object.errors.keys
-    f.inputs "Prop Details" do
-      @prop = Prop.find params[:id] unless f.object.new_record?
-      if f.object.new_record?
-        f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open"], include_blank: false
-      elsif @prop.state == "Graded"
-        f.input :state, label: "Status", as: :radio, collection: ["Regrade", "No_Action"], include_blank: false
-      else
-        f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open", "Closed", "No_Action"]
-      end
-      f.input :variety, label: "Type", required: true, as: :radio, collection: ["Fantasy", "2P Fantasy", "Over/Under", "Other"]
-      f.input :proposition, required: true
-      f.input :sport, include_blank: false
-      f.input :time, as: :just_datetime_picker, required: true
-      f.input :maximum_dollars, label: "Max Win"
-      f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread", class: "hidden"}
-      f.input :over_under, label: "Over/Under", :wrapper_html => { id: "over-under", class: "hidden"}
-      unless f.object.new_record?
-        if @prop.variety == "Over/Under"
-          f.input :result
+    @prop = Prop.find params[:id] unless f.object.new_record?
+    if f.object.new_record? || @prop.state == "Offline" || @prop.state == "Open"
+      f.inputs "Prop Details" do
+        if f.object.new_record?
+          f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open"], include_blank: false
+        elsif @prop.state == "Graded"
+          f.input :state, label: "Status", as: :radio, collection: ["Regrade", "No_Action"], include_blank: false
+        else
+          f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open", "Closed", "No_Action"]
+        end
+        f.input :variety, label: "Type", required: true, as: :radio, collection: ["Fantasy", "2P Fantasy", "Over/Under", "Other"]
+        f.input :proposition, required: true
+        f.input :sport, include_blank: false
+        f.input :time, as: :just_datetime_picker, required: true
+        f.input :maximum_dollars, label: "Max Win"
+        f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread", class: "hidden"}
+        f.input :over_under, label: "Over/Under", :wrapper_html => { id: "over-under", class: "hidden"}
+        unless f.object.new_record?
+          if @prop.variety == "Over/Under"
+            f.input :result
+          end
         end
       end
-    end
-    f.inputs "Prop Choices" do
-      (2 - f.object.prop_choices.count).times do
-        f.object.prop_choices.build
+      f.inputs "Prop Choices" do
+        (2 - f.object.prop_choices.count).times do
+          f.object.prop_choices.build
+        end
+        f.has_many :prop_choices, new_record: "New Option" do |s|
+          if f.object.new_record?
+            s.input :choice_raw, label: "Choice", :wrapper_html => { class: "choice-raw hidden"}, :input_html => { class: "choice"}
+            s.input :player1, as: :select, collection: (Player.all), :wrapper_html => { class: "player player1 hidden"}
+            s.input :player2, as: :select, collection: (Player.all), :wrapper_html => { class: "player player2 hidden"}
+            s.input :odds, as: :select, collection: (vigs)
+          else
+            if @prop.variety == "Fantasy"
+              s.input :player1
+              s.input :odds, as: :select, collection: (vigs)
+              s.input :score
+            elsif @prop.variety == "2P Fantasy"
+              s.input :player1
+              s.input :player2
+              s.input :odds, as: :select, collection: (vigs)
+              s.input :score
+            elsif @prop.variety == "Over/Under"
+              s.input :choice_raw, label: "Choice"
+              s.input :odds, as: :select, collection: (vigs)
+            else
+              s.input :choice_raw, label: "Choice"
+              s.input :odds, as: :select, collection: (vigs)
+              s.input :winner
+            end
+          end
+        end
       end
-      f.has_many :prop_choices, new_record: "New Option" do |s|
-        if f.object.new_record?
-          s.input :choice_raw, label: "Choice", :wrapper_html => { class: "choice-raw hidden"}, :input_html => { class: "choice"}
-          s.input :player1, as: :select, collection: (Player.all), :wrapper_html => { class: "player player1 hidden"}
-          s.input :player2, as: :select, collection: (Player.all), :wrapper_html => { class: "player player2 hidden"}
-          s.input :odds, as: :select, collection: (vigs)
-        else
+    else
+      f.inputs "Prop Choices" do
+        f.has_many :prop_choices, new_record: "New Option" do |s|
           if @prop.variety == "Fantasy"
             s.input :player1
             s.input :odds, as: :select, collection: (vigs)
@@ -122,6 +146,23 @@ ActiveAdmin.register Prop do
             s.input :winner
           end
         end
+      end
+      f.inputs "Prop Details" do
+        if @prop.variety == "Over/Under"
+          f.input :result
+        end
+        if @prop.state == "Graded"
+          f.input :state, label: "Status", as: :radio, collection: ["Regrade", "No_Action"], include_blank: false
+        else
+         f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open", "Closed", "No_Action"]
+        end
+        f.input :variety, label: "Type", required: true, as: :radio, collection: ["Fantasy", "2P Fantasy", "Over/Under", "Other"]
+        f.input :proposition, required: true
+        f.input :sport, include_blank: false
+        f.input :time, as: :just_datetime_picker, required: true
+        f.input :maximum_dollars, label: "Max Win"
+        f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread", class: "hidden"}
+        f.input :over_under, label: "Over/Under", :wrapper_html => { id: "over-under", class: "hidden"}
       end
     end
     f.actions
