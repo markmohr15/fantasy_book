@@ -74,13 +74,13 @@ ActiveAdmin.register Prop do
     f.inputs "Prop Details" do
       @prop = Prop.find params[:id] unless f.object.new_record?
       if f.object.new_record?
-        f.input :state, label: "Status", as: :select, collection: ["Offline", "Open"], include_blank: false
+        f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open"], include_blank: false
       elsif @prop.state == "Graded"
-        f.input :state, label: "Status", as: :select, collection: ["Regrade", "No_Action"], include_blank: false
+        f.input :state, label: "Status", as: :radio, collection: ["Regrade", "No_Action"], include_blank: false
       else
-        f.input :state, label: "Status", as: :select, collection: ["Offline", "Open", "Closed", "No_Action"], include_blank: false
+        f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open", "Closed", "No_Action"]
       end
-      f.input :variety, label: "Type", required: true, as: :select, collection: ["PvP", "2Pv2P", "Over/Under", "Other"]
+      f.input :variety, label: "Type", required: true, as: :radio, collection: ["Fantasy", "2P Fantasy", "Over/Under", "Other"]
       f.input :proposition, required: true
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
@@ -99,7 +99,7 @@ ActiveAdmin.register Prop do
       end
       f.has_many :prop_choices, new_record: "New Option" do |s|
         if f.object.new_record?
-          s.input :choice_raw, label: "Choice", :wrapper_html => { class: "choice-raw hidden"}
+          s.input :choice_raw, label: "Choice", :wrapper_html => { class: "choice-raw hidden"}, :input_html => { class: "choice"}
           s.input :player1, as: :select, collection: (Player.all), :wrapper_html => { class: "player player1 hidden"}
           s.input :player2, as: :select, collection: (Player.all), :wrapper_html => { class: "player player2 hidden"}
           s.input :odds, as: :select, collection: (vigs)

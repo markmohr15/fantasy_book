@@ -1,9 +1,8 @@
 $(window).load(function() {
 
-  if (document.getElementById("prop_variety").value == "") {
-        $(".inputs")[1].style.visibility = 'hidden'
-    }
-
+  //if (document.getElementById("prop_variety").value == "") {
+    //    $(".inputs")[1].style.visibility = 'hidden'
+    //}
 
     $(".has_many_add").on('click', function() {
         setTimeout(
@@ -20,9 +19,11 @@ $(window).load(function() {
             40);
     })
 
-    document.getElementById("new_prop").elements.namedItem("prop_variety").onchange = function () {
-    $(".inputs")[1].style.visibility = 'visible'
-    if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "PvP") {
+    //document.getElementById("new_prop").elements.namedItem("prop_variety").onchange = function () {
+
+    //if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "PvP") {
+    $('#wrapper').on('click', '#prop_variety_fantasy',(function(){
+        $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("over-under").className += ' hidden'
         document.getElementById("opt1-spread").className -= ' hidden'
         $(".has_many_add")[0].style.visibility = 'hidden'
@@ -47,7 +48,8 @@ $(window).load(function() {
         for (var i = 0; i < removes.length; i ++) {
             removes[i].style.visibility = 'hidden';
         }
-}   else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "2Pv2P") {
+}))   //else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "2Pv2P") {
+    $('#wrapper').on('click', '#prop_variety_2p_fantasy',(function(){
         $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("over-under").className += ' hidden'
         document.getElementById("opt1-spread").className -= ' hidden'
@@ -69,7 +71,8 @@ $(window).load(function() {
         for (var i = 0; i < removes.length; i ++) {
             removes[i].style.visibility = 'hidden';
         }
-} else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "Over/Under") {
+})) //else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "Over/Under") {
+    $('#wrapper').on('click', '#prop_variety_overunder',(function(){
         $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("opt1-spread").className += ' hidden'
         document.getElementById("over-under").className -= ' hidden'
@@ -86,14 +89,16 @@ $(window).load(function() {
         for (var i = 2; i < inputs.length; i ++) {
             $(inputs[i]).addClass("hidden")
         }
-        document.getElementById("prop_prop_choices_attributes_0_choice_raw").value = "Over"
-        document.getElementById("prop_prop_choices_attributes_1_choice_raw").value = "Under"
+        var totals = $('.prop_choices').find('.choice')
+        totals[0].value = "Over"
+        totals[1].value = "Under"
         $(".has_many_add")[0].style.visibility = 'hidden'
         var removes = $(".has_many_remove"), i;
         for (var i = 0; i < removes.length; i ++) {
             removes[i].style.visibility = 'hidden';
         }
-} else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "Other") {
+})) //else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "Other") {
+    $('#wrapper').on('click', '#prop_variety_other',(function(){
         $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("opt1-spread").className += ' hidden'
         document.getElementById("over-under").className += ' hidden'
@@ -102,8 +107,9 @@ $(window).load(function() {
             $(players[i]).addClass("hidden")
         }
         var choices = $("li.choice-raw"), i;
-        document.getElementById("prop_prop_choices_attributes_0_choice_raw").value = ""
-        document.getElementById("prop_prop_choices_attributes_1_choice_raw").value = ""
+        var totals = $('.prop_choices').find('.choice')
+        totals[0].value = ""
+        totals[1].value = ""
         var choices = $("li.choice-raw"), i;
         for (var i = 0; i < choices.length; i ++) {
             $(choices[i]).removeClass("hidden")
@@ -113,7 +119,9 @@ $(window).load(function() {
         for (var i = 0; i < removes.length; i ++) {
             removes[i].style.visibility = 'visible';
         }
-}
-}
+}))
+
 
 });
+
+
