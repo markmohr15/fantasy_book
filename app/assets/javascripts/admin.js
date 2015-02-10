@@ -1,8 +1,8 @@
 $(window).load(function() {
 
-  //if (document.getElementById("prop_variety").value == "") {
-    //    $(".inputs")[1].style.visibility = 'hidden'
-    //}
+    if ($('input[name="prop[variety]"]:checked').length < 1) {
+        $(".inputs")[1].style.visibility = 'hidden'
+    }
 
     $(".has_many_add").on('click', function() {
         setTimeout(
@@ -19,9 +19,6 @@ $(window).load(function() {
             40);
     })
 
-    //document.getElementById("new_prop").elements.namedItem("prop_variety").onchange = function () {
-
-    //if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "PvP") {
     $('#wrapper').on('click', '#prop_variety_fantasy',(function(){
         $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("over-under").className += ' hidden'
@@ -48,7 +45,7 @@ $(window).load(function() {
         for (var i = 0; i < removes.length; i ++) {
             removes[i].style.visibility = 'hidden';
         }
-}))   //else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "2Pv2P") {
+}))
     $('#wrapper').on('click', '#prop_variety_2p_fantasy',(function(){
         $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("over-under").className += ' hidden'
@@ -71,7 +68,7 @@ $(window).load(function() {
         for (var i = 0; i < removes.length; i ++) {
             removes[i].style.visibility = 'hidden';
         }
-})) //else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "Over/Under") {
+}))
     $('#wrapper').on('click', '#prop_variety_overunder',(function(){
         $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("opt1-spread").className += ' hidden'
@@ -97,7 +94,7 @@ $(window).load(function() {
         for (var i = 0; i < removes.length; i ++) {
             removes[i].style.visibility = 'hidden';
         }
-})) //else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "Other") {
+}))
     $('#wrapper').on('click', '#prop_variety_other',(function(){
         $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("opt1-spread").className += ' hidden'
@@ -121,7 +118,4 @@ $(window).load(function() {
         }
 }))
 
-
 });
-
-
