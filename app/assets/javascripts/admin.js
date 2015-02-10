@@ -33,7 +33,7 @@ $(window).load(function() {
         for (var i = 0; i < choices.length; i ++) {
             $(choices[i]).addClass("hidden")
         }
-        var inputs = $('has_many_fields')
+        var inputs = $('.has_many_fields')
         for (var i = 2; i < inputs.length; i ++) {
             $(inputs[i]).addClass("hidden")
         }
