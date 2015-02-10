@@ -42,7 +42,7 @@ class PropChoice < ActiveRecord::Base
   def name
     if self.prop.variety == "Other" || self.prop.variety == "Over/Under"
       self.choice_raw
-    elsif self.prop.variety == "PvP"
+    elsif self.prop.variety == "Fantasy"
       self.player1
     else
       self.player1 + " & " + self.player2

@@ -71,7 +71,7 @@ ActiveAdmin.register Wager do
         @wager = Wager.find params[:id]
         if @wager.prop.variety == "Over/Under"
           f.input :total
-        elsif @wager.prop.variety == "PvP" || @wager.prop.variety == "2Pv2P"
+        elsif @wager.prop.variety == "Fantasy" || @wager.prop.variety == "2P Fantasy"
           f.input :spread_line
         end
         f.input :odds_juice

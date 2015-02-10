@@ -21,9 +21,9 @@ ActiveAdmin.register Prop do
   show do
     panel "Prop Choices" do
       table_for prop.prop_choices do
-        if prop.variety == "PvP"
+        if prop.variety == "Fantasy"
           column "Choice", :player1
-        elsif prop.variety == "2Pv2P"
+        elsif prop.variety == "2P Fantasy"
           column "Choice" do |choice|
             choice.player1 + " & " + choice.player2
           end
@@ -33,7 +33,7 @@ ActiveAdmin.register Prop do
         column "Odds", :odds_juice
         if prop.variety == "Other"
           column :winner
-        elsif prop.variety == "PvP" || prop.variety == "2Pv2P"
+        elsif prop.variety == "Fantasy" || prop.variety == "2P Fantasy"
           column :score
         end
       end
@@ -53,7 +53,7 @@ ActiveAdmin.register Prop do
       if prop.variety == "Over/Under"
         row :over_under
         row :result
-      elsif prop.variety == "PvP" || prop.variety == "2Pv2P"
+      elsif prop.variety == "Fantasy" || prop.variety == "2P Fantasy"
         row "Choice 1 Spread" do
           prop.opt1_spread_line
         end
@@ -104,11 +104,11 @@ ActiveAdmin.register Prop do
           s.input :player2, as: :select, collection: (Player.all), :wrapper_html => { class: "player player2 hidden"}
           s.input :odds, as: :select, collection: (vigs)
         else
-          if @prop.variety == "PvP"
+          if @prop.variety == "Fantasy"
             s.input :player1
             s.input :odds, as: :select, collection: (vigs)
             s.input :score
-          elsif @prop.variety == "2Pv2P"
+          elsif @prop.variety == "2P Fantasy"
             s.input :player1
             s.input :player2
             s.input :odds, as: :select, collection: (vigs)
