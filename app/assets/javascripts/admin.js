@@ -1,13 +1,9 @@
 $(window).load(function() {
 
   if (document.getElementById("prop_variety").value == "") {
-        $(".has_many_add")[0].style.visibility = 'hidden'
         $(".inputs")[1].style.visibility = 'hidden'
-    } else if ((document.getElementById("prop_variety").value == "PvP") | (document.getElementById("prop_variety").value == "2Pv2P")) {
-        $(".has_many_add")[0].style.visibility = 'hidden'
-    } else if (document.getElementById("prop_variety").value == "Over/Under") {
-        $(".has_many_add")[0].style.visibility = 'hidden'
     }
+
 
     $(".has_many_add").on('click', function() {
         setTimeout(
@@ -29,6 +25,7 @@ $(window).load(function() {
     if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "PvP") {
         document.getElementById("over-under").className += ' hidden'
         document.getElementById("opt1-spread").className -= ' hidden'
+        $(".has_many_add")[0].style.visibility = 'hidden'
         var choices = $("li.choice-raw"), i;
         for (var i = 0; i < choices.length; i ++) {
             $(choices[i]).addClass("hidden")
@@ -51,13 +48,15 @@ $(window).load(function() {
             removes[i].style.visibility = 'hidden';
         }
 }   else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "2Pv2P") {
+        $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("over-under").className += ' hidden'
         document.getElementById("opt1-spread").className -= ' hidden'
+        $(".has_many_add")[0].style.visibility = 'hidden'
         var choices = $("li.choice-raw"), i;
         for (var i = 0; i < choices.length; i ++) {
             $(choices[i]).addClass("hidden")
         }
-        var inputs = $('has_many_fields')
+        var inputs = $('.has_many_fields')
         for (var i = 2; i < inputs.length; i ++) {
             $(inputs[i]).addClass("hidden")
         }
@@ -71,8 +70,10 @@ $(window).load(function() {
             removes[i].style.visibility = 'hidden';
         }
 } else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "Over/Under") {
+        $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("opt1-spread").className += ' hidden'
         document.getElementById("over-under").className -= ' hidden'
+        $(".has_many_add")[0].style.visibility = 'hidden'
         var players = $("li.player"), i;
         for (var i = 0; i < players.length; i ++) {
             $(players[i]).addClass("hidden")
@@ -81,7 +82,7 @@ $(window).load(function() {
         for (var i = 0; i < choices.length; i ++) {
             $(choices[i]).removeClass("hidden")
         }
-        var inputs = $('has_many_fields')
+        var inputs = $('.has_many_fields')
         for (var i = 2; i < inputs.length; i ++) {
             $(inputs[i]).addClass("hidden")
         }
@@ -93,6 +94,7 @@ $(window).load(function() {
             removes[i].style.visibility = 'hidden';
         }
 } else if (document.getElementById("new_prop").elements.namedItem("prop_variety").value == "Other") {
+        $(".inputs")[1].style.visibility = 'visible'
         document.getElementById("opt1-spread").className += ' hidden'
         document.getElementById("over-under").className += ' hidden'
         var players = $("li.player"), i;
