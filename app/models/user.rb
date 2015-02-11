@@ -53,7 +53,7 @@ class User < ActiveRecord::Base
   has_many :transfers_as_receiver, class_name: "Transfer", foreign_key: "receiver_id"
 
 
-  enum role: [ :admin, :player ]
+  enum role: [ :admin, :player, :superadmin ]
 
   store_cents :balance
 

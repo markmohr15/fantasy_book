@@ -8,6 +8,7 @@ ActiveAdmin.register User, as: "Admin" do
     selectable_column
     column :email
     column :name
+    column :role
     actions
   end
 
@@ -15,6 +16,7 @@ ActiveAdmin.register User, as: "Admin" do
     attributes_table do
       row :email
       row :name
+      row :role
       row :current_sign_in_at
       row :last_sign_in_at
       row :current_sign_in_ip
@@ -28,7 +30,7 @@ ActiveAdmin.register User, as: "Admin" do
     f.inputs "Admin Details" do
       f.input :email
       f.input :name
-      f.input :role, as: :hidden, value: "0"
+      f.input :role, as: :radio, collection: [["Admin", "admin", {checked: true}], ["Superadmin", "superadmin"]]
       if f.object.new_record?
         f.input :password, required: true
       else
@@ -40,7 +42,7 @@ ActiveAdmin.register User, as: "Admin" do
 
   controller do
     def scoped_collection
-      User.where(role: 0)
+      User.where("role = ? or role = ?", 0, 2)
     end
 
     def update
