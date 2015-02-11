@@ -128,7 +128,7 @@ ActiveAdmin.register Prop do
       end
     else
       f.inputs "Prop Choices" do
-        f.has_many :prop_choices, new_record: "New Option" do |s|
+        f.has_many :prop_choices, new_record: false do |s|
           if @prop.variety == "Fantasy"
             s.input :player1
             s.input :odds, as: :select, collection: (vigs)
