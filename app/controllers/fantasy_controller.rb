@@ -8,7 +8,16 @@ class FantasyController < ApplicationController
   end
 
   def my_history
-    @wagers = Wager.where(user_id: current_user.id, state: 1..3)
+    if params[:beg_date].present?
+      start_params = params[:beg_date]
+      ending_params = params[:end_date]
+      start_date = DateTime.new(start_params["year"].to_i, start_params["month"].to_i, start_params["day"].to_i)
+      ending_date = DateTime.new(ending_params["year"].to_i, ending_params["month"].to_i, ending_params["day"].to_i)
+      @wagers = Wager.joins(:prop).where('props.time' => start_date..ending_date,
+      'state' => 1..3, 'user_id' => current_user.id)
+    else
+      @wagers = Wager.where(state: 1..3, user_id: current_user.id)
+    end
   end
 
   def my_stats

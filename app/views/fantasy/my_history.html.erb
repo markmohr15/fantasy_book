@@ -1,5 +1,14 @@
 <div class="container padding-large-horizontal">
 
+<%= form_tag(my_fantasy_my_history_path, method: :get) do %>
+  <%= label_tag :beg_date, "Start Date" %>
+  <%= select_date Date.today, prefix: :beg_date %>
+  <%= label_tag :end_date, "End Date" %>
+  <%= select_date Date.today, prefix: :end_date %>
+  <%= submit_tag "Submit" %>
+<% end %>
+
+
 <table class="table table-striped table-responsive">
 <thead>
 <tr>
