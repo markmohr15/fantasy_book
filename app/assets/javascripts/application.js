@@ -34,5 +34,17 @@ $(function(){
     }
   });
 
+  $('#beg_date').datepicker({
+    orientation: "bottom auto",
+    todayHighlight: true,
+    format: 'yyyy/mm/dd'
+  });
+  $('#end_date').datepicker({
+    orientation: "bottom auto",
+    todayHighlight: true,
+    format: 'yyyy/mm/dd'
+  });
+
+
 });
 

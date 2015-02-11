@@ -1,6 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "bootstrap-datepicker3";
+@import "bootstrap-datepicker";
 
 .devise, .account-details {
   margin: auto;
@@ -82,6 +82,10 @@
   input[type="submit"] {
     float: none;
   }
+}
+
+.right {
+  float: right;
 }
 
 body {
