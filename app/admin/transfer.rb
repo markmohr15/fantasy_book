@@ -46,10 +46,10 @@ ActiveAdmin.register Transfer do
       f.input :receiver, as: :select, collection: (User.where role: 1)
       f.input :amount_dollars, label: "Amount"
       if f.object.new_record?
-        f.input :state, as: :radio, collection: ["Pending", "Approved", "Rejected"], include_blank: false
+        f.input :state, as: :radio, collection: ["Pending", "Approved", "Rejected"]
       else
         if @transfer.state == "Pending"
-          f.input :state, as: :radio, collection: ["Pending", "Approved", "Rejected"], include_blank: false
+          f.input :state, as: :radio, collection: ["Pending", "Approved", "Rejected"]
         end
       end
     end
