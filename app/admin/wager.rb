@@ -22,6 +22,7 @@ ActiveAdmin.register Wager do
     column "Win", :win_dollars do |wager|
       number_to_currency wager.win_dollars
     end
+    column :created_at
     actions
   end
 

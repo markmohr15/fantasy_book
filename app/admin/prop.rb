@@ -15,6 +15,7 @@ ActiveAdmin.register Prop do
     column "Type", :variety
     column "Event Time", :time
     column "Max Win", :maximum_dollars
+    column :created_at
     actions
   end
 
