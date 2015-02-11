@@ -152,13 +152,13 @@ ActiveAdmin.register Prop do
         if @prop.variety == "Over/Under"
           f.input :result
         end
+        f.input :proposition, required: true
         if @prop.state == "Graded"
           f.input :state, label: "Status", as: :radio, collection: ["Regrade", "No_Action"], include_blank: false
         else
          f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open", "Closed", "No_Action"]
         end
         f.input :variety, label: "Type", required: true, as: :radio, collection: ["Fantasy", "2P Fantasy", "Over/Under", "Other"]
-        f.input :proposition, required: true
         f.input :sport, include_blank: false
         f.input :time, as: :just_datetime_picker, required: true
         f.input :maximum_dollars, label: "Max Win"
