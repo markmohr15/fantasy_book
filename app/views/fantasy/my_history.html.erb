@@ -2,9 +2,9 @@
 
 <%= form_tag(my_fantasy_my_history_path, method: :get) do %>
   <%= label_tag :beg_date, "Start Date" %>
-  <%= select_date Date.today, prefix: :beg_date %>
+  <%= text_field_tag :beg_date, nil, data: { behavior: "datepicker" } %>
   <%= label_tag :end_date, "End Date" %>
-  <%= select_date Date.today, prefix: :end_date %>
+  <%= text_field_tag :end_date, nil, data: { behavior: "datepicker" } %>
   <%= submit_tag "Submit" %>
 <% end %>
 

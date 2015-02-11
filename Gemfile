@@ -19,6 +19,7 @@ gem "aasm", "3.4"
 gem "bootstrap-sass", "~> 3.3.3"
 gem "just-datetime-picker"
 gem "rails_12factor"
+gem "bootstrap-datepicker-rails"
 
 
 group :development, :test do
