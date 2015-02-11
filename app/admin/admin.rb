@@ -1,6 +1,7 @@
 ActiveAdmin.register User, as: "Admin" do
   menu label: "Admins"
   menu priority: 2
+  menu if: proc{ current_user.role == "superadmin" }
 
   filter :name
 
@@ -43,6 +44,12 @@ ActiveAdmin.register User, as: "Admin" do
   controller do
     def scoped_collection
       User.where("role = ? or role = ?", 0, 2)
+    end
+
+    before_filter :superadmin_filter
+
+    def superadmin_filter
+     raise ActionController::RoutingError.new "Not Found" unless current_user.role == "superadmin"
     end
 
     def update

@@ -32,7 +32,7 @@ ActiveAdmin.setup do |config|
   end
 
   def authenticate_active_admin_user!
-    redirect_to(root_path) unless current_user.role == "admin"
+    redirect_to(root_path) unless (current_user.role == "admin" || current_user.role == "superadmin")
   end
 
   module ActiveAdmin::ViewHelpers
