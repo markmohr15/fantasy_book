@@ -1,7 +1,7 @@
 ActiveAdmin.register Prop do
   filter :sport
   filter :state, label: "Status", as: :select, collection: Prop.states
-  filter :variety, label: "Type"
+  filter :variety, label: "Type", as: :check_boxes, collection: ["Fantasy", "2P Fantasy", "Over/Under", "Other"]
   filter :time, label: "Event Time"
   menu priority: 6
 
