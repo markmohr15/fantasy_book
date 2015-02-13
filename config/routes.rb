@@ -28,7 +28,8 @@ Rails.application.routes.draw do
   get "/my_fantasy/my_history", to: "fantasy#my_history"
   get "/my_fantasy/my_stats", to: "fantasy#my_stats"
   get "/my_fantasy/leaderboard", to: "fantasy#leaderboard"
+  resources :props, only: [:index]
 
-  root to: "pages#home"
+  root to: "props#index"
 end
 
