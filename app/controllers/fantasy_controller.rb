@@ -19,8 +19,7 @@ class FantasyController < ApplicationController
     end
     @wagers = Wager.joins(:prop).where('props.time' => start_date..ending_date,
       'state' => 1..3, 'user_id' => current_user.id)
-    @risk_counter = 0
-    @win_counter = 0
+    @result_counter = 0
   end
 
   def my_stats

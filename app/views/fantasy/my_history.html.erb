@@ -27,8 +27,7 @@
 </tr>
 </thead>
   <% @wagers.each do |wager| %>
-    <% @risk_counter += wager.risk_dollars %>
-    <% @win_counter += wager.win_dollars %>
+    <% @result_counter += wager.result %>
     <tr>
     <td> <a href="#" class="seeMore">+</a> <%= wager.id %> </td>
     <td class="more"> <p class="selection"><%= wager.prop_choice.name %> </p>
@@ -63,8 +62,8 @@
     <td></td>
     <td></td>
     <td></td>
-    <td> <%= number_to_currency @risk_counter %> </td>
-    <td> <%= number_to_currency @win_counter %> </td>
+    <td></td>
+    <td> <%= number_to_currency @result_counter %> </td>
   </tr>
 </table>
 
