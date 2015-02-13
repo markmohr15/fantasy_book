@@ -36,10 +36,10 @@ $(function(){
   });
 
   $('#datetimepicker').datetimepicker({
-      pickTime: false
+    format: "L"
     });
   $('#datetimepicker2').datetimepicker({
-      pickTime: false
+    format: "L"
     });
 
 });
