@@ -1,6 +1,6 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "bootstrap-datepicker";
+@import "bootstrap-datetimepicker";
 
 .devise, .account-details {
   margin: auto;
@@ -86,6 +86,11 @@
 
 .right {
   float: right;
+}
+
+.input-group {
+  display: inline-table;
+  width: 200px;
 }
 
 body {

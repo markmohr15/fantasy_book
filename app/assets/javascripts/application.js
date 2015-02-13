@@ -11,10 +11,11 @@
 // about supported directives.
 //
 //= require jquery
-//= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
-//= require bootstrap-datepicker
+//= require moment
+//= require bootstrap-sprockets
+//= require bootstrap-datetimepicker
 //= require_tree .
 
 $(function(){
@@ -34,17 +35,12 @@ $(function(){
     }
   });
 
-  $('#beg_date').datepicker({
-    orientation: "bottom auto",
-    todayHighlight: true,
-    format: 'yyyy/mm/dd'
-  });
-  $('#end_date').datepicker({
-    orientation: "bottom auto",
-    todayHighlight: true,
-    format: 'yyyy/mm/dd'
-  });
-
+  $('#datetimepicker').datetimepicker({
+      pickTime: false
+    });
+  $('#datetimepicker2').datetimepicker({
+      pickTime: false
+    });
 
 });
 

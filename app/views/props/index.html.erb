@@ -1,0 +1,23 @@
+<div class="container padding-large-horizontal">
+
+  <div class ="col-md-2">
+    <% @sports.each do |sport| %>
+      <%= button_to sport.name, {controller: "props", action: "index", sport_id: sport.id}, method: :get %>
+    <% end %>
+  </div>
+
+  <div class="col-md-8">
+    <% @props.each do |prop| %>
+      <%= prop.proposition %>
+      <%= prop.time %>
+    <% end %>
+  </div>
+
+  <div class ="col-md-2">
+    Betting Ticket
+  </div>
+
+
+
+</div>
+

@@ -19,8 +19,8 @@ gem "aasm", "3.4"
 gem "bootstrap-sass", "~> 3.3.3"
 gem "just-datetime-picker"
 gem "rails_12factor"
-gem "bootstrap-datepicker-rails"
-
+gem 'momentjs-rails', '>= 2.9.0'
+gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
