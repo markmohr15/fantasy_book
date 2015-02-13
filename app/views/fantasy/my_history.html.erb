@@ -4,12 +4,12 @@
   <%= form_tag(my_fantasy_my_history_path, method: :get) do %>
       <%= label_tag :beg_date, "Start Date" %>
       <div class="input-group date" id="datetimepicker">
-        <%= text_field_tag :beg_date, nil, class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
+        <%= text_field_tag :beg_date, nil, value: params[:beg_date], class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
       </div>
       <%= label_tag :end_date, "End Date" %>
       <div class="input-group date" id="datetimepicker2">
-        <%= text_field_tag :end_date, nil, class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
+        <%= text_field_tag :end_date, nil, value: params[:end_date], class: 'form-control', data: { date_format: 'YYYY/MM/DD' } %>
         <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
       </div>
     <%= submit_tag "Submit" %>
