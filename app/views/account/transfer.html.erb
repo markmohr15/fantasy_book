@@ -28,13 +28,13 @@
       </thead>
       <% @transfers.each do |transfer| %>
         <tr>
-        <td><%= transfer.created_at.strftime("%m/%d/%y") %> </td>
-        <td><%= transfer.state %> </td>
-        <td><%= transfer.side(current_user) %> </td>
-        <td><%= number_to_currency transfer.amount_dollars %> </td>
-        <td><%= transfer.counterparty(current_user) %> </td>
-      <% end %>
+          <td><%= transfer.created_at.strftime("%m/%d/%y") %> </td>
+          <td><%= transfer.state %> </td>
+          <td><%= transfer.side(current_user) %> </td>
+          <td><%= number_to_currency transfer.amount_dollars %> </td>
+          <td><%= transfer.counterparty(current_user) %> </td>
         </tr>
+      <% end %>
     </table>
   </div>
 </div>
