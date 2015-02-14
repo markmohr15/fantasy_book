@@ -88,10 +88,14 @@ class PropChoice < ActiveRecord::Base
       if self == self.prop.prop_choices.first
         self.player1 + " " + self.prop.opt1_spread_line.to_s
       else
-        self.player1 + " " + self.prop.opt1_spread_line.to_s
+        self.player1 + " " + self.prop.opt2_spread_line.to_s
       end
     else
-      self.player1 + " & " + self.player2 + " " + self.prop.opt1_spread_line
+      if self == self.prop.prop_choices.first
+        self.player1 + " & " + self.player2 + " " + self.prop.opt1_spread_line.to_s
+      else
+        self.player1 + " & " + self.player2 + " " + self.prop.opt2_spread_line.to_s
+      end
     end
   end
 end

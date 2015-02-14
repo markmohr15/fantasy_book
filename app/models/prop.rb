@@ -14,6 +14,7 @@
 #  over_under  :float(24)
 #  opt1_spread :float(24)
 #  result      :float(24)
+#  opt2_spread :float(24)
 #
 # Indexes
 #
@@ -35,10 +36,12 @@ class Prop < ActiveRecord::Base
   store_cents :maximum
   just_define_datetime_picker :time
   display_line :opt1_spread
+  display_line :opt2_spread
 
   enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action, :Regrade ]
 
   after_commit :check_state
+  before_validation :get_opt2_spread
 
   def check_state
     if self.state == "Closed" && has_winner?
@@ -51,6 +54,15 @@ class Prop < ActiveRecord::Base
     elsif self.state == "No_Action"
       self.ungrade_wagers
       self.cancel_wagers
+    end
+  end
+
+  def get_opt2_spread
+    return if self.opt1_spread.blank?
+    if self.opt1_spread == 0
+      self.opt2_spread = 0
+    else
+      self.opt2_spread = self.opt1_spread * -1.0
     end
   end
 
