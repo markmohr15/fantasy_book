@@ -21,10 +21,14 @@ module StorageConversions
       args.each do |attribute|
         define_method "#{attribute}_line" do
           line = read_attribute(attribute)
-          if line < 0
-            line
+          if line < 0 && line % 1 == 0
+            line.to_i.to_s
+          elsif line < 0
+            line.to_s
           elsif line == 0
             "Pk"
+          elsif line > 0 && line % 1 == 0
+            "+" + line.to_i.to_s
           else
             "+" + line.to_s
           end

@@ -2,22 +2,31 @@
 
   <div class ="col-md-2">
     <% @sports.each do |sport| %>
-      <%= button_to sport.name, {controller: "props", action: "index", sport_id: sport.id}, method: :get %>
+      <%= link_to sport.name, {controller: "props", action: "index", sport_id: sport.id}, method: :get %>
+      <br />
     <% end %>
   </div>
 
   <div class="col-md-8">
+  <table class="table table-striped table-responsive">
     <% @props.each do |prop| %>
-      <%= prop.proposition %>
-      <%= prop.time %>
+      <tr>
+        <%= prop.proposition %>
+      </tr>
+      <tr>
+      <td> <%= prop.time.strftime("%m/%d/%y  %H:%M EST") %> </td>
+      <% prop.prop_choices.each do |choice| %>
+        <td> checkbox </td>
+        <td> <%= choice.display  %> </td>
+        <td> <%= choice.odds_juice %> </td>
+        </tr>
+      <% end %>
     <% end %>
+  </table>
   </div>
 
   <div class ="col-md-2">
     Betting Ticket
   </div>
-
-
-
 </div>
 

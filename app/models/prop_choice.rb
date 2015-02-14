@@ -78,4 +78,16 @@ class PropChoice < ActiveRecord::Base
     return if choice.nil?
     Player.find_by(id: self.choice[1]).name
   end
+
+  def display
+    if self.prop.variety == "Other"
+      self.choice_raw
+    elsif self.prop.variety == "Over/Under"
+      self.choice_raw + " " + self.prop.over_under.to_s
+    elsif self.prop.variety == "Fantasy"
+      self.player1 + " " + self.prop.opt1_spread_line
+    else
+      self.player1 + " & " + self.player2 + " " + self.prop.opt1_spread_line
+    end
+  end
 end
