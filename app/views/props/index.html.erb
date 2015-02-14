@@ -8,13 +8,13 @@
   </div>
 
   <div class="col-md-8">
-  <table class="table table-striped table-responsive">
+  <table class="table table-responsive">
     <% @props.each do |prop| %>
       <tr>
-        <%= prop.proposition %>
+        <td><%= prop.proposition %> </td>
       </tr>
       <tr>
-      <td> <%= prop.time.strftime("%m/%d/%y  %H:%M EST") %> </td>
+      <td rowspan="<%= prop.prop_choices.count %>"> <%= prop.time.strftime("%m/%d/%y  %H:%M EST") %> </td>
       <% prop.prop_choices.each do |choice| %>
         <td> checkbox </td>
         <td> <%= choice.display  %> </td>

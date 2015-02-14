@@ -85,7 +85,11 @@ class PropChoice < ActiveRecord::Base
     elsif self.prop.variety == "Over/Under"
       self.choice_raw + " " + self.prop.over_under.to_s
     elsif self.prop.variety == "Fantasy"
-      self.player1 + " " + self.prop.opt1_spread_line
+      if self == self.prop.prop_choices.first
+        self.player1 + " " + self.prop.opt1_spread_line.to_s
+      else
+        self.player1 + " " + self.prop.opt1_spread_line.to_s
+      end
     else
       self.player1 + " & " + self.player2 + " " + self.prop.opt1_spread_line
     end

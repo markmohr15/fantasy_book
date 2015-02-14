@@ -22,9 +22,9 @@ module StorageConversions
         define_method "#{attribute}_line" do
           line = read_attribute(attribute)
           if line < 0 && line % 1 == 0
-            line.to_i.to_s
+            line.to_i
           elsif line < 0
-            line.to_s
+            line
           elsif line == 0
             "Pk"
           elsif line > 0 && line % 1 == 0
