@@ -79,22 +79,16 @@ class PropChoice < ActiveRecord::Base
     Player.find_by(id: self.choice[1]).name
   end
 
-  def display
+  def display_line
     if self.prop.variety == "Other"
-      self.choice_raw
+      self.odds_juice
     elsif self.prop.variety == "Over/Under"
-      self.choice_raw + " " + self.prop.over_under.to_s
-    elsif self.prop.variety == "Fantasy"
-      if self == self.prop.prop_choices.first
-        self.player1 + " " + self.prop.opt1_spread_line.to_s
-      else
-        self.player1 + " " + self.prop.opt2_spread_line.to_s
-      end
+      self.prop.over_under.to_s + " " + self.odds_juice.to_s
     else
       if self == self.prop.prop_choices.first
-        self.player1 + " & " + self.player2 + " " + self.prop.opt1_spread_line.to_s
+        self.prop.opt1_spread_line.to_s + " " + self.odds_juice.to_s
       else
-        self.player1 + " & " + self.player2 + " " + self.prop.opt2_spread_line.to_s
+        self.prop.opt2_spread_line.to_s + " " + self.odds_juice.to_s
       end
     end
   end

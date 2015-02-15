@@ -8,21 +8,27 @@
   </div>
 
   <div class="col-md-8">
-  <table class="table table-responsive">
-    <% @props.each do |prop| %>
-      <tr>
-        <td><%= prop.proposition %> </td>
-      </tr>
-      <tr>
-      <td rowspan="<%= prop.prop_choices.count %>"> <%= prop.time.strftime("%m/%d/%y  %H:%M EST") %> </td>
-      <% prop.prop_choices.each do |choice| %>
-        <td> checkbox </td>
-        <td> <%= choice.display  %> </td>
-        <td> <%= choice.odds_juice %> </td>
-        </tr>
-      <% end %>
+    <% @dates.each do |date| %>
+      <h4> <%= date.strftime("%B %-d, %Y") %> </h4>
+        <% @props.each do |prop| %>
+          <table class="table table-responsive">
+          <% if prop.time.to_date === date %>
+            <tr>
+            <td colspan="3"><%= prop.proposition %> </td>
+            </tr>
+            <tr>
+            <td rowspan="<%= prop.prop_choices.count %>" class="vert-align"> <div class="prop-time"> <span class="time"><%= prop.time.strftime("%H:%M EST") %> </span></div></td>
+            <% prop.prop_choices.each do |choice| %>
+              <td> <%= choice.name %> </td>
+              <td> <%= button_tag(type: 'button') do %>
+                <%= content_tag(:strong, choice.display_line) %>
+              <% end %> </td>
+            </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+      </table>
     <% end %>
-  </table>
   </div>
 
   <div class ="col-md-2">
