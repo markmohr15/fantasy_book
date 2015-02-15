@@ -10,8 +10,8 @@
   <div class="col-md-8">
     <% @dates.each do |date| %>
       <h4> <%= date.strftime("%B %-d, %Y") %> </h4>
+      <table class="table table-responsive">
         <% @props.each do |prop| %>
-          <table class="table table-responsive">
           <% if prop.time.to_date === date %>
             <tr>
             <td colspan="3"><%= prop.proposition %> </td>
