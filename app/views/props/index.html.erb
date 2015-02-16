@@ -34,7 +34,30 @@
   <div class ="col-md-2">
     <h5> Betting Ticket </h5>
     <%= form_tag wagers_path do %>
+      <table>
+        <tr>
+          <td> <%= text_field_tag "wager[][:prop_id]" %> </td>
+          <td> <%= text_field_tag "wager[][:risk]" %> </td>
+          <td> <%= text_field_tag "wager[][:prop_choice_id]" %> </td>
+          <td> <%= text_field_tag "wager[][:odds_juice]" %> </td>
+          <td> <%= text_field_tag "wager[][:spread_line]" %> </td>
+          <td> <%= text_field_tag "wager[][:total]" %> </td>
+        </tr>
 
+        <tr class="actions">
+          <td> <%= submit_tag "Submit" %> </td>
+          <td> <%= button_tag "Add Wager", id: "add-wager" %> </td>
+        </tr>
+
+        <tr class="new-wager-row hidden">
+          <td> <%= text_field_tag "wager[][:prop_id]" %> </td>
+          <td> <%= text_field_tag "wager[][:risk]" %> </td>
+          <td> <%= text_field_tag "wager[][:prop_choice_id]" %> </td>
+          <td> <%= text_field_tag "wager[][:odds_juice]" %> </td>
+          <td> <%= text_field_tag "wager[][:spread_line]" %> </td>
+          <td> <%= text_field_tag "wager[][:total]" %> </td>
+        </tr>
+      </table>
     <% end %>
   </div>
 </div>
