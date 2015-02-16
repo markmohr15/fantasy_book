@@ -93,8 +93,37 @@
   width: 200px;
 }
 
+.prop-table {
+  border-left: 3px solid;
+  border-right: 3px solid;
+}
+
 .table tbody>tr>td.vert-align{
     vertical-align: middle;
+}
+
+h5 {
+  text-align: center;
+}
+
+.prop-date {
+  background-color: lightgray;
+  font-weight: bold;
+}
+
+.prop-name {
+  font-weight: bold;
+  font-size: 18px;
+  border-left: 1px solid #ddd;
+}
+
+button.wager-btn {
+  width: 90px;
+  background-color: gold;
+}
+
+.green {
+  background-color: lawngreen !important;
 }
 
 body {

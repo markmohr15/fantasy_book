@@ -7,20 +7,20 @@
     <% end %>
   </div>
 
-  <div class="col-md-8">
+  <div class="col-md-8 prop-table">
     <table class="table table-responsive">
     <% @dates.each do |date| %>
-      <td><h4> <%= date.strftime("%B %-d, %Y") %> </h4></td>
+      <tr> <td class="prop-date" colspan="3"> <%= date.strftime("%B %-d, %Y") %> </td></tr>
         <% @props.each do |prop| %>
           <% if prop.time.to_date === date %>
             <tr>
-            <td colspan="3"><%= prop.proposition %> </td>
+            <td class="prop-proposition" colspan="3"><%= prop.proposition %> </td>
             </tr>
             <tr>
             <td rowspan="<%= prop.prop_choices.count %>" class="vert-align"> <div class="prop-time"> <span class="time"><%= prop.time.strftime("%H:%M EST") %> </span></div></td>
             <% prop.prop_choices.each do |choice| %>
-              <td> <%= choice.name %> </td>
-              <td> <%= button_tag(type: 'button') do %>
+              <td class="prop-name"> <%= choice.name %> </td>
+              <td> <%= button_tag(type: "button", class: "wager-btn") do %>
                 <%= content_tag(:strong, choice.display_line) %>
               <% end %> </td>
             </tr>
@@ -32,7 +32,10 @@
   </div>
 
   <div class ="col-md-2">
-    Betting Ticket
+    <h5> Betting Ticket </h5>
+    <%= form_tag wagers_path do %>
+
+    <% end %>
   </div>
 </div>
 

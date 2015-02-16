@@ -35,6 +35,12 @@ $(function(){
     }
   });
 
+  $('.wager-btn').on('click', function(e) {
+    e.preventDefault();
+    $(this).toggleClass("green");
+    var container = $(this).closest('tr');
+  });
+
   $('#datetimepicker').datetimepicker({
     format: "L"
     });
