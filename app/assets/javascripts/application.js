@@ -38,7 +38,28 @@ $(function(){
   $('.wager-btn').on('click', function(e) {
     e.preventDefault();
     $(this).toggleClass("green");
-    var container = $(this).closest('tr');
+    console.log($(this).data('propchoiceid'))
+    $.ajax({
+      url: "/pc",
+      type: "GET",
+      data: {prop_choice_id: $(this).data('propchoiceid')},
+      success: function (data) {
+          handleData(data);
+      },
+      error: function (xhr, status, error) {
+        console.log(status + error);
+      }
+    });
+  });
+
+  function handleData (responseData) {
+    console.log(responseData);
+  }
+
+  $('#add-wager').on('click', function(e) {
+    e.preventDefault;
+    var row = $('tr.new-wager-row').clone().removeClass('hidden new-wager-row');
+    $('tr.actions').before(row);
   });
 
   $('#datetimepicker').datetimepicker({
@@ -49,4 +70,5 @@ $(function(){
     });
 
 });
+
 

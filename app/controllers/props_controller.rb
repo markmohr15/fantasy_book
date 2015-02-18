@@ -18,6 +18,24 @@ class PropsController < ApplicationController
       end
     end
     @dates = @dates.uniq
+    respond_to do |format|
+        format.html
+        format.js
+    end
+
+  end
+
+  def pc
+    respond_to do |format|
+      format.json do
+        prop_choice_id = params[:prop_choice_id]
+        @prop_choice = PropChoice.find_by id: prop_choice_id
+        @prop = Prop.find_by id: @prop_choice.id
+        render json: @prop_choice.to_json(:include => [:prop])
+
+      end
+    end
   end
 
 end
+

@@ -8,13 +8,17 @@ class WagersController < ApplicationController
       wager.save
     end
 
-    redirect_to root_path
+    respond_to do |format|
+      format.html { redirect_to root_path }
+      format.js
+    end
+
   end
 
   private
 
   def wager_params
-    params.require(:wager).permit(:prop_id, :prop_choice_id, :risk, :odds_juice, :spread_line, :total)
+    params.permit(:wager).permit! #(:prop_id, :prop_choice_id, :risk_dollars, :odds, :spread, :total)
   end
 
 end
