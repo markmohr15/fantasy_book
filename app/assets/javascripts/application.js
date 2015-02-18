@@ -38,7 +38,7 @@ $(function(){
   $('.wager-btn').on('click', function(e) {
     e.preventDefault();
     $(this).toggleClass("green");
-    console.log($(this).data('propchoiceid'))
+    prop_choice = $(this);
     $.ajax({
       url: "/pc",
       type: "GET",
@@ -54,13 +54,24 @@ $(function(){
 
   function handleData (responseData) {
     console.log(responseData);
+    state = responseData.prop.state;
+    display_line = responseData.display_line;
+    container = $(prop_choice).closest('tr');
+    page_line = container.find('.prop-name');
+    if ($(prop_choice)[0].classList.contains('green')) {
+      if (state == "Open") {
+        if (display_line == $(page_line).text()) {
+            var row = $('tr.new-wager-row').clone().removeClass('hidden new-wager-row');
+            $('tr.actions').before(row);
+        } else {
+            alert("line changed")
+        }
+    } else {
+          alert("This event is not available for betting.");
+      }
+    }
   }
 
-  $('#add-wager').on('click', function(e) {
-    e.preventDefault;
-    var row = $('tr.new-wager-row').clone().removeClass('hidden new-wager-row');
-    $('tr.actions').before(row);
-  });
 
   $('#datetimepicker').datetimepicker({
     format: "L"

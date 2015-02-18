@@ -19,10 +19,8 @@
             <tr>
             <td rowspan="<%= prop.prop_choices.count %>" class="vert-align"> <div class="prop-time"> <span class="time"><%= prop.time.strftime("%H:%M EST") %> </span></div></td>
             <% prop.prop_choices.each do |choice| %>
-              <td class="prop-name"> <%= choice.name %> </td>
-              <td> <%= button_tag(type: "button", class: "wager-btn", data: { propchoiceid: choice.id} ) do %>
-                <%= content_tag(:strong, choice.display_line) %>
-              <% end %> </td>
+              <td class="prop-name choice-<%= cycle 'odd', 'even' %>"> <%= choice.name %> </td>
+              <td> <%= button_tag choice.display_line, type: "button", class: "wager-btn", data: { propchoiceid: choice.id} %> </td>
             </tr>
             <% end %>
           <% end %>
