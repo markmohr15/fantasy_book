@@ -7,7 +7,7 @@
     <% end %>
   </div>
 
-  <div class="col-md-8 prop-table">
+  <div class="col-md-7 prop-table">
     <table class="table table-responsive">
     <% @dates.each do |date| %>
       <tr> <td class="prop-date" colspan="3"> <%= date.strftime("%B %-d, %Y") %> </td></tr>
@@ -29,32 +29,28 @@
     </table>
   </div>
 
-  <div class ="col-md-2 ticket">
+  <div class ="col-md-3 ticket">
     <h5> Betting Ticket </h5>
-    <%= form_tag wagers_path, remote: true do %>
+    <%= form_tag wagers_path do %>
       <table>
-        <tr>
-          <td> <%= text_field_tag "wager[][prop_id]" %> </td>
-          <td> <%= text_field_tag "wager[][risk_dollars]" %> </td>
-          <td> <%= text_field_tag "wager[][prop_choice_id]" %> </td>
-          <td> <%= text_field_tag "wager[][odds]" %> </td>
-          <td> <%= text_field_tag "wager[][spread]" %> </td>
-          <td> <%= text_field_tag "wager[][total]" %> </td>
-        </tr>
 
-        <tr class="actions">
+        <tr class="actions hidden">
           <td> <%= submit_tag "Submit" %> </td>
-          <td> <%= button_tag "Add Wager", id: "add-wager" %> </td>
         </tr>
 
-        <tr class="new-wager-row hidden">
-          <td> <%= text_field_tag "wager[][prop_id]" %> </td>
-          <td> <%= text_field_tag "wager[][risk_dollars]" %> </td>
-          <td> <%= text_field_tag "wager[][prop_choice_id]" %> </td>
-          <td> <%= text_field_tag "wager[][odds]" %> </td>
-          <td> <%= text_field_tag "wager[][spread]" %> </td>
-          <td> <%= text_field_tag "wager[][total]" %> </td>
+        <tbody class="new-wager-row hidden">
+        <tr>
+          <td> <%= text_field_tag "wager[][info]", nil, class: "wager-info", readonly: "readonly" %> </td>
+          <td> <%= text_field_tag "wager[][prop_id]", nil, class: "wager-prop-id hidden", readonly: "readonly" %> </td>
+          <td> <%= label_tag "Risk" %> <%= text_field_tag "wager[][risk_dollars]", nil, class: "wager-risk", value: 0.00 %> </td>
+          <td> <%= label_tag "to Win" %> <%= text_field_tag "wager[][win_dollars]", nil, class: "wager-win", value: 0.00 %> </td>
+          <td> <%= text_field_tag "wager[][prop_choice_id]", nil, class: "wager-prop-choice-id hidden", readonly: "readonly" %> </td>
+          <td> <%= text_field_tag "wager[][odds]", nil, class: "wager-odds hidden", readonly: "readonly" %> </td>
+          <td> <%= text_field_tag "wager[][spread]", nil, class: "wager-spread hidden", readonly: "readonly" %> </td>
+          <td> <%= text_field_tag "wager[][total]", nil, class: "wager-total hidden", readonly: "readonly" %> </td>
+          <td> <%= button_tag "", type: "button", class: "delete-wager glyphicon glyphicon-remove" %> </td>
         </tr>
+        </tbody>
       </table>
     <% end %>
   </div>

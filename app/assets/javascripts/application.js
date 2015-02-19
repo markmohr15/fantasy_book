@@ -55,23 +55,84 @@ $(function(){
   function handleData (responseData) {
     console.log(responseData);
     state = responseData.prop.state;
-    display_line = responseData.display_line;
+    displayLine = responseData.display_line;
+    propId = responseData.prop.id;
+    propChoiceId = responseData.id;
+    name = responseData.name
+    odds = responseData.odds;
+    total = responseData.prop.over_under;
+    if ($(prop_choice)[0].classList.contains('odd')) {
+      spread = responseData.prop.opt1_spread;
+    } else {
+      spread = responseData.prop.opt2_spread;
+    }
     container = $(prop_choice).closest('tr');
-    page_line = container.find('.prop-name');
+    pageLine = container.find('.wager-btn');
     if ($(prop_choice)[0].classList.contains('green')) {
       if (state == "Open") {
-        if (display_line == $(page_line).text()) {
-            var row = $('tr.new-wager-row').clone().removeClass('hidden new-wager-row');
-            $('tr.actions').before(row);
+          if (displayLine == $(pageLine).text()) {
+            // do nothing
         } else {
-            alert("line changed")
+            alert("line changed");
         }
-    } else {
+          var row = $('tbody.new-wager-row').clone().removeClass('hidden new-wager-row');
+          row.find('.wager-info').val(name + " " + displayLine);
+          row.find('.wager-prop-id').val(propId);
+          row.find('.wager-prop-choice-id').val(propChoiceId);
+          row.find('.wager-odds').val(odds);
+          row.find('.wager-spread').val(spread);
+          row.find('.wager-total').val(total);
+          $('tr.actions').before(row);
+          $('tr.actions').removeClass("hidden");
+      } else {
           alert("This event is not available for betting.");
       }
+    } else {
+        var wagerList = $('.wager-info'), i;
+        for (var i = 0; i < wagerList.length; i ++) {
+          if (name + " " + displayLine == $(wagerList[i]).val()) {
+            $(wagerList[i]).closest('tbody').remove();
+          }
+        }
+
     }
   }
 
+  $('.ticket').on('click', '.delete-wager',(function(){
+    $(this).closest('tbody').remove();
+  }))
+
+  $('.ticket').on('keyup', '.wager-risk',(function() {
+    container = $(this).closest('tbody');
+    win = container.find('.wager-win');
+    odds = parseInt(container.find('.wager-odds').val());
+    risk = parseInt($(this).val());
+    $(win).val(calculateWin(risk, odds));
+  }))
+
+  $('.ticket').on('keyup', '.wager-win',(function() {
+    container = $(this).closest('tbody');
+    risk = container.find('.wager-risk');
+    odds = parseInt(container.find('.wager-odds').val());
+    win = parseInt($(this).val());
+    $(risk).val(calculateRisk(win, odds));
+  }))
+
+  function calculateWin (risk, odds) {
+      if (odds > 0) {
+          return (risk * odds / 100.0).toFixed(2)
+      } else {
+          return (risk * -100.0 / odds).toFixed(2)
+      }
+  }
+
+  function calculateRisk (win, odds) {
+      if (odds > 0) {
+          return (win / odds * 100.0).toFixed(2)
+      } else {
+          return (win * odds / -100.0).toFixed(2)
+      }
+  }
 
   $('#datetimepicker').datetimepicker({
     format: "L"
