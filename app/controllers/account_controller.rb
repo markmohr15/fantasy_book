@@ -15,7 +15,6 @@ class AccountController < ApplicationController
 
   def create_transfer
     receiver = User.find_by username: params[:receiver]
-    binding.pry
     transfer = Transfer.new transfer_params
     transfer.receiver_id = receiver.id
     transfer.sender_id = current_user.id

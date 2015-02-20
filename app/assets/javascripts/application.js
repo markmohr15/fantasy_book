@@ -88,9 +88,9 @@ $(function(){
           alert("This event is not available for betting.");
       }
     } else {
-        var wagerList = $('.wager-info'), i;
+        var wagerList = $('.wager-prop-choice-id'), i;
         for (var i = 0; i < wagerList.length; i ++) {
-          if (name + " " + displayLine == $(wagerList[i]).val()) {
+          if (propChoiceId == $(wagerList[i]).val()) {
             $(wagerList[i]).closest('tbody').remove();
           }
         }

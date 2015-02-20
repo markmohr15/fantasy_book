@@ -41,6 +41,8 @@
         <tbody class="new-wager-row hidden">
         <tr>
           <td> <%= text_field_tag "wager[][info]", nil, class: "wager-info", readonly: "readonly" %> </td>
+        </tr> <br/>
+        <tr>
           <td> <%= text_field_tag "wager[][prop_id]", nil, class: "wager-prop-id hidden", readonly: "readonly" %> </td>
           <td> <%= label_tag "Risk" %> <%= text_field_tag "wager[][risk_dollars]", nil, class: "wager-risk", value: 0.00 %> </td>
           <td> <%= label_tag "to Win" %> <%= text_field_tag "wager[][win_dollars]", nil, class: "wager-win", value: 0.00 %> </td>
