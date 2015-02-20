@@ -10,11 +10,14 @@ class AccountController < ApplicationController
   end
 
   def transfer
-    @transfers = Transfer.where("receiver_id = ? OR sender_id = ?", current_user.id, current_user.id)
+    @transfers = Transfer.where("receiver_id = ? OR sender_id = ?", current_user.id, current_user.id).order('created_at DESC')
   end
 
   def create_transfer
-    if receiver = User.find_by username: params[:receiver]
+    receiver = User.find_by username: params[:receiver] ||= nil
+    if receiver.nil?
+      render :transfer, alert: t("account.invalid_username")
+    else
       transfer = Transfer.new transfer_params
       transfer.receiver_id = receiver.id
       transfer.sender_id = current_user.id
@@ -23,8 +26,6 @@ class AccountController < ApplicationController
       else
         render action: :transfer
       end
-    else
-      render :transfer, alert: t("account.invalid_username")
     end
   end
 
