@@ -27,3 +27,8 @@ en:
 
   account:
     invalid_username: "That is not a valid username.  Please try again."
+
+  wager:
+    successful_wager: "Thank you for your wager."
+    closed: "One or more of your events is closed for wagering."
+    line_change: "One or more of your events' line changed."
