@@ -4,11 +4,13 @@ class WagersController < ApplicationController
 
   def create_multiple
     params[:wager].each do |attr|
-      wager_params = attr
-      wager = Wager.new(wager_params)
-      wager.user_id = current_user.id
-      wager.save
+      unless attr["prop_id"] == ""
+        wager = Wager.new(attr.to_hash)
+        wager.user_id = current_user.id
+        wager.save
+      end
     end
+    redirect_to :back
   end
 
   private
