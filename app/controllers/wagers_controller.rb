@@ -13,7 +13,7 @@ class WagersController < ApplicationController
   private
 
   def wager_params
-    params.permit(:wager).permit! #(:prop_id, :prop_choice_id, :risk_dollars, :odds, :spread, :total)
+    params.require(:wager).permit! #(:prop_id, :prop_choice_id, :risk_dollars, :odds, :spread, :total)
   end
 
 end

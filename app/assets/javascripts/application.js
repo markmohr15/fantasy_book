@@ -94,7 +94,6 @@ $(function(){
             $(wagerList[i]).closest('tbody').remove();
           }
         }
-
     }
   }
 
