@@ -19,10 +19,9 @@ class PropsController < ApplicationController
     end
     @dates = @dates.uniq
     respond_to do |format|
-        format.html
-        format.js
+      format.html
+      format.js
     end
-
   end
 
   def pc
