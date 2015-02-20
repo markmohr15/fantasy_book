@@ -1,5 +1,6 @@
 class FantasyController < ApplicationController
   layout "fantasy"
+  before_action :user_required
 
   def my_action
     @wagers = Wager.where(user_id: current_user.id, state: 0)

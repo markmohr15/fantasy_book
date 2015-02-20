@@ -1,5 +1,6 @@
 class AccountController < ApplicationController
   layout "account"
+  before_action :user_required
 
   def deposit
     render
@@ -16,7 +17,8 @@ class AccountController < ApplicationController
   def create_transfer
     receiver = User.find_by username: params[:receiver] ||= nil
     if receiver.nil?
-      render :transfer, alert: t("account.invalid_username")
+      @transfers = Transfer.where("receiver_id = ? OR sender_id = ?", current_user.id, current_user.id).order('created_at DESC')
+      render action: :transfer, alert: t("account.invalid_username")
     else
       transfer = Transfer.new transfer_params
       transfer.receiver_id = receiver.id

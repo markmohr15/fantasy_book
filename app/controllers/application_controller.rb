@@ -29,6 +29,13 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def user_required
+    if current_user
+    else
+      redirect_to new_user_session_path
+    end
+  end
+
   def after_sign_out_path_for(resource)
     new_user_session_path
   end
