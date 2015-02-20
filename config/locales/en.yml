@@ -24,3 +24,6 @@ en:
 
   sessions:
     unauthorized: "Sorry. You are not authorized to perform this action."
+
+  account:
+    invalid_username: "That is not a valid username.  Please try again."

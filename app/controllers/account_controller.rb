@@ -14,14 +14,17 @@ class AccountController < ApplicationController
   end
 
   def create_transfer
-    receiver = User.find_by username: params[:receiver]
-    transfer = Transfer.new transfer_params
-    transfer.receiver_id = receiver.id
-    transfer.sender_id = current_user.id
-    if transfer.save
-      redirect_to my_account_transfer_path
+    if receiver = User.find_by username: params[:receiver]
+      transfer = Transfer.new transfer_params
+      transfer.receiver_id = receiver.id
+      transfer.sender_id = current_user.id
+      if transfer.save
+        redirect_to my_account_transfer_path
+      else
+        render action: :transfer
+      end
     else
-      render action: :transfer
+      render :transfer, alert: t("account.invalid_username")
     end
   end
 
