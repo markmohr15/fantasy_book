@@ -102,7 +102,22 @@ $(function(){
   }
 
   $('.ticket').on('click', '.delete-wager',(function(){
-    $(this).closest('tbody').remove();
+    var container = $(this).closest('tbody');
+    var choice = container.find('.wager-prop-choice-id');
+    var choiceId = $(choice).val()
+    container.remove();
+    var wagerList = $('.wager-prop-choice-id')
+    if (wagerList.length == 1) {
+      $('tr.actions').addClass("hidden");
+      $('.wager-types').addClass("hidden");
+    }
+    var propChoices = $('.wager-btn'), i;
+    for (var i = 0; i < propChoices.length; i ++) {
+      if (choiceId == $(propChoices[i]).data('propchoiceid')) {
+        $(propChoices[i]).toggleClass("green");
+      }
+    }
+
   }))
 
   $('.ticket').on('keyup', '.wager-risk',(function() {
