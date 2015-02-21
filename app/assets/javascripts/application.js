@@ -109,7 +109,7 @@ $(function(){
     container = $(this).closest('tbody');
     win = container.find('.wager-win');
     odds = parseInt(container.find('.wager-odds').val());
-    risk = parseInt($(this).val());
+    risk = parseFloat($(this).val());
     $(win).val(calculateWin(risk, odds));
   }))
 
@@ -117,7 +117,7 @@ $(function(){
     container = $(this).closest('tbody');
     risk = container.find('.wager-risk');
     odds = parseInt(container.find('.wager-odds').val());
-    win = parseInt($(this).val());
+    win = parseFloat($(this).val());
     $(risk).val(calculateRisk(win, odds));
   }))
 
