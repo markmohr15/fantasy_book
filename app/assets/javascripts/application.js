@@ -94,9 +94,7 @@ $(function(){
             $(wagerList[i]).closest('tbody').remove();
           }
         }
-        wagers = $('.ticket').find('.wager-info');
-        console.log(wagers.length);
-        if (wagers.length == 1) {
+        if (wagerList.length == 2) {
           $('tr.actions').addClass("hidden");
           $('.wager-types').addClass("hidden");
         }
