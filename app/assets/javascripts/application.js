@@ -83,6 +83,7 @@ $(function(){
           row.find('.wager-total').val(total);
           $('tr.actions').before(row);
           $('tr.actions').removeClass("hidden");
+          $('.wager-types').removeClass("hidden");
       } else {
           alert("This event is not available for betting.");
       }
@@ -92,6 +93,12 @@ $(function(){
           if (propChoiceId == $(wagerList[i]).val()) {
             $(wagerList[i]).closest('tbody').remove();
           }
+        }
+        wagers = $('.ticket').find('.wager-info');
+        console.log(wagers.length);
+        if (wagers.length == 1) {
+          $('tr.actions').addClass("hidden");
+          $('.wager-types').addClass("hidden");
         }
     }
   }
