@@ -75,7 +75,7 @@ $(function(){
             alert("line changed");
         }
           var row = $('tbody.new-wager-row').clone().removeClass('hidden new-wager-row');
-          row.find('.wager-info').val(name + " " + displayLine);
+          row.find('.wager-info').text(name + " " + displayLine);
           row.find('.wager-prop-id').val(propId);
           row.find('.wager-prop-choice-id').val(propChoiceId);
           row.find('.wager-odds').val(odds);
@@ -117,7 +117,6 @@ $(function(){
         $(propChoices[i]).toggleClass("green");
       }
     }
-
   }))
 
   $('.ticket').on('keyup', '.wager-risk',(function() {

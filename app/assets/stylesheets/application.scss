@@ -93,11 +93,6 @@
   width: 200px;
 }
 
-.prop-table {
-  border-left: 3px solid;
-  border-right: 3px solid;
-}
-
 .table tbody>tr>td.vert-align{
     vertical-align: middle;
 }
@@ -109,6 +104,19 @@ h5 {
 .prop-date {
   background-color: lightgray;
   font-weight: bold;
+}
+
+.prop-sports, .ticket {
+  padding-bottom: 100%;
+  margin-bottom: -100%;
+}
+
+.prop-sports {
+  border-right: 3px solid;
+}
+
+.ticket {
+  border-left: 3px solid;
 }
 
 .prop-name {
@@ -123,10 +131,34 @@ button.wager-btn {
   font-weight: bold;
 }
 
+td.vert-align {
+  width: 85px;
+}
+
+.wager {
+  border-bottom: 3px solid grey;
+  margin-top: 5px;
+}
+
 .wager-types {
   margin: 0;
   padding-bottom: 20px;
   text-align: center;
+}
+
+.actions {
+  margin-top: 25px;
+}
+
+input#wager-password, input.wager-submit {
+  margin-top: 20px;
+}
+
+.wager-risk, .wager-win {
+  width: 75px;
+  font-size: 12px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .green {

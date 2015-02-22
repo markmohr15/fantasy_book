@@ -1,6 +1,6 @@
-<div class="container padding-large-horizontal">
+<div class="container-fluid padding-large-horizontal">
 
-  <div class ="col-md-2">
+  <div class ="col-md-2 prop-sports">
     <% @sports.each do |sport| %>
       <%= link_to sport.name, {controller: "props", action: "index", sport_id: sport.id}, method: :get %>
       <br />
@@ -42,23 +42,24 @@
       <table>
 
         <tr class="actions hidden">
-          <td>Enter your password to confirm <%= password_field_tag %> </td>
-          <td> <%= submit_tag "Submit" %> </td>
+          <td> <%= password_field_tag 'wager-password', nil, placeholder: "password to confirm" %> </td>
+          <td> <%= submit_tag "Submit", class: "wager-submit" %> </td>
         </tr>
 
-        <tbody class="new-wager-row hidden">
+        <tbody class="new-wager-row wager hidden">
         <tr>
-          <td> <input type="text" class="wager-info" readonly> </td>
+          <td colspan="7"> <p type="text" class="wager-info"></p> </td>
+          <td> <%= button_tag "", type: "button", class: "delete-wager glyphicon glyphicon-remove" %> </td>
         </tr>
         <tr>
           <td> <%= text_field_tag "wager[][prop_id]", nil, class: "wager-prop-id hidden", readonly: "readonly" %> </td>
-          <td> <%= label_tag "Risk" %> <%= text_field_tag "wager[][risk_dollars]", nil, class: "wager-risk", value: 0.00 %> </td>
-          <td> to Win <input type="text" class="wager-win" value="0.00"> </td>
+          <td> <strong> Risk </strong> <%= text_field_tag "wager[][risk_dollars]", nil, class: "wager-risk", value: number_with_precision(0.00, precision: 2) %> </td>
+          <td> <strong> Win </strong> <input type="text" class="wager-win" value="0.00"> </td>
           <td> <%= text_field_tag "wager[][prop_choice_id]", nil, class: "wager-prop-choice-id hidden", readonly: "readonly" %> </td>
           <td> <%= text_field_tag "wager[][odds]", nil, class: "wager-odds hidden", readonly: "readonly" %> </td>
           <td> <%= text_field_tag "wager[][spread]", nil, class: "wager-spread hidden", readonly: "readonly" %> </td>
           <td> <%= text_field_tag "wager[][total]", nil, class: "wager-total hidden", readonly: "readonly" %> </td>
-          <td> <%= button_tag "", type: "button", class: "delete-wager glyphicon glyphicon-remove" %> </td>
+
         </tr>
         </tbody>
       </table>
