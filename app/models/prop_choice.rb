@@ -92,4 +92,22 @@ class PropChoice < ActiveRecord::Base
       end
     end
   end
+
+  def choice_win
+    wagers = Wager.where(prop_choice_id: self.id)
+    counter = 0
+    wagers.each do |wager|
+      counter += wager.win_dollars
+    end
+    counter
+  end
+
+  def choice_risk
+    wagers = Wager.where(prop_choice_id: self.id)
+    counter = 0
+    wagers.each do |wager|
+      counter += wager.risk_dollars
+    end
+    counter
+  end
 end

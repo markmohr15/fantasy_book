@@ -66,6 +66,25 @@ class Prop < ActiveRecord::Base
     end
   end
 
+  def exposure
+    win_array = []
+    risk_array = []
+    choice_array = []
+    risk_counter = 0
+    self.prop_choices.each do |choice|
+      win_array << choice.choice_win
+      risk_array << choice.choice_risk
+      choice_array << choice.id
+    end
+    win = win_array.max
+    place = win_array.index(win_array.max)
+    risk_array.delete_at(place)
+    risk_array.each do |element|
+      risk_counter += element
+    end
+    return PropChoice.find_by(id: choice_array[place]).name + " " + (win - risk_counter).to_s
+  end
+
   def has_winner?
     pc = self.prop_choices
     if self.variety == "Other"

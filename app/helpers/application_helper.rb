@@ -271,7 +271,7 @@ module ApplicationHelper
 
   def vigs
     [
-      [-110, -110, { :'selected' => 'selected' }], #default vig
+      [-115, -115, { :'selected' => 'selected' }], #default vig
       [-1000, -1000],
       [-990, -990],
       [-980, -980],
@@ -379,7 +379,7 @@ module ApplicationHelper
       [-130, -130],
       [-125, -125],
       [-120, -120],
-      [-115, -115],
+      [-110, -110],
       [-105, -105],
       ["+100", 100],
       ["+105", 105],
