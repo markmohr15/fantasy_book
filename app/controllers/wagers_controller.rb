@@ -2,7 +2,7 @@ class WagersController < ApplicationController
   layout "application"
   before_action :user_required
 
-  def create_multiple
+  def create
     if current_user.valid_password?(params[:password])
       params[:wager].each do |attr|
         unless attr["prop_id"] == ""

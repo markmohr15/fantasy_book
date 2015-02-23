@@ -33,9 +33,9 @@
     <h5> Betting Ticket </h5>
 
     <div class = "wager-types hidden">
-      <%= button_tag "Straight" %>
-      <%= button_tag "Parlay" %>
-      <%= button_tag "Teaser" %>
+      <%= button_tag "Straight", class: "straight-btn" %>
+      <%= button_tag "Parlay", class: "parlay-btn" %>
+      <%= button_tag "Teaser", class: "teaser-btn" %>
     </div>
 
     <% if flash[:alert] %>
@@ -50,7 +50,7 @@
     <% end %>
 
     <%= form_tag wagers_path do %>
-      <table>
+      <table class="straight">
 
         <tr class="actions hidden">
           <td> <%= password_field_tag 'password', nil, placeholder: "password to confirm" %> </td>
@@ -75,6 +75,16 @@
         </tbody>
       </table>
     <% end %>
+
+    <div class="teaser hidden">
+      Teasers here
+    </div>
+
+    <div class="parlay hidden">
+      Parlays here
+    </div>
+
+
   </div>
 </div>
 

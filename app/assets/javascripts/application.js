@@ -135,6 +135,25 @@ $(function(){
     $(risk).val(calculateRisk(win, odds));
   }))
 
+  $('.straight-btn').on('click', function() {
+    $('.parlay').addClass("hidden");
+    $('.teaser').addClass("hidden");
+    $('.straight').removeClass("hidden");
+  })
+
+  $('.parlay-btn').on('click', function() {
+    $('.straight').addClass("hidden");
+    $('.teaser').addClass("hidden");
+    $('.parlay').removeClass("hidden");
+  })
+
+  $('.teaser-btn').on('click', function() {
+    $('.straight').addClass("hidden");
+    $('.parlay').addClass("hidden");
+    $('.teaser').removeClass("hidden");
+  })
+
+
   function calculateWin (risk, odds) {
       if (odds > 0) {
           return (risk * odds / 100.0).toFixed(2)
