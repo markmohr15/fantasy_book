@@ -66,6 +66,15 @@
   }
 }
 
+#search {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+input#q {
+  width: 325px;
+}
+
 .transfer-form {
   label {
     float: left;
@@ -147,8 +156,8 @@ td.vert-align {
   margin-top: 25px;
 }
 
-input#wager-password, input.wager-submit {
-  margin-top: 20px;
+input#password {
+  margin-top: 15px;
 }
 
 .wager-risk, .wager-win {

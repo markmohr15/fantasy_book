@@ -44,6 +44,21 @@ class Prop < ActiveRecord::Base
   before_validation :get_opt2_spread
   after_touch :auto_move_odds
 
+  def self.search(search_string)
+    players = Player.where('name LIKE ? or team LIKE ?', "%#{search_string}%", "%#{search_string}%")
+    choice_collection = []
+    props = []
+    players.each do |player|
+      choice_collection << PropChoice.where("choice LIKE '%?%'", player)
+    end
+    choice_collection.flatten.each do |choice|
+      props << choice.prop_id
+    end
+    self.where(id: props)
+    # need to combine this with the above line self.where("proposition like '%#{search_string}%'")
+
+  end
+
   def check_state
     if self.state == "Closed" && has_winner?
       self.grade_prop!

@@ -1,0 +1,19 @@
+  <table class="table table-responsive">
+    <% @dates.each do |date| %>
+      <tr> <td class="prop-date" colspan="3"> <%= date.strftime("%B %-d, %Y") %> </td></tr>
+        <% @props.each do |prop| %>
+          <% if prop.time.to_date === date %>
+            <tr>
+            <td class="prop-proposition" colspan="3"><%= prop.proposition %> </td>
+            </tr>
+            <tr>
+            <td rowspan="<%= prop.prop_choices.count %>" class="vert-align"> <div class="prop-time"> <span class="time"><%= prop.time.strftime("%H:%M EST") %> </span></div></td>
+            <% prop.prop_choices.each do |choice| %>
+              <td class="prop-name choice-<%= cycle 'odd', 'even' %>"> <%= choice.name %> </td>
+              <td> <%= button_tag choice.display_line, type: "button", class: "wager-btn", data: { propchoiceid: choice.id} %> </td>
+            </tr>
+            <% end %>
+          <% end %>
+        <% end %>
+    <% end %>
+  </table>

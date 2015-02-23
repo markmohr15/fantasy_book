@@ -34,6 +34,10 @@ $(function(){
     }
   });
 
+  $("#q").on("keyup", function() {
+    $(this).parent("form").submit();
+  })
+
   $('.wager-btn').on('click', function(e) {
     e.preventDefault();
     $(this).toggleClass("green");
@@ -81,8 +85,8 @@ $(function(){
           row.find('.wager-odds').val(odds);
           row.find('.wager-spread').val(spread);
           row.find('.wager-total').val(total);
-          $('tr.actions').before(row);
-          $('tr.actions').removeClass("hidden");
+          $('tbody.actions').before(row);
+          $('tbody.actions').removeClass("hidden");
           $('.wager-types').removeClass("hidden");
       } else {
           alert("This event is not available for betting.");
@@ -95,7 +99,7 @@ $(function(){
           }
         }
         if (wagerList.length == 2) {
-          $('tr.actions').addClass("hidden");
+          $('tbody.actions').addClass("hidden");
           $('.wager-types').addClass("hidden");
         }
     }

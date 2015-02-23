@@ -8,25 +8,14 @@
   </div>
 
   <div class="col-md-7 prop-table">
-    <table class="table table-responsive">
-    <% @dates.each do |date| %>
-      <tr> <td class="prop-date" colspan="3"> <%= date.strftime("%B %-d, %Y") %> </td></tr>
-        <% @props.each do |prop| %>
-          <% if prop.time.to_date === date %>
-            <tr>
-            <td class="prop-proposition" colspan="3"><%= prop.proposition %> </td>
-            </tr>
-            <tr>
-            <td rowspan="<%= prop.prop_choices.count %>" class="vert-align"> <div class="prop-time"> <span class="time"><%= prop.time.strftime("%H:%M EST") %> </span></div></td>
-            <% prop.prop_choices.each do |choice| %>
-              <td class="prop-name choice-<%= cycle 'odd', 'even' %>"> <%= choice.name %> </td>
-              <td> <%= button_tag choice.display_line, type: "button", class: "wager-btn", data: { propchoiceid: choice.id} %> </td>
-            </tr>
-            <% end %>
-          <% end %>
-        <% end %>
+    <%= form_tag props_path, id: "search", method: :get, remote: true do %>
+      <%= text_field_tag :q, "", placeholder: "Prop Search (enter a team or player name)" %>
+      <%= submit_tag "Search" %>
     <% end %>
-    </table>
+
+    <div id="props">
+      <%= render "proplist" %>
+    </div>
   </div>
 
   <div class ="col-md-3 ticket">
@@ -52,10 +41,12 @@
     <%= form_tag wagers_path do %>
       <table class="straight">
 
-        <tr class="actions hidden">
-          <td> <%= password_field_tag 'password', nil, placeholder: "password to confirm" %> </td>
-          <td> <%= submit_tag "Submit", class: "wager-submit" %> </td>
+        <tbody class="actions hidden">
+        <tr>
+          <td> <%= password_field_tag 'password', nil, placeholder: "password to confirm" %> </td></tr>
+         <tr> <td> <%= submit_tag "Submit", class: "wager-submit" %> </td> </tr>
         </tr>
+        </tbody>
 
         <tbody class="new-wager-row wager hidden">
         <tr>
@@ -63,9 +54,9 @@
           <td> <%= button_tag "", type: "button", class: "delete-wager glyphicon glyphicon-remove" %> </td>
         </tr>
         <tr>
-          <td> <%= text_field_tag "wager[][prop_id]", nil, class: "wager-prop-id hidden", readonly: "readonly" %> </td>
-          <td> <strong> Risk </strong> <%= text_field_tag "wager[][risk_dollars]", nil, class: "wager-risk", value: number_with_precision(0.00, precision: 2) %> </td>
+          <td id="risk"> <strong> Risk </strong> <%= text_field_tag "wager[][risk_dollars]", nil, class: "wager-risk", value: number_with_precision(0.00, precision: 2) %> </td>
           <td> <strong> Win </strong> <input type="text" class="wager-win" value="0.00"> </td>
+          <td> <%= text_field_tag "wager[][prop_id]", nil, class: "wager-prop-id hidden", readonly: "readonly" %> </td>
           <td> <%= text_field_tag "wager[][prop_choice_id]", nil, class: "wager-prop-choice-id hidden", readonly: "readonly" %> </td>
           <td> <%= text_field_tag "wager[][odds]", nil, class: "wager-odds hidden", readonly: "readonly" %> </td>
           <td> <%= text_field_tag "wager[][spread]", nil, class: "wager-spread hidden", readonly: "readonly" %> </td>

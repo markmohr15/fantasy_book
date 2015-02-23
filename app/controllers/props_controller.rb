@@ -2,11 +2,14 @@ class PropsController < ApplicationController
   layout "props"
 
   def index
-    if params[:sport_id].present?
+    if params[:q]
+      @props = Prop.search(params[:q])
+    elsif params[:sport_id].present?
       @props = Prop.where(sport_id: params[:sport_id], state: 1)
     else
       @props = Prop.where(state: 1)
     end
+
     @sports = Sport.all
     @dates = []
     timeRange = Time.now.to_date..Time.now.to_date + 14.days
