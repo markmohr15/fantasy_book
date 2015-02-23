@@ -54,9 +54,7 @@ class Prop < ActiveRecord::Base
     choice_collection.flatten.each do |choice|
       props << choice.prop_id
     end
-    self.where(id: props, state: 1)
-    # need to combine this with the above line self.where("proposition like '%#{search_string}%'")
-
+    self.where("id in (?) OR proposition LIKE ?", props, "%#{search_string}%").where(state: 1)
   end
 
   def check_state
