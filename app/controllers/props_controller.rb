@@ -2,7 +2,7 @@ class PropsController < ApplicationController
   layout "props"
 
   def index
-    if params[:q]
+    if params[:q].present?
       @props = Prop.search(params[:q])
     elsif params[:sport_id].present?
       @props = Prop.where(sport_id: params[:sport_id], state: 1)
