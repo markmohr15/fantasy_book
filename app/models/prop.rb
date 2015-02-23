@@ -42,6 +42,7 @@ class Prop < ActiveRecord::Base
 
   after_commit :check_state
   before_validation :get_opt2_spread
+  after_touch :auto_move_odds
 
   def check_state
     if self.state == "Closed" && has_winner?
@@ -82,7 +83,34 @@ class Prop < ActiveRecord::Base
     risk_array.each do |element|
       risk_counter += element
     end
-    return PropChoice.find_by(id: choice_array[place]).name + " " + (win - risk_counter).to_s
+    (choice_array[place]).to_s + " " + (win - risk_counter).to_s
+  end
+
+  def exposure_to_s
+    name = PropChoice.find_by(id: self.exposure.split[0]).name
+    name + " " + self.exposure.split[1]
+  end
+
+  def auto_move_odds
+    if self.variety != "Other"
+      exposure = self.exposure.split[1].to_i
+      id = self.exposure.split[0].to_i
+      newLine = exposure / 2500 * -10 + -115
+      newLine2 = exposure / 2500 * 10 + -115
+      if newLine2 > -100
+        newLine2 = newLine2 +=200
+      end
+      choice = PropChoice.find_by(id: id)
+      choice.odds = newLine
+      choice.save
+      if self.prop_choices.first == choice
+        self.prop_choices.last.odds = newLine2
+        self.prop_choices.last.save
+      else
+        self.prop_choices.first.odds = newLine2
+        self.prop_choices.first.save
+      end
+    end
   end
 
   def has_winner?

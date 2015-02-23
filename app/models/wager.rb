@@ -25,7 +25,7 @@ class Wager < ActiveRecord::Base
   include AASM, StorageConversions
 
   belongs_to :user
-  belongs_to :prop
+  belongs_to :prop, touch: true
   belongs_to :prop_choice
   validates :prop_id, presence: true
   validates :user_id, presence: true
@@ -37,6 +37,7 @@ class Wager < ActiveRecord::Base
   display_line :spread
   display_juice :odds
   store_cents :risk, :win
+
 
   before_validation :get_win, on: [:create, :update]
 

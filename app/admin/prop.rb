@@ -15,7 +15,7 @@ ActiveAdmin.register Prop do
     column "Type", :variety
     column "Event Time", :time
     column "Max Win", :maximum_dollars
-    column "Exposure", :exposure
+    column "Exposure", :exposure_to_s
     column :created_at
     actions
   end
@@ -65,6 +65,9 @@ ActiveAdmin.register Prop do
       end
       row "Max Win" do
         prop.maximum_dollars
+      end
+      row "Exposure" do
+        prop.exposure
       end
       row :created_at
       row :updated_at
