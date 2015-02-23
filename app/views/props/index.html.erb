@@ -38,11 +38,22 @@
       <%= button_tag "Teaser" %>
     </div>
 
+    <% if flash[:alert] %>
+      <div class="alert">
+        <%= alert %>
+      </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="notice">
+        <%= notice %>
+      </div>
+    <% end %>
+
     <%= form_tag wagers_path do %>
       <table>
 
         <tr class="actions hidden">
-          <td> <%= password_field_tag 'wager-password', nil, placeholder: "password to confirm" %> </td>
+          <td> <%= password_field_tag 'password', nil, placeholder: "password to confirm" %> </td>
           <td> <%= submit_tag "Submit", class: "wager-submit" %> </td>
         </tr>
 

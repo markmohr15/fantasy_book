@@ -111,11 +111,8 @@ h5 {
   margin-bottom: -100%;
 }
 
-.prop-sports {
+.prop-table {
   border-right: 3px solid;
-}
-
-.ticket {
   border-left: 3px solid;
 }
 
@@ -162,21 +159,39 @@ input#wager-password, input.wager-submit {
 }
 
 .green {
-  background-color: lawngreen !important;
+  background-color: forestgreen !important;
 }
 
 body {
   padding-bottom: 70px;
 }
 
-.myalert {
+.alert {
   background-color: red;
   color: white;
   padding: 10px;
   border: 3px solid darkred;
   border-radius: 10px;
   float: none;
-  width: 300px;
+  width: 200px;
+  height: 60px;
+  font-size: 12px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 20px;
+  text-align: center
+}
+
+.notice {
+  background-color: forestgreen;
+  color: white;
+  padding: 10px;
+  border: 3px solid darkred;
+  border-radius: 10px;
+  float: none;
+  width: 200px;
+  height: 60px;
+  font-size: 12px;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 20px;

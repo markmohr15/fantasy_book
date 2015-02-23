@@ -3,9 +3,7 @@ class WagersController < ApplicationController
   before_action :user_required
 
   def create_multiple
-    binding.pry
     if current_user.valid_password?(params[:password])
-
       params[:wager].each do |attr|
         unless attr["prop_id"] == ""
           prop = Prop.find_by id: attr["prop_id"]
@@ -35,7 +33,7 @@ class WagersController < ApplicationController
           end
         end
       end
-      redirect_to :back, alert: t("wager.successful_wager")
+      redirect_to :back, notice: t("wager.successful_wager")
     else
       redirect_to :back, alert: t("wager.invalid_password")
     end

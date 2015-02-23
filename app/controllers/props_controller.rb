@@ -1,5 +1,5 @@
 class PropsController < ApplicationController
-  layout "application"
+  layout "props"
 
   def index
     if params[:sport_id].present?

@@ -38,7 +38,6 @@ class Wager < ActiveRecord::Base
   display_juice :odds
   store_cents :risk, :win
 
-
   before_validation :get_win, on: [:create, :update]
 
   enum state: [ :Pending, :Won, :Lost, :No_Action ]
