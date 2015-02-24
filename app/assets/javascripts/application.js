@@ -38,8 +38,7 @@ $(function(){
     $(this).parent("form").submit();
   })
 
-  $('.wager-btn').on('click', function(e) {
-    e.preventDefault();
+  $('.prop-table').on('click', '.wager-btn',(function() {
     $(this).toggleClass("green");
     prop_choice = $(this);
     $.ajax({
@@ -53,7 +52,7 @@ $(function(){
         console.log(status + error);
       }
     });
-  });
+  }));
 
   function handleData (responseData) {
     console.log(responseData);
