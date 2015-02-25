@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    if current_user.role == "admin" || current_user_user.role = "superadmin"
+    if current_user.role == "admin" || current_user.role == "superadmin"
       admin_root_path
     else
       root_path
