@@ -2,7 +2,7 @@
 
   <div class ="col-md-2 prop-sports">
     <% @sports.each do |sport| %>
-      <%= link_to sport.name, {controller: "props", action: "index", sport_id: sport.id}, method: :get %>
+      <%= link_to sport.name, {controller: "props", action: "index", sport_id: sport.id}, method: :get, remote: true %>
       <br />
     <% end %>
   </div>
