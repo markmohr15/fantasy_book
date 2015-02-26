@@ -21,12 +21,6 @@
   <div class ="col-md-3 ticket">
     <h5> Betting Ticket </h5>
 
-    <div class = "wager-types hidden">
-      <%= button_tag "Straight", class: "straight-btn" %>
-      <%= button_tag "Parlay", class: "parlay-btn" %>
-      <%= button_tag "Teaser", class: "teaser-btn" %>
-    </div>
-
     <% if flash[:alert] %>
       <div class="alert">
         <%= alert %>
