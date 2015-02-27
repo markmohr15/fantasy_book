@@ -41,6 +41,14 @@ $(function(){
   $('.prop-table').on('click', '.wager-btn',(function() {
     $(this).toggleClass("green");
     prop_choice = $(this);
+    wagers = $('.ticket').find('.success'), i;
+    for (var i = 0; i < wagers.length - 1; i ++) {
+      if (wagers[i].classList.contains('hidden')) {
+        //do nothing
+      } else {
+        $(wagers[i]).closest('tbody').remove();
+      }
+    }
     $.ajax({
       url: "/pc",
       type: "GET",
@@ -72,23 +80,39 @@ $(function(){
     container = $(prop_choice).closest('tr');
     pageLine = container.find('.wager-btn');
     if ($(prop_choice)[0].classList.contains('green')) {
+      var row = $('tbody.new-wager-row').clone().removeClass('hidden new-wager-row');
+      row.find('.wager-info').text(name + " " + displayLine);
+      row.find('.wager-prop-id').val(propId);
+      row.find('.wager-prop-choice-id').val(propChoiceId);
+      row.find('.wager-odds').val(odds);
+      row.find('.wager-spread').val(spread);
+      row.find('.wager-total').val(total);
+      $('tbody.actions').before(row);
+      $('tbody.actions').removeClass("hidden");
       if (state == "Open") {
           if (displayLine == $(pageLine).text()) {
             // do nothing
         } else {
-            alert("line changed");
+            wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
+            for (var i = 0; i < wagerList.length - 1; i ++) {
+              if (propChoiceId == $(wagerList[i]).val()) {
+              var container = $('.ticket').find(wagerList[i]).closest('tbody')
+              container.find('.failure').text("Prop odds have changed.")
+              container.find('.failure').removeClass("hidden")
+              }
+            }
         }
-          var row = $('tbody.new-wager-row').clone().removeClass('hidden new-wager-row');
-          row.find('.wager-info').text(name + " " + displayLine);
-          row.find('.wager-prop-id').val(propId);
-          row.find('.wager-prop-choice-id').val(propChoiceId);
-          row.find('.wager-odds').val(odds);
-          row.find('.wager-spread').val(spread);
-          row.find('.wager-total').val(total);
-          $('tbody.actions').before(row);
-          $('tbody.actions').removeClass("hidden");
       } else {
-          alert("This event is not available for betting.");
+          wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
+            for (var i = 0; i < wagerList.length - 1; i ++) {
+              if (propChoiceId == $(wagerList[i]).val()) {
+              var container = $('.ticket').find(wagerList[i]).closest('tbody')
+              container.find('.failure').text("Prop is not open for wagering.")
+              container.find('.failure').removeClass("hidden")
+              container.find('#risk').remove()
+              container.find('#win').remove()
+              }
+            }
       }
     } else {
         var wagerList = $('.wager-prop-choice-id'), i;
@@ -110,7 +134,7 @@ $(function(){
     container.remove();
     var wagerList = $('.wager-prop-choice-id')
     if (wagerList.length == 1) {
-      $('tr.actions').addClass("hidden");
+      $('.actions').addClass("hidden");
     }
     var propChoices = $('.wager-btn'), i;
     for (var i = 0; i < propChoices.length; i ++) {

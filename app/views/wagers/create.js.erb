@@ -1,29 +1,74 @@
-<% if @error %>
-  $('.alert').append("<%= @error %>")
+<% if @password_error %>
+  $('.alert').append("<%= @password_error %>")
   $('.alert').removeClass("hidden")
   $('#password').val("")
 <% else %>
+  $('#password').val("")
+  $('.alert').addClass("hidden")
   <% @wagers.each do |wager| %>
-    wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
-    for (var i = 0; i < wagerList.length - 1; i ++) {
-      console.log(propChoiceId)
-      if (<%= wager.prop_choice_id %> == $(wagerList[i]).val()) {
-        var container = $('.ticket').find(wagerList[i]).closest('tbody')
-        <% if wager.errors.any? %>
-          container.find('.failure').text("<%= wager.errors.full_messages.first %>")
-          container.find('.failure').removeClass("hidden")
-        <% else %>
-          container.find('.success').text("Bet ID: <%= wager.id %>")
-          container.find('.success').removeClass("hidden")
-          container.find('.delete-wager').remove()
-          container.find('.wager-risk').remove()
-          container.find('.wager-win').remove()
-          container.find('#risk').append("<%= wager.risk %> to ")
-          console.log("<%= wager.win %>")
-          container.find('#win').append("<%= wager.win %>")
-        <% end %>
+    <% unless wager.nil? %>
+      var wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
+      for (var i = 0; i < wagerList.length - 1; i ++) {
+        if (<%= wager.prop_choice_id %> == $(wagerList[i]).val()) {
+          container = $('.ticket').find(wagerList[i]).closest('tbody')
+          <% if wager.errors.any? %>
+            container.find('.failure').text("<%= wager.errors.full_messages.first %>")
+            container.find('.failure').removeClass("hidden")
+            $.ajax({
+              url: "/pc",
+              type: "GET",
+              data: {prop_choice_id: <%= wager.prop_choice_id %>},
+              success: function (data) {
+                  handleData(data);
+              },
+              error: function (xhr, status, error) {
+                console.log(status + error);
+              }
+            });
+
+            function handleData (responseData) {
+              console.log(responseData);
+              odds = responseData.odds;
+              total = responseData.prop.over_under;
+              displayLine = responseData.display_line;
+              propChoiceId = responseData.id;
+              var wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
+              for (var i = 0; i < wagerList.length - 1; i ++) {
+                if (<%= wager.prop_choice_id %> == $(wagerList[i]).val()) {
+                container = $('.ticket').find(wagerList[i]).closest('tbody')
+                }
+              }
+              container.find('.wager-info').text(name + " " + displayLine);
+              container.find('.wager-odds').val(odds);
+              container.find('.wager-spread').val(spread);
+              container.find('.wager-total').val(total);
+            }
+          <% else %>
+            container.find('.success').text("Bet ID: <%= wager.id %>")
+            container.find('.success').removeClass("hidden")
+            container.find('.delete-wager').remove()
+            html = " <br/> Risk " + "<%= number_to_currency wager.risk_dollars %>" + " to Win " + "<%= number_to_currency wager.win_dollars %>"
+            container.find('#risk').addClass("hidden")
+            container.find('#win').addClass("hidden")
+            container.find('.wager-risk').val("")
+            container.find('.wager-win').val("")
+            container.find('.wager-info').append(html)
+            container.find('.wager-prop-id').val("")
+            container.find('.failure').text("")
+            container.find('.failure').addClass("hidden")
+            if ($('.ticket').find('.delete-wager').length == 1) {
+              $('.actions').addClass('hidden')
+            }
+            var propChoices = $('.wager-btn'), i;
+            for (var i = 0; i < propChoices.length; i ++) {
+              if (<%= wager.prop_choice_id %> == $(propChoices[i]).data('propchoiceid')) {
+              $(propChoices[i]).toggleClass("green");
+        }
       }
-    }
+          <% end %>
+        }
+      }
+    <% end %>
   <% end %>
 <% end %>
 

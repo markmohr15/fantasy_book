@@ -6,15 +6,8 @@ class WagersController < ApplicationController
     if current_user.valid_password?(params[:password])
       @wagers = params[:wager].map { |attrs| Wager.create(attrs.to_hash.merge(user_id: current_user.id)) unless attrs["prop_id"] == "" }
       @wagers = @wagers[0...-1]
-      params[:wager].each do |attr|
-        unless attr["prop_id"] == ""
-          @wager = Wager.new(attr.to_hash)
-          @wager.user_id = current_user.id
-          @wager.save
-        end
-      end
     else
-      @error = "Invalid Password"
+      @password_error = "Invalid Password"
     end
     #binding.pry
     respond_to do |format|
