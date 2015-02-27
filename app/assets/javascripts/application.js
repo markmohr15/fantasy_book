@@ -39,27 +39,31 @@ $(function(){
   })
 
   $('.prop-table').on('click', '.wager-btn',(function() {
-    $(this).toggleClass("green");
-    prop_choice = $(this);
-    wagers = $('.ticket').find('.success'), i;
-    for (var i = 0; i < wagers.length - 1; i ++) {
-      if (wagers[i].classList.contains('hidden')) {
-        //do nothing
-      } else {
-        $(wagers[i]).closest('tbody').remove();
+    if (document.cookie.indexOf("signed_in") >= 0) {
+      $(this).toggleClass("green");
+      prop_choice = $(this);
+      wagers = $('.ticket').find('.success'), i;
+      for (var i = 0; i < wagers.length - 1; i ++) {
+        if (wagers[i].classList.contains('hidden')) {
+          //do nothing
+        } else {
+          $(wagers[i]).closest('tbody').remove();
+        }
       }
+      $.ajax({
+        url: "/pc",
+        type: "GET",
+        data: {prop_choice_id: $(this).data('propchoiceid')},
+        success: function (data) {
+            handleData(data);
+        },
+        error: function (xhr, status, error) {
+          console.log(status + error);
+        }
+      });
+    } else {
+      window.location = '/signin'
     }
-    $.ajax({
-      url: "/pc",
-      type: "GET",
-      data: {prop_choice_id: $(this).data('propchoiceid')},
-      success: function (data) {
-          handleData(data);
-      },
-      error: function (xhr, status, error) {
-        console.log(status + error);
-      }
-    });
   }));
 
   function handleData (responseData) {
