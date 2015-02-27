@@ -1,0 +1,30 @@
+<% if @error %>
+  $('.alert').append("<%= @error %>")
+  $('.alert').removeClass("hidden")
+  $('#password').val("")
+<% else %>
+  <% @wagers.each do |wager| %>
+    wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
+    for (var i = 0; i < wagerList.length - 1; i ++) {
+      console.log(propChoiceId)
+      if (<%= wager.prop_choice_id %> == $(wagerList[i]).val()) {
+        var container = $('.ticket').find(wagerList[i]).closest('tbody')
+        <% if wager.errors.any? %>
+          container.find('.failure').text("<%= wager.errors.full_messages.first %>")
+          container.find('.failure').removeClass("hidden")
+        <% else %>
+          container.find('.success').text("Bet ID: <%= wager.id %>")
+          container.find('.success').removeClass("hidden")
+          container.find('.delete-wager').remove()
+          container.find('.wager-risk').remove()
+          container.find('.wager-win').remove()
+          container.find('#risk').append("<%= wager.risk %> to ")
+          console.log("<%= wager.win %>")
+          container.find('#win').append("<%= wager.win %>")
+        <% end %>
+      }
+    }
+  <% end %>
+<% end %>
+
+

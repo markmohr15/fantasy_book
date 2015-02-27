@@ -21,19 +21,12 @@
   <div class ="col-md-3 ticket">
     <h5> Betting Ticket </h5>
 
-    <% if flash[:alert] %>
-      <div class="alert">
-        <%= alert %>
-      </div>
-    <% end %>
-    <% if flash[:notice] %>
-      <div class="notice">
-        <%= notice %>
-      </div>
-    <% end %>
 
-    <%= form_tag wagers_path do %>
-      <table class="straight">
+      <div class="alert hidden">
+      </div>
+
+    <%= form_tag wagers_path, method: :post, remote: true do %>
+      <table>
 
         <tbody class="actions hidden">
         <tr>
@@ -44,12 +37,18 @@
 
         <tbody class="new-wager-row wager hidden">
         <tr>
+          <td colspan="7"> <p type="text" class="success hidden"></p></td>
+        </tr>
+        <tr>
+          <td colspan="7"> <p type="text" class="failure hidden"></p></td>
+        </tr>
+        <tr>
           <td colspan="7"> <p type="text" class="wager-info"></p> </td>
           <td> <%= button_tag "", type: "button", class: "delete-wager glyphicon glyphicon-remove" %> </td>
         </tr>
         <tr>
           <td id="risk"> <strong> Risk </strong> <%= text_field_tag "wager[][risk_dollars]", nil, class: "wager-risk", value: number_with_precision(0.00, precision: 2) %> </td>
-          <td> <strong> Win </strong> <input type="text" class="wager-win" value="0.00"> </td>
+          <td id="win"> <strong> Win </strong> <input type="text" class="wager-win" value="0.00"> </td>
           <td> <%= text_field_tag "wager[][prop_id]", nil, class: "wager-prop-id hidden", readonly: "readonly" %> </td>
           <td> <%= text_field_tag "wager[][prop_choice_id]", nil, class: "wager-prop-choice-id hidden", readonly: "readonly" %> </td>
           <td> <%= text_field_tag "wager[][odds]", nil, class: "wager-odds hidden", readonly: "readonly" %> </td>

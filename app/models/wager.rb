@@ -32,7 +32,7 @@ class Wager < ActiveRecord::Base
   validates :risk, presence: true
   validates :odds, presence: true
   validates :prop_choice_id, presence: true
-  validate :within_maximum
+  validate :within_maximum?, :open?, :odds?, :spread?
 
   display_line :spread
   display_juice :odds
@@ -110,7 +110,7 @@ class Wager < ActiveRecord::Base
     self.save
   end
 
-  def within_maximum
+  def within_maximum?
     existing_wagers = Wager.where(user_id: self.user_id, prop_id: self.prop_id)
     counter = 0
     existing_wagers.map do |wager|
@@ -120,6 +120,31 @@ class Wager < ActiveRecord::Base
     end
     if counter + self.win_dollars > self.prop.maximum_dollars
       errors.add(:risk, "exceeds limit")
+    end
+  end
+
+  def open?
+    if self.prop.state != "Open"
+      errors[:base] << "Prop is not open for wagering."
+    end
+  end
+
+  def odds?
+    pc = self.prop_choice
+    if self.odds != pc.odds
+      errors[:base] << "Prop odds have changed."
+    end
+  end
+
+  def spread?
+    if self.prop.variety == "Over/Under" && self.prop.over_under != self.total
+      errors[:base] << "Prop total has changed."
+    elsif self.prop.variety == "Fantasy" || self.prop.variety == "2P Fantasy"
+      if self.prop_choice == self.prop.prop_choices.first && self.spread != self.prop.opt1_spread
+        errors[:base] << "Prop odds have changed."
+      elsif self.prop_choice == self.prop.prop_choices.last && self.spread != self.prop.opt2_spread
+        errors[:base] << "Prop odds have changed."
+      end
     end
   end
 

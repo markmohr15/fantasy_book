@@ -63,7 +63,8 @@ $(function(){
     name = responseData.name
     odds = responseData.odds;
     total = responseData.prop.over_under;
-    if ($(prop_choice)[0].classList.contains('odd')) {
+    td = $(prop_choice).closest('td');
+    if ($(td)[0].classList.contains('odd')) {
       spread = responseData.prop.opt1_spread;
     } else {
       spread = responseData.prop.opt2_spread;
