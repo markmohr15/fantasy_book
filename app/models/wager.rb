@@ -32,7 +32,7 @@ class Wager < ActiveRecord::Base
   validates :risk, presence: true
   validates :odds, presence: true
   validates :prop_choice_id, presence: true
-  validate :within_maximum?, :open?, :odds?, :spread?
+  validate :open?, :odds?, :spread?
 
   display_line :spread
   display_juice :odds
@@ -108,19 +108,6 @@ class Wager < ActiveRecord::Base
     end
     self.state = "Pending"
     self.save
-  end
-
-  def within_maximum?
-    existing_wagers = Wager.where(user_id: self.user_id, prop_id: self.prop_id)
-    counter = 0
-    existing_wagers.map do |wager|
-      unless wager.id == self.id
-        counter += wager.win_dollars
-      end
-    end
-    if counter + self.win_dollars > self.prop.maximum_dollars
-      errors.add(:risk, "exceeds limit")
-    end
   end
 
   def open?
