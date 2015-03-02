@@ -69,6 +69,7 @@ $(function(){
   function handleData (responseData) {
     console.log(responseData);
     state = responseData.prop.state;
+    proposition = responseData.prop.proposition;
     displayLine = responseData.display_line;
     propId = responseData.prop.id;
     propChoiceId = responseData.id;
@@ -85,7 +86,8 @@ $(function(){
     pageLine = container.find('.wager-btn');
     if ($(prop_choice)[0].classList.contains('green')) {
       var row = $('tbody.new-wager-row').clone().removeClass('hidden new-wager-row');
-      row.find('.wager-info').text(name + " " + displayLine);
+      html = "<strong>" + proposition + "</strong>" + " <br/>" + name + " " + displayLine
+      row.find('.wager-info').append(html);
       row.find('.wager-prop-id').val(propId);
       row.find('.wager-prop-choice-id').val(propChoiceId);
       row.find('.wager-odds').val(odds);

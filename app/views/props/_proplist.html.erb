@@ -7,7 +7,7 @@
             <td class="prop-proposition" colspan="3"><%= prop.proposition %> </td>
             </tr>
             <tr>
-            <td rowspan="<%= prop.prop_choices.count %>" class="vert-align"> <div class="prop-time"> <span class="time"><%= prop.time.strftime("%H:%M EST") %> </span></div></td>
+            <td rowspan="<%= prop.prop_choices.count %>" class="vert-align"> <div class="prop-time"> <span class="time"><%= prop.time.strftime("%l:%M %P EST") %> </span></div></td>
             <% prop.prop_choices.each do |choice| %>
               <td class="prop-name"> <%= choice.name %> </td>
               <td class="<%= cycle 'odd', 'even' %>"> <%= button_tag choice.display_line, type: "button", class: "wager-btn", data: { propchoiceid: choice.id} %> </td>

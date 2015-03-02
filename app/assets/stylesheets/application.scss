@@ -138,7 +138,7 @@ button.wager-btn {
 }
 
 td.vert-align {
-  width: 85px;
+  width: 105px;
 }
 
 .wager {
@@ -146,14 +146,12 @@ td.vert-align {
   margin-top: 15px;
 }
 
-.wager-types {
-  margin: 0;
-  padding-bottom: 20px;
-  text-align: center;
-}
-
 .actions {
   margin-top: 25px;
+}
+
+.wager-proposition {
+  font-weight: bold;
 }
 
 input#password {
