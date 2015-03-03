@@ -71,29 +71,26 @@ ActiveAdmin.register Prop do
       end
       f.has_many :prop_choices, new_record: false do |s|
         if f.object.new_record?
-          s.input :player1, as: :select, collection: (Player.all), :wrapper_html => { class: "player1"}
-          s.input :player2, as: :select, collection: (Player.all), :wrapper_html => { class: "player2 hidden"}
-          s.input :player3, as: :select, collection: (Player.all), :wrapper_html => { class: "player3 hidden"}
-          s.input :player4, as: :select, collection: (Player.all), :wrapper_html => { class: "player4 hidden"}
-          s.input :player5, as: :select, collection: (Player.all), :wrapper_html => { class: "player5 hidden"}
+          s.input :player1, as: :select, collection: (Player.all), wrapper_html: { class: "player1"}
+          s.input :player2, as: :select, collection: (Player.all), wrapper_html: { class: "player2 hidden"}
+          s.input :player3, as: :select, collection: (Player.all), wrapper_html: { class: "player3 hidden"}
+          s.input :player4, as: :select, collection: (Player.all), wrapper_html: { class: "player4 hidden"}
+          s.input :player5, as: :select, collection: (Player.all), wrapper_html: { class: "player5 hidden"}
           s.input :odds, as: :select, collection: (vigs)
+          s.input :available, wrapper_html: { class: "available"}
         else
-          s.input :player1, :wrapper_html => { class: "player1"}
-          s.input :player2, :wrapper_html => { class: "player2 hidden"}
-          s.input :player3, :wrapper_html => { class: "player3 hidden"}
-          s.input :player4, :wrapper_html => { class: "player4 hidden"}
-          s.input :player5, :wrapper_html => { class: "player5 hidden"}
+          s.input :player1, wrapper_html: { class: "player1e"}
+          s.input :player2, wrapper_html: { class: "player2e hidden"}
+          s.input :player3, wrapper_html: { class: "player3e hidden"}
+          s.input :player4, wrapper_html: { class: "player4e hidden"}
+          s.input :player5, wrapper_html: { class: "player5e hidden"}
           s.input :odds, as: :select, collection: (vigs)
+          s.input :available, wrapper_html: { class: "available"}
         end
       end
     end
     f.actions
   end
-
-
-
-
-
 
   permit_params :sport_id, :state, :proposition, :time_date,
   :time_time_hour, :time_time_minute, :opt1_spread,

@@ -20,10 +20,10 @@ $(window).load(function() {
         container.find('.player5').removeClass('hidden');
     }))
 
-    player2s = $('.player2')
-    player3s = $('.player3')
-    player4s = $('.player4')
-    player5s = $('.player5')
+    player2s = $('.player2e')
+    player3s = $('.player3e')
+    player4s = $('.player4e')
+    player5s = $('.player5e')
 
     for (var i = 0; i < player2s.length; i ++) {
     if ($(player2s[i]).find('input:checked, input[type=text]').val() != "") {
@@ -48,7 +48,6 @@ $(window).load(function() {
             $(player5s[i]).removeClass('hidden')
         }
     }
-
 
 });
 
