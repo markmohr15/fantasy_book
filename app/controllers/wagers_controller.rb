@@ -9,7 +9,6 @@ class WagersController < ApplicationController
     else
       @password_error = "Invalid Password"
     end
-    #binding.pry
     respond_to do |format|
       format.html
       format.js
