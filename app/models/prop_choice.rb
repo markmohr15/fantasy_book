@@ -28,25 +28,14 @@ class PropChoice < ActiveRecord::Base
   validates :choice, presence: true
   validates :odds, presence: true
 
-  attr_accessor :player1, :player2, :choice_raw
-
-  def choice_raw
-    self.choice.join("\n") unless self.choice.nil?
-  end
-
-  def choice_raw=(values)
-    self.choice = []
-    self.choice = values.split("\n")
-  end
+  attr_accessor :player1, :player2, :player3, :player4, :player5
 
   def name
-    if self.prop.variety == "Other" || self.prop.variety == "Over/Under"
-      self.choice_raw
-    elsif self.prop.variety == "Fantasy"
-      self.player1
-    else
-      self.player1 + " & " + self.player2
+    names = []
+    self.choice.each do |choice|
+      names << Player.find_by(id: choice).name
     end
+    names.join(", ")
   end
 
   def player1=(value)
@@ -69,27 +58,71 @@ class PropChoice < ActiveRecord::Base
     self.choice[1] = player.id
   end
 
+  def player3=(value)
+    return if value.blank?
+    player = Player.find_by id: value
+    if player.nil?
+      player = Player.find_by name: value
+    end
+    self.choice ||= []
+    self.choice[2] = player.id
+  end
+
+  def player4=(value)
+    return if value.blank?
+    player = Player.find_by id: value
+    if player.nil?
+      player = Player.find_by name: value
+    end
+    self.choice ||= []
+    self.choice[3] = player.id
+  end
+
+  def player5=(value)
+    return if value.blank?
+    player = Player.find_by id: value
+    if player.nil?
+      player = Player.find_by name: value
+    end
+    self.choice ||= []
+    self.choice[4] = player.id
+  end
+
   def player1
     return if choice.nil?
+    return if self.choice[0].nil?
     Player.find_by(id: self.choice[0]).name
   end
 
   def player2
     return if choice.nil?
+    return if self.choice[1].nil?
     Player.find_by(id: self.choice[1]).name
   end
 
+  def player3
+    return if choice.nil?
+    return if self.choice[2].nil?
+    Player.find_by(id: self.choice[2]).name
+  end
+
+  def player4
+    return if choice.nil?
+    return if self.choice[3].nil?
+    Player.find_by(id: self.choice[3]).name
+  end
+
+  def player5
+    return if choice.nil?
+    return if choice[4].nil?
+    Player.find_by(id: self.choice[4]).name
+  end
+
   def display_line
-    if self.prop.variety == "Other"
-      self.odds_juice
-    elsif self.prop.variety == "Over/Under"
-      self.prop.over_under.to_s + " " + self.odds_juice.to_s
+    if self == self.prop.prop_choices.first
+      self.prop.opt1_spread_line.to_s + " " + self.odds_juice.to_s
     else
-      if self == self.prop.prop_choices.first
-        self.prop.opt1_spread_line.to_s + " " + self.odds_juice.to_s
-      else
-        self.prop.opt2_spread_line.to_s + " " + self.odds_juice.to_s
-      end
+      self.prop.opt2_spread_line.to_s + " " + self.odds_juice.to_s
     end
   end
 
@@ -97,17 +130,17 @@ class PropChoice < ActiveRecord::Base
     wagers = Wager.where(prop_choice_id: self.id)
     counter = 0
     wagers.each do |wager|
-      counter += wager.win_dollars
+      counter += wager.win
     end
-    counter
+    counter / 100.0
   end
 
   def choice_risk
     wagers = Wager.where(prop_choice_id: self.id)
     counter = 0
     wagers.each do |wager|
-      counter += wager.risk_dollars
+      counter += wager.risk
     end
-    counter
+    counter / 100.0
   end
 end

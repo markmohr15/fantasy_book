@@ -8,12 +8,8 @@
 #  created_at  :datetime         not null
 #  updated_at  :datetime         not null
 #  state       :integer          default("0")
-#  maximum     :integer
-#  variety     :string(255)
 #  proposition :text(65535)
-#  over_under  :float(24)
 #  opt1_spread :float(24)
-#  result      :float(24)
 #  opt2_spread :float(24)
 #
 # Indexes
@@ -31,7 +27,6 @@ class Prop < ActiveRecord::Base
 
   validates :sport_id, presence: true
   validates :time, presence: true
-  validates :variety, presence: true
 
   store_cents :maximum
   just_define_datetime_picker :time
@@ -101,7 +96,7 @@ class Prop < ActiveRecord::Base
 
   def exposure_to_s
     name = PropChoice.find_by(id: self.exposure.split[0]).name
-    name + " " + self.exposure.split[1]
+    name + "  (" + self.exposure.split[1] + ")"
   end
 
   def auto_move_odds
