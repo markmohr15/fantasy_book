@@ -28,7 +28,6 @@ class Prop < ActiveRecord::Base
   validates :sport_id, presence: true
   validates :time, presence: true
 
-  store_cents :maximum
   just_define_datetime_picker :time
   display_line :opt1_spread
   display_line :opt2_spread

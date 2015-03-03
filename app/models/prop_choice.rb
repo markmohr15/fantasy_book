@@ -10,6 +10,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  winner     :boolean          default("0")
+#  available  :integer          default("0")
 #
 # Indexes
 #
@@ -27,6 +28,8 @@ class PropChoice < ActiveRecord::Base
 
   validates :choice, presence: true
   validates :odds, presence: true
+
+  store_cents :available
 
   attr_accessor :player1, :player2, :player3, :player4, :player5
 
