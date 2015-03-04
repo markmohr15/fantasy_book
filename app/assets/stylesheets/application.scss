@@ -131,8 +131,12 @@ h5 {
   border-left: 1px solid #ddd;
 }
 
+.prop-time, .prop-timer {
+  text-align: center;
+}
+
 button.wager-btn {
-  width: 90px;
+  width: 190px;
   background-color: gold;
   font-weight: bold;
 }
@@ -150,7 +154,7 @@ td.vert-align {
   margin-top: 25px;
 }
 
-.wager-proposition {
+.wager-proposition, .prop-proposition {
   font-weight: bold;
 }
 
@@ -173,6 +177,10 @@ input#password {
 
 .green {
   background-color: forestgreen !important;
+}
+
+.right {
+  float: right;
 }
 
 body {

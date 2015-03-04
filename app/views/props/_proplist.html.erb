@@ -1,19 +1,25 @@
   <table class="table table-responsive">
     <% @dates.each do |date| %>
-      <tr> <td class="prop-date" colspan="3"> <%= date.strftime("%B %-d, %Y") %> </td></tr>
         <% @props.each do |prop| %>
           <% if prop.time.to_date === date %>
             <tr>
-            <td class="prop-proposition" colspan="3"><%= prop.proposition %> </td>
+              <td colspan="5" class="prop-time"> <span> <%= prop.time.strftime("%B %-d, %Y %n %l:%M %P EST") %> </span> </td>
             </tr>
             <tr>
-            <td rowspan="<%= prop.prop_choices.count %>" class="vert-align"> <div class="prop-time"> <span class="time"><%= prop.time.strftime("%l:%M %P EST") %> </span></div></td>
-            <% prop.prop_choices.each do |choice| %>
-              <td class="prop-name"> <%= choice.name %> </td>
-              <td class="<%= cycle 'odd', 'even' %>"> <%= button_tag choice.display_line, type: "button", class: "wager-btn", data: { propchoiceid: choice.id} %> </td>
+              <td class="odd"> <%= button_tag prop.prop_choices.first.name, type: "button", class: "wager-btn", data: { propchoiceid: prop.prop_choices.first.id} %> </td>
+              <td> <%= prop.prop_choices.first.display_line %> </td>
+              <td class="prop-proposition"> <%= prop.proposition %> </td>
+              <td> <%= prop.prop_choices.last.display_line %> </td>
+              <td class="even right"> <%= button_tag prop.prop_choices.last.name, type: "button", class: "wager-btn", data: { propchoiceid: prop.prop_choices.last.id} %> </td>
             </tr>
-            <% end %>
+            <tr>
+            <td> Bet ID Side </td> <td></td>
+            <td class="prop-timer"> Countdown Timer </td> <td></td>
+            <td> <span class="right"> Bet ID Side </span> </td>
+            </tr>
           <% end %>
         <% end %>
     <% end %>
   </table>
+
+
