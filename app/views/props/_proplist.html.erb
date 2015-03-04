@@ -2,6 +2,7 @@
     <% @dates.each do |date| %>
         <% @props.each do |prop| %>
           <% if prop.time.to_date === date %>
+            <tbody>
             <tr>
               <td colspan="5" class="prop-time"> <span> <%= prop.time.strftime("%B %-d, %Y %n %l:%M %P EST") %> </span> </td>
             </tr>
@@ -14,54 +15,46 @@
             </tr>
             <tr>
             <td> Bet ID Side </td> <td></td>
-            <td class="prop-timer"> Countdown Timer </td> <td></td>
+            <td class="prop-timer" data-time="<%= prop.time.to_i * 1000 + 18000000 %>"> </div> </td> <td></td>
             <td> <span class="right"> Bet ID Side </span> </td>
             </tr>
+            </tbody>
           <% end %>
         <% end %>
     <% end %>
   </table>
 
 
-  <div id="countdown"></div>
-
-<script>
-  // set the date we're counting down to
-  var target_date = <%= Prop.first.time.to_time.to_i * 1000 + 18000000 %>;
-  console.log(target_date)
-  //var target_date = new Date('Mar, 4, 2015 13:33:00').getTime();
-  // variables for time units
-  var hours, minutes, seconds;
-
-  // get tag element
-  var countdown = document.getElementById('countdown');
-
-  // update the tag with id "countdown" every 1 second
-  setInterval(function () {
-
-    var current_date = new Date().getTime();
-    console.log(current_date)
-    var seconds_left = (target_date - current_date) / 1000;
-    console.log(seconds_left + "seconds left")
-
-    hours = parseInt(seconds_left / 3600);
-    seconds_left = seconds_left % 3600;
-    minutes = parseInt(seconds_left / 60);
-    seconds = parseInt(seconds_left % 60);
-    console.log(hours + "hours")
-    console.log(minutes + "min")
-    console.log(seconds + "sec")
-
-    if (hours.toString().length == 1) {
-      hours = "0" + hours;
-    }
-    if (minutes.toString().length == 1) {
-      minutes = "0" + minutes;
-    }
-    if (seconds.toString().length == 1) {
-      seconds = "0" + seconds;
-    }
-    countdown.innerHTML = hours + ":" + minutes + ":" + seconds;
-
-  }, 1000);
+<script type='text/javascript'>
+  $(document).ready(function(){
+    setInterval(function () {
+      var countdowns = $('.container-fluid').find('.prop-timer'), i;
+      for (var i = 0; i < countdowns.length; i ++) {
+        var target_date = $(countdowns[i]).data('time')
+        var hours, minutes, seconds;
+        var current_date = new Date().getTime();
+        var seconds_left = (target_date - current_date) / 1000;
+        hours = parseInt(seconds_left / 3600);
+        seconds_left = seconds_left % 3600;
+        minutes = parseInt(seconds_left / 60);
+        seconds = parseInt(seconds_left % 60);
+        if (hours.toString().length == 1) {
+          hours = "0" + hours;
+        }
+        if (minutes.toString().length == 1) {
+          minutes = "0" + minutes;
+        }
+        if (seconds.toString().length == 1) {
+          seconds = "0" + seconds;
+        }
+        if (hours <= 0 && minutes <= 0 && seconds <= 0 ) {
+          $(countdowns[i]).text("Event has started.");
+        } else {
+          $(countdowns[i]).text("Starts In " + hours + ":" + minutes + ":" + seconds);
+        }
+      }
+    }, 1000);
+  })
 </script>
+
+
