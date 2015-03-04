@@ -23,3 +23,45 @@
   </table>
 
 
+  <div id="countdown"></div>
+
+<script>
+  // set the date we're counting down to
+  var target_date = <%= Prop.first.time.to_time.to_i * 1000 + 18000000 %>;
+  console.log(target_date)
+  //var target_date = new Date('Mar, 4, 2015 13:33:00').getTime();
+  // variables for time units
+  var hours, minutes, seconds;
+
+  // get tag element
+  var countdown = document.getElementById('countdown');
+
+  // update the tag with id "countdown" every 1 second
+  setInterval(function () {
+
+    var current_date = new Date().getTime();
+    console.log(current_date)
+    var seconds_left = (target_date - current_date) / 1000;
+    console.log(seconds_left + "seconds left")
+
+    hours = parseInt(seconds_left / 3600);
+    seconds_left = seconds_left % 3600;
+    minutes = parseInt(seconds_left / 60);
+    seconds = parseInt(seconds_left % 60);
+    console.log(hours + "hours")
+    console.log(minutes + "min")
+    console.log(seconds + "sec")
+
+    if (hours.toString().length == 1) {
+      hours = "0" + hours;
+    }
+    if (minutes.toString().length == 1) {
+      minutes = "0" + minutes;
+    }
+    if (seconds.toString().length == 1) {
+      seconds = "0" + seconds;
+    }
+    countdown.innerHTML = hours + ":" + minutes + ":" + seconds;
+
+  }, 1000);
+</script>

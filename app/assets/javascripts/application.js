@@ -19,6 +19,8 @@
 
 $(function(){
 
+
+
   $('.seeMore').on('click', function(e) {
     e.preventDefault();
     var container = $(this).closest('tr');

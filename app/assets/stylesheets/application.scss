@@ -2,6 +2,19 @@
 @import "bootstrap";
 @import "bootstrap-datetimepicker";
 
+.countdown {
+  color: #FFFFFF;
+}
+
+.countdown span {
+  color: #E5E5E5;
+  font-size: 26px;
+  font-weight: normal;
+  margin-left: 20px;
+  margin-right: 20px;
+  text-align: center;
+}
+
 .devise, .account-details {
   margin: auto;
   text-align: center;
