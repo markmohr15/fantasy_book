@@ -34,10 +34,11 @@ class Prop < ActiveRecord::Base
   display_line :opt2_spread
 
   enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action, :Regrade ]
+  enum winner: [ :Team1, :Team2, :Push, :NoAction]
 
   after_commit :check_state
   before_validation :get_opt2_spread
-  #after_touch :auto_move_odds
+  after_touch :auto_move_odds
 
   def self.search(search_string)
     players = Player.where('name LIKE ? or team LIKE ?', "%#{search_string}%", "%#{search_string}%")
@@ -100,49 +101,27 @@ class Prop < ActiveRecord::Base
   end
 
   def auto_move_odds
-    if self.variety != "Other"
-      exposure = self.exposure.split[1].to_i
-      id = self.exposure.split[0].to_i
-      newLine = exposure / 2500 * -10 + -115
-      newLine2 = exposure / 2500 * 10 + -115
-      if newLine2 > -100
-        newLine2 = newLine2 +=200
-      end
-      choice = PropChoice.find_by(id: id)
-      choice.odds = newLine
-      choice.save
-      if self.prop_choices.first == choice
-        self.prop_choices.last.odds = newLine2
-        self.prop_choices.last.save
-      else
-        self.prop_choices.first.odds = newLine2
-        self.prop_choices.first.save
-      end
+    exposure = self.exposure.split[1].to_i
+    id = self.exposure.split[0].to_i
+    newLine = exposure / 2500 * -10 + -115
+    newLine2 = exposure / 2500 * 10 + -115
+    if newLine2 > -100
+      newLine2 = newLine2 +=200
+    end
+    choice = PropChoice.find_by(id: id)
+    choice.odds = newLine
+    choice.save
+    if self.prop_choices.first == choice
+      self.prop_choices.last.odds = newLine2
+      self.prop_choices.last.save
+    else
+      self.prop_choices.first.odds = newLine2
+      self.prop_choices.first.save
     end
   end
 
   def has_winner?
-    pc = self.prop_choices
-    if self.variety == "Other"
-      yes = false
-      pc.each do |x|
-        if x.winner == true
-          yes = true
-        end
-      end
-    elsif self.variety == "Over/Under"
-      yes = false
-      yes = true if self.result != nil
-    else
-      yes = true
-      pc.each do |x|
-        if x.score == nil
-          yes = false
-        end
-      end
-    end
-
-    yes
+    self.winner != nil
   end
 
   aasm column: :state do
