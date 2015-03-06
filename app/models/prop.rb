@@ -11,6 +11,7 @@
 #  proposition :text(65535)
 #  opt1_spread :float(24)
 #  opt2_spread :float(24)
+#  winner      :integer
 #
 # Indexes
 #

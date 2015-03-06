@@ -6,10 +6,8 @@
 #  prop_id    :integer
 #  choice     :text(65535)
 #  odds       :integer
-#  score      :float(24)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  winner     :boolean          default("0")
 #  available  :integer          default("0")
 #
 # Indexes
