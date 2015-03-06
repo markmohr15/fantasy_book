@@ -13,6 +13,7 @@ ActiveAdmin.register Prop do
     end
     column "Event Time", :time
     column "Exposure (Max Loss)", :exposure_to_s
+    column :winner
     column :created_at
     actions
   end
@@ -24,6 +25,7 @@ ActiveAdmin.register Prop do
           prop.name
         end
         column "Odds", :odds_juice
+        column "Max Wager", :available_dollars
       end
     end
   end
@@ -44,6 +46,7 @@ ActiveAdmin.register Prop do
       row "Exposure" do
         prop.exposure_to_s
       end
+      row :winner
       row :created_at
       row :updated_at
     end
@@ -64,6 +67,7 @@ ActiveAdmin.register Prop do
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
       f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread", class: "hidden"}
+      f.input :winner, as: :radio, collection: ["Team1", "Team2", "Push", "NoAction"]
     end
     f.inputs "Prop Choices" do
       (2 - f.object.prop_choices.count).times do
@@ -77,15 +81,15 @@ ActiveAdmin.register Prop do
           s.input :player4, as: :select, collection: (Player.all), wrapper_html: { class: "player4 hidden"}
           s.input :player5, as: :select, collection: (Player.all), wrapper_html: { class: "player5 hidden"}
           s.input :odds, as: :select, collection: (vigs)
-          s.input :available, wrapper_html: { class: "available"}
+          s.input :available_dollars, label: "Max Wager", wrapper_html: { class: "available"}
         else
-          s.input :player1, wrapper_html: { class: "player1e"}
-          s.input :player2, wrapper_html: { class: "player2e hidden"}
-          s.input :player3, wrapper_html: { class: "player3e hidden"}
-          s.input :player4, wrapper_html: { class: "player4e hidden"}
-          s.input :player5, wrapper_html: { class: "player5e hidden"}
+          s.input :player1, wrapper_html: { class: "player player1e"}
+          s.input :player2, wrapper_html: { class: "player player2e hidden"}
+          s.input :player3, wrapper_html: { class: "player player3e hidden"}
+          s.input :player4, wrapper_html: { class: "player player4e hidden"}
+          s.input :player5, wrapper_html: { class: "player player5e hidden"}
           s.input :odds, as: :select, collection: (vigs)
-          s.input :available, wrapper_html: { class: "available"}
+          s.input :available_dollars, label: "Max Wager", wrapper_html: { class: "available"}
         end
       end
     end
@@ -93,8 +97,8 @@ ActiveAdmin.register Prop do
   end
 
   permit_params :sport_id, :state, :proposition, :time_date,
-  :time_time_hour, :time_time_minute, :opt1_spread,
+  :time_time_hour, :time_time_minute, :opt1_spread, :winner,
    prop_choices_attributes: [:id, :odds, :player1, :player2,
-    :player3, :player4, :player5, :winner]
+    :player3, :player4, :player5, :available_dollars]
 
 end
