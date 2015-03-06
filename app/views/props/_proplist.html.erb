@@ -8,15 +8,15 @@
             </tr>
             <tr>
               <td class="odd"> <%= button_tag prop.prop_choices.first.name, type: "button", class: "wager-btn odd", data: { propchoiceid: prop.prop_choices.first.id} %> </td>
-              <td> <%= prop.prop_choices.first.display_line %> </td>
+              <td class="odd-line"> <%= prop.prop_choices.first.display_line %> </td>
               <td class="prop-proposition"> <%= prop.proposition %> </td>
-              <td> <%= prop.prop_choices.last.display_line %> </td>
+              <td class="even-line"> <%= prop.prop_choices.last.display_line %> </td>
               <td class="even right"> <%= button_tag prop.prop_choices.last.name, type: "button", class: "wager-btn even", data: { propchoiceid: prop.prop_choices.last.id} %> </td>
             </tr>
             <tr>
             <td class="available-odd"> Max Wager: <%= number_to_currency prop.prop_choices.first.available_dollars %> </td> <td></td>
             <td class="prop-timer" data-time="<%= prop.time.to_i * 1000 + 18000000 %>"> </div> </td> <td></td>
-            <td class="available-even"> <span class="right"> Max Wager: <%= number_to_currency prop.prop_choices.last.available_dollars %> </span> </td>
+            <td> <span class="available-even right"> Max Wager: <%= number_to_currency prop.prop_choices.last.available_dollars %> </span> </td>
             </tr>
             </tbody>
           <% end %>
@@ -72,18 +72,14 @@
       });
     }, 4000);
 
-
     function updateAvailable (responseData, value) {
           available = responseData.available_dollars;
           td = $(value).closest('td');
-          console.log(td)
           container = $(td).closest('tbody');
           if ($(td)[0].classList.contains("odd")) {
             container.find('.available-odd').html("Max Wager: $" + available.toFixed(2))
           } else {
-            even = container.find('.available-even')
-            even.innerHTML("Max Wager: $" + available.toFixed(2))
-
+            container.find('.available-even').html("Max Wager: $" + available.toFixed(2))
           }
     }
   })

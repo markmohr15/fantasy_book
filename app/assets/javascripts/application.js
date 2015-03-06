@@ -77,13 +77,14 @@ $(function(){
     odds = responseData.odds;
     available = responseData.available;
     td = $(prop_choice).closest('td');
+    container = $(prop_choice).closest('tr');
     if ($(td)[0].classList.contains('odd')) {
       spread = responseData.prop.opt1_spread;
+      pageLine = container.find('.odd-line');
     } else {
       spread = responseData.prop.opt2_spread;
+      pageLine = container.find('.even-line')
     }
-    container = $(prop_choice).closest('tr');
-    pageLine = container.find('.wager-btn');
     if ($(prop_choice)[0].classList.contains('green')) {
       var row = $('tbody.new-wager-row').clone().removeClass('hidden new-wager-row');
       html = "<strong>" + proposition + "</strong>" + " <br/>" + name + " " + displayLine
@@ -95,7 +96,7 @@ $(function(){
       $('tbody.actions').before(row);
       $('tbody.actions').removeClass("hidden");
       if (state == "Open") {
-          if (displayLine == $(pageLine).text()) {
+          if ( " " + displayLine + " " == $(pageLine).text()) {
             // do nothing
         } else {
             wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
