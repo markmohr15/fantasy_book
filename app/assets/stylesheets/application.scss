@@ -133,6 +133,14 @@ h5 {
   margin-bottom: -100%;
 }
 
+.white {
+  background: white;
+}
+
+.gray {
+  background: #E6E9F0;
+}
+
 .prop-table {
   border-right: 3px solid;
   border-left: 3px solid;
@@ -144,7 +152,7 @@ h5 {
   border-left: 1px solid #ddd;
 }
 
-.prop-time, .prop-timer {
+.prop-time, .prop-timer, .prop-proposition {
   text-align: center;
 }
 

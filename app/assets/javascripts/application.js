@@ -75,7 +75,7 @@ $(function(){
     propChoiceId = responseData.id;
     name = responseData.name
     odds = responseData.odds;
-    total = responseData.prop.over_under;
+    available = responseData.available;
     td = $(prop_choice).closest('td');
     if ($(td)[0].classList.contains('odd')) {
       spread = responseData.prop.opt1_spread;
@@ -92,7 +92,6 @@ $(function(){
       row.find('.wager-prop-choice-id').val(propChoiceId);
       row.find('.wager-odds').val(odds);
       row.find('.wager-spread').val(spread);
-      row.find('.wager-total').val(total);
       $('tbody.actions').before(row);
       $('tbody.actions').removeClass("hidden");
       if (state == "Open") {
