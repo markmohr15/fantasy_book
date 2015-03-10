@@ -36,7 +36,7 @@ class Prop < ActiveRecord::Base
   enum state: [ :Offline, :Open, :Closed, :Graded, :Regrade ]
   enum winner: [ :Team1, :Team2, :Push, :NoAction]
 
-  after_save :check_state
+  before_save :check_state
   before_validation :get_opt2_spread
   after_touch :auto_move_odds
 
@@ -57,13 +57,9 @@ class Prop < ActiveRecord::Base
     if self.state == "Closed" && has_winner?
       self.grade_prop!
     elsif self.state == "Regrade"
-      binding.pry
       self.ungrade_wagers
-      binding.pry
       self.state = "Closed"
-      binding.pry
       self.grade_prop!
-      binding.pry
     end
   end
 
