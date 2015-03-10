@@ -27,6 +27,22 @@
 
 <script type='text/javascript'>
   $(document).ready(function(){
+
+    var odds = $('.prop-table').find('.available-odd'), i;
+    for (var i = 0; i < odds.length; i ++) {
+      if ($(odds[i]).text() == " Max Wager: $0.00 ") {
+        $(odds[i]).removeClass('bold')
+      }
+    }
+
+
+    var evens = $('.prop-table').find('.available-even'), i;
+    for (var i = 0; i < odds.length; i ++) {
+      if ($(evens[i]).text() == " Max Wager: $0.00 ") {
+        $(evens[i]).removeClass('bold')
+      }
+    }
+
     setInterval(function () {
       var countdowns = $('.prop-table').find('.prop-timer'), i;
       for (var i = 0; i < countdowns.length; i ++) {
@@ -64,6 +80,7 @@
           data: {prop_choice_id: $(value).data('propchoiceid')},
           success: function (data) {
             updateAvailable(data, value);
+            console.log(data)
           },
           error: function (xhr, status, error) {
             console.log(status + error);
