@@ -33,10 +33,10 @@ class Prop < ActiveRecord::Base
   display_line :opt1_spread
   display_line :opt2_spread
 
-  enum state: [ :Offline, :Open, :Closed, :Graded, :No_Action, :Regrade ]
+  enum state: [ :Offline, :Open, :Closed, :Graded, :Regrade ]
   enum winner: [ :Team1, :Team2, :Push, :NoAction]
 
-  after_commit :check_state
+  after_save :check_state
   before_validation :get_opt2_spread
   after_touch :auto_move_odds
 
@@ -57,13 +57,13 @@ class Prop < ActiveRecord::Base
     if self.state == "Closed" && has_winner?
       self.grade_prop!
     elsif self.state == "Regrade"
+      binding.pry
       self.ungrade_wagers
-      self.grade_wagers
-      self.state = "Graded"
-      self.save
-    elsif self.state == "No_Action"
-      self.ungrade_wagers
-      self.cancel_wagers
+      binding.pry
+      self.state = "Closed"
+      binding.pry
+      self.grade_prop!
+      binding.pry
     end
   end
 
@@ -149,12 +149,6 @@ class Prop < ActiveRecord::Base
 
     state :Graded, after_commit: :grade_wagers
 
-    event :void_prop do
-      transitions to: :No_Action
-    end
-
-    state :No_Action
-
     event :regrade_prop do
       transitions from: :Graded, to: :Regraded
     end
@@ -164,51 +158,28 @@ class Prop < ActiveRecord::Base
 
   def grade_wagers
     wagers = Wager.where(prop_id: self.id)
+    choice1 = PropChoice.where(prop_id: self.id).first
+    choice2 = PropChoice.where(prop_id: self.id).last
     wagers.map do |wager|
-      if self.variety == "Other"
-        winner = PropChoice.find_by(prop_id: self.id, winner: true).id
-        if wager.prop_choice_id == winner
-            wager.win_wager!
+      if wager.prop_choice == choice1
+        if wager.prop.winner == "Team1"
+          wager.win_wager!
+        elsif wager.prop.winner == "Team2"
+          wager.lose_wager!
+        elsif wager.prop.winner == "Push"
+          wager.push_wager!
         else
-            wager.lose_wager!
-        end
-      elsif self.variety == "Over/Under"
-        if wager.prop_choice.choice_raw == "Over"
-          if self.result > wager.total
-            wager.win_wager!
-          elsif self.result == wager.total
-            wager.void_wager!
-          else
-            wager.lose_wager!
-          end
-        else
-          if self.result < wager.total
-            wager.win_wager!
-          elsif self.result == wager.total
-            wager.void_wager!
-          else
-            wager.lose_wager!
-          end
+          wager.void_wager!
         end
       else
-        choice1 = PropChoice.where(prop_id: self.id).first
-        choice2 = PropChoice.where(prop_id: self.id).last
-        if wager.prop_choice == choice1
-          if wager.prop_choice.score + wager.spread > choice2.score
-            wager.win_wager!
-          elsif wager.prop_choice.score + wager.spread == choice2.score
-            wager.void_wager!
-          else
-            wager.lose_wager!
-          end
+        if wager.prop.winner == "Team2"
+          wager.win_wager!
+        elsif wager.prop.winner == "Team1"
+          wager.lose_wager!
+        elsif wager.prop.winner == "Push"
+          wager.push_wager!
         else
-          if wager.prop_choice.score + wager.spread > choice1.score
-            wager.win_wager!
-          elsif wager.prop_choice.score + wager.spread == choice1.score
-            wager.void_wager!
-          else
-            wager.lose_wager!
-          end
+          wager.void_wager!
         end
       end
     end
@@ -218,13 +189,6 @@ class Prop < ActiveRecord::Base
     wagers = Wager.where(prop_id: self.id)
     wagers.map do |wager|
       wager.ungrade_wager
-    end
-  end
-
-  def cancel_wagers
-    wagers = Wager.where(prop_id: self.id)
-    wagers.map do |wager|
-      wager.void_wager!
     end
   end
 

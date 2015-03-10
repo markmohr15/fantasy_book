@@ -32,7 +32,7 @@ class Wager < ActiveRecord::Base
   validates :risk, presence: true
   validates :odds, presence: true
   validates :prop_choice_id, presence: true
-  #validate :open?, :odds?, :spread?
+  validate :open?, :odds?, :spread?, on: :create
 
   display_line :spread
   display_juice :odds
@@ -40,7 +40,7 @@ class Wager < ActiveRecord::Base
 
   before_validation :get_win, on: [:create, :update]
 
-  enum state: [ :Pending, :Won, :Lost, :No_Action ]
+  enum state: [ :Pending, :Won, :Lost, :Push, :No_Action ]
   after_create :deduct_risk
 
   aasm column: :state do
@@ -57,6 +57,12 @@ class Wager < ActiveRecord::Base
     end
 
     state :Lost
+
+    event :push_wager do
+      transitions from: :Pending, to: :Push
+    end
+
+    state :Push, after_commit: :return_risk
 
     event :void_wager do
       transitions to: :No_Action
@@ -102,7 +108,7 @@ class Wager < ActiveRecord::Base
     if self.state == "Won"
       self.user.balance -= (self.risk + self.win)
       self.user.save
-    elsif self.state == "No_Action"
+    elsif self.state == "No_Action" || self.state == "Push"
       self.user.balance -= self.risk
       self.user.save
     end
@@ -117,21 +123,16 @@ class Wager < ActiveRecord::Base
   end
 
   def odds?
-    pc = self.prop_choice
-    if self.odds != pc.odds
+    if self.odds != self.prop_choice.odds
       errors[:base] << "Prop odds have changed."
     end
   end
 
   def spread?
-    if self.prop.variety == "Over/Under" && self.prop.over_under != self.total
-      errors[:base] << "Prop total has changed."
-    elsif self.prop.variety == "Fantasy" || self.prop.variety == "2P Fantasy"
-      if self.prop_choice == self.prop.prop_choices.first && self.spread != self.prop.opt1_spread
-        errors[:base] << "Prop odds have changed."
-      elsif self.prop_choice == self.prop.prop_choices.last && self.spread != self.prop.opt2_spread
-        errors[:base] << "Prop odds have changed."
-      end
+    if self.prop_choice == self.prop.prop_choices.first && self.spread != self.prop.opt1_spread
+      errors[:base] << "Prop odds have changed."
+    elsif self.prop_choice == self.prop.prop_choices.last && self.spread != self.prop.opt2_spread
+      errors[:base] << "Prop odds have changed."
     end
   end
 

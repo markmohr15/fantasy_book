@@ -1,5 +1,4 @@
 ActiveAdmin.register User, as: "Admin" do
-  menu label: "Admins"
   menu priority: 2
   menu if: proc{ current_user.role == "superadmin" }
 
