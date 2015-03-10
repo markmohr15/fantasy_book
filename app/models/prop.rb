@@ -88,7 +88,7 @@ class Prop < ActiveRecord::Base
     risk_array.each do |element|
       risk_counter += element
     end
-    (choice_array[place]).to_s + " " + (win - risk_counter).to_s
+    (choice_array[place]).to_s + " " + ((win - risk_counter).round(2)).to_s
   end
 
   def exposure_to_s
