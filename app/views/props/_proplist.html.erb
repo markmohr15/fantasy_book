@@ -14,9 +14,9 @@
               <td class="even right"> <%= button_tag prop.prop_choices.last.name, type: "button", class: "wager-btn even", data: { propchoiceid: prop.prop_choices.last.id} %> </td>
             </tr>
             <tr>
-            <td class="available-odd"> Max Wager: <%= number_to_currency prop.prop_choices.first.available_dollars %> </td> <td></td>
+            <td class="available-odd bold"> Max Wager: <%= number_to_currency prop.prop_choices.first.available_dollars %> </td> <td></td>
             <td class="prop-timer" data-time="<%= prop.time.to_i * 1000 + 18000000 %>"> </div> </td> <td></td>
-            <td> <span class="available-even right"> Max Wager: <%= number_to_currency prop.prop_choices.last.available_dollars %> </span> </td>
+            <td> <span class="available-even right bold"> Max Wager: <%= number_to_currency prop.prop_choices.last.available_dollars %> </span> </td>
             </tr>
             </tbody>
           <% end %>
@@ -77,9 +77,21 @@
           td = $(value).closest('td');
           container = $(td).closest('tbody');
           if ($(td)[0].classList.contains("odd")) {
-            container.find('.available-odd').html("Max Wager: $" + available.toFixed(2))
+            var odd = container.find('.available-odd')
+            odd.html("Max Wager: $" + available.toFixed(2))
+            if (available == 0) {
+              $(odd).removeClass("bold")
+            } else {
+              $(odd).addClass("bold")
+            }
           } else {
-            container.find('.available-even').html("Max Wager: $" + available.toFixed(2))
+            var even = container.find('.available-even')
+            even.html("Max Wager: $" + available.toFixed(2))
+            if (available == 0) {
+              $(even).removeClass("bold")
+            } else {
+              $(even).addClass("bold")
+            }
           }
     }
   })
