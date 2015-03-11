@@ -6,34 +6,55 @@ ActiveAdmin.register Wager do
   menu priority: 7
   #custom risk filter
 
+  #  id             :integer          not null, primary key
+#  prop_id        :integer
+#  user_id        :integer
+#  state          :integer          default("0")
+#  risk           :integer
+#  win            :integer
+#  prop_choice_id :integer
+#  odds           :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  spread         :float(24)
+
   index do
     selectable_column
-    column :id
+    column "Ticket", :id
     column "User" do |wager|
       link_to(wager.user.name, admin_user_path(wager.user.id))
     end
-    column :prop
+    column "Prop" do |wager|
+      link_to(wager.prop.id, admin_prop_path(wager.prop.id))
+    end
     column "Status", :state do |wager|
       wager.aasm.current_state
     end
-    column "Risk", :risk_dollars do |wager|
+    column "Risk" do |wager|
       number_to_currency wager.risk_dollars
     end
-    column "Win", :win_dollars do |wager|
+    column "Win" do |wager|
       number_to_currency wager.win_dollars
     end
-    column :created_at
+    column "Result" do |wager|
+      number_to_currency wager.result
+    end
+    column "Placed At", :created_at
     actions
   end
 
   show do
     attributes_table do
-      row :id
+      row "Ticket" do
+        wager.id
+      end
       row "User" do |wager|
         link_to(wager.user.name, admin_user_path(wager.user.id))
       end
-      row :prop
-      row "Status", :state do |wager|
+      row "Prop" do |wager|
+        link_to(wager.prop.id, admin_prop_path(wager.prop.id))
+      end
+      row "Status" do |wager|
         wager.aasm.current_state
       end
       row "Risk" do
@@ -42,17 +63,21 @@ ActiveAdmin.register Wager do
       row "Win" do
         number_to_currency wager.win_dollars
       end
+      row "Result" do |wager|
+        number_to_currency wager.result
+      end
       row "Pick" do |wager|
-        wager.prop_choice
+        wager.prop_choice.name
       end
       row "Spread" do
         wager.spread_line
       end
-      row :total
       row "Odds" do
         wager.odds_juice
       end
-      row :created_at
+      row "Placed At" do
+        wager.created_at
+      end
       row :updated_at
     end
   end
@@ -66,7 +91,6 @@ ActiveAdmin.register Wager do
       f.input :prop_choice_id
       if f.object.new_record?
         f.input :spread, as: :select, collection: (point_spreads)
-        f.input :total
         f.input :odds, as: :select, collection: (vigs)
       else
         @wager = Wager.find params[:id]
@@ -76,13 +100,7 @@ ActiveAdmin.register Wager do
     f.actions
   end
 
-  #controller do
-   # def scoped_collection
-    #  User.where(role: "player")
-    #end
-  #end
-
   permit_params :user_id, :prop_id, :state, :risk_dollars, :prop_choice_id,
-   :spread, :spread_line, :total, :odds, :odds_juice
+   :spread, :odds, :odds_juice
 
 end
