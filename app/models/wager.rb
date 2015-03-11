@@ -13,7 +13,6 @@
 #  created_at     :datetime         not null
 #  updated_at     :datetime         not null
 #  spread         :float(24)
-#  total          :float(24)
 #
 # Indexes
 #
