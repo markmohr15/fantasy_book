@@ -37,5 +37,15 @@ class PropsController < ApplicationController
     end
   end
 
+  def prop
+    respond_to do |format|
+      format.json do
+        prop_id = params[:prop_id]
+        @prop = Prop.find_by id: prop_id
+        render json: @prop.to_json(:include => [:prop_choices])
+      end
+    end
+  end
+
 end
 

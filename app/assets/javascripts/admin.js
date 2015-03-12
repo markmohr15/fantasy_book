@@ -1,4 +1,57 @@
-$(window).load(function() {
+$(function() {
+
+    $('#wager_prop_id').change(function() {
+        var prop = document.getElementById('wager_prop_id')
+        $.ajax({
+        url: "/prop",
+        type: "GET",
+        data: {prop_id: prop.options[prop.selectedIndex].value},
+        success: function (data) {
+            handlePropData(data);
+        },
+        error: function (xhr, status, error) {
+            console.log(status + error);
+        }
+      });
+    })
+
+    function handlePropData (responseData) {
+        console.log(responseData);
+        pc1 = responseData.prop_choices[0].id
+        pc2 = responseData.prop_choices[1].id
+        $('input#wager_prop_choice_id_team_1').val(pc1)
+        $('input#wager_prop_choice_id_team_2').val(pc2)
+    }
+
+    $('.choice').change(function() {
+        pc = $('input[name="wager[prop_choice_id]"]:checked').val()
+        $.ajax({
+        url: "/pc",
+        type: "GET",
+        data: {prop_choice_id: pc},
+        success: function (data) {
+            handlePropChoiceData(data);
+        },
+        error: function (xhr, status, error) {
+            console.log(status + error);
+        }
+      });
+    })
+
+    function handlePropChoiceData (responseData) {
+        console.log(responseData);
+        odds = responseData.odds
+        opt1_spread = responseData.prop.opt1_spread
+        opt2_spread = responseData.prop.opt2_spread
+        $('input#wager_odds').val(odds)
+        if (document.getElementById('wager_prop_choice_id_team_1').checked) {
+            $('input#wager_spread').val(opt1_spread)
+        } else {
+            $('input#wager_spread').val(opt2_spread)
+        }
+    }
+
+    $('.has_many_remove').hide()
 
     $('#wrapper').on('change', '.player1', (function() {
         var container = $(this).closest('fieldset');

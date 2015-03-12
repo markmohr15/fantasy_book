@@ -83,24 +83,25 @@ ActiveAdmin.register Wager do
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs "Wager Details" do
-      f.input :user
-      f.input :prop_id
-      f.input :state, label: "Status", as: :select, collection: f.object.aasm.states.map(&:name), include_blank: false
-      f.input :risk_dollars, label: "Risk"
-      f.input :prop_choice_id
+      f.input :user, required: true
+      f.input :prop_id, as: :select, collection: Prop.where("state = ? or state = ?", 0, 1).collect {|p| ["#{p.proposition} - #{p.prop_choices.first.name} Vs. #{p.prop_choices.last.name}", p.id]}, required: true
+      f.input :prop_choice_id, as: :radio, collection: ["Team 1", "Team 2"], required: true
+      f.input :risk_dollars, label: "Risk $", required: true
       if f.object.new_record?
-        f.input :spread, as: :select, collection: (point_spreads)
-        f.input :odds, as: :select, collection: (vigs)
+        f.input :spread, input_html: { readonly: true }
+        f.input :odds, input_html: { readonly: true }
       else
         @wager = Wager.find params[:id]
-        f.input :odds_juice
+        f.input :spread_line, input_html: { readonly: true }
+        f.input :odds_juice, input_html: { readonly: true }
       end
     end
     f.actions
   end
 
-  permit_params :user_id, :prop_id, :state, :risk_dollars, :prop_choice_id,
-   :spread, :odds, :odds_juice
+  permit_params :user_id, :prop_id, :prop_choice_id, :risk_dollars,
+   :spread, :odds, :spread_line, :odds_juice
 
 end

@@ -21,7 +21,10 @@ textarea {
   height: 9px;
 }
 
-input#prop_maximum_dollars, input#prop_over_under, input#prop_result, input#transfer_amount_dollars {
+input#prop_maximum_dollars, input#prop_over_under, input#prop_result,
+ input#transfer_amount_dollars, input#wager_spread, input#wager_odds,
+ input#wager_risk_dollars, input#wager_spread_line, input#wager_odds_juice
+  {
   width: 50px;
 }
 
@@ -33,6 +36,6 @@ input#prop_maximum_dollars, input#prop_over_under, input#prop_result, input#tran
   display: none;
 }
 
-label.label {
-  padding: 5px;
-}
+//label.label {
+  //padding: 5px;
+//}

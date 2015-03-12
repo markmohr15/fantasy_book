@@ -12,6 +12,12 @@ ActiveAdmin.register Prop do
       prop.aasm.current_state
     end
     column "Event Time", :time
+    column "Team 1 Available" do |prop|
+      prop.prop_choices.first.available_dollars
+    end
+    column "Team 2 Available" do |prop|
+      prop.prop_choices.last.available_dollars
+    end
     column "Exposure (Max Loss)", :exposure_to_s
     column :winner
     column :created_at
@@ -25,7 +31,7 @@ ActiveAdmin.register Prop do
           prop.name
         end
         column "Odds", :odds_juice
-        column "Max Wager", :available_dollars
+        column "Max Available", :available_dollars
       end
     end
   end
@@ -63,7 +69,7 @@ ActiveAdmin.register Prop do
       else
         f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open", "Closed", "No_Action"]
       end
-      f.input :proposition, required: true
+      f.input :proposition, required: true, input_html: { value: "Vs."}
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
       f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread", class: "hidden"}
@@ -81,7 +87,7 @@ ActiveAdmin.register Prop do
           s.input :player4, as: :select, collection: (Player.all), wrapper_html: { class: "player4 hidden"}
           s.input :player5, as: :select, collection: (Player.all), wrapper_html: { class: "player5 hidden"}
           s.input :odds, as: :select, collection: (vigs)
-          s.input :available_dollars, label: "Max Wager", wrapper_html: { class: "available"}
+          s.input :available_dollars, label: "Max Available", wrapper_html: { class: "available"}
         else
           s.input :player1, wrapper_html: { class: "player player1e"}
           s.input :player2, wrapper_html: { class: "player player2e hidden"}
@@ -89,7 +95,7 @@ ActiveAdmin.register Prop do
           s.input :player4, wrapper_html: { class: "player player4e hidden"}
           s.input :player5, wrapper_html: { class: "player player5e hidden"}
           s.input :odds, as: :select, collection: (vigs)
-          s.input :available_dollars, label: "Max Wager", wrapper_html: { class: "available"}
+          s.input :available_dollars, label: "Max Available", wrapper_html: { class: "available"}
         end
       end
     end

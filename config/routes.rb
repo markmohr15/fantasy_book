@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   resources :props, only: [:index]
   post "wagers", to: "wagers#create", as: :wagers
   get "pc", to: "props#pc"
+  get "prop", to: "props#prop"
 
   root to: "props#index"
 end
