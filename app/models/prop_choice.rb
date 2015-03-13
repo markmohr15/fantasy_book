@@ -120,10 +120,22 @@ class PropChoice < ActiveRecord::Base
   end
 
   def display_line
-    if self == self.prop.prop_choices.first
-      self.prop.opt1_spread_line.to_s + " " + self.odds_juice.to_s
+    if self.available == 0
+      ""
     else
-      self.prop.opt2_spread_line.to_s + " " + self.odds_juice.to_s
+      if self == self.prop.prop_choices.first
+        if self.prop.opt1_spread != 0
+          self.prop.opt1_spread_line.to_s + " FP " + self.odds_juice.to_s
+        else
+          self.prop.opt1_spread_line.to_s + " " + self.odds_juice.to_s
+        end
+      else
+        if self.prop.opt2_spread != 0
+          self.prop.opt2_spread_line.to_s + " FP " + self.odds_juice.to_s
+        else
+          self.prop.opt2_spread_line.to_s + " " + self.odds_juice.to_s
+        end
+      end
     end
   end
 

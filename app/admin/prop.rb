@@ -81,7 +81,7 @@ ActiveAdmin.register Prop do
       end
       f.has_many :prop_choices, new_record: false do |s|
         if f.object.new_record?
-          s.input :player1, as: :select, collection: (Player.all), wrapper_html: { class: "player1"}
+          s.input :player1, as: :select, collection: (Player.all), wrapper_html: { class: "player1"}, required: true
           s.input :player2, as: :select, collection: (Player.all), wrapper_html: { class: "player2 hidden"}
           s.input :player3, as: :select, collection: (Player.all), wrapper_html: { class: "player3 hidden"}
           s.input :player4, as: :select, collection: (Player.all), wrapper_html: { class: "player4 hidden"}

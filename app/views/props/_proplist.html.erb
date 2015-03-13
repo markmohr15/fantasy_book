@@ -4,19 +4,22 @@
           <% if prop.time.to_date === date %>
             <tbody class="<%= cycle 'white', 'gray'%>">
             <tr>
+              <td colspan="5" class="prop-type bold"> Matchup Prop Contest </td>
+            </tr>
+            <tr>
               <td colspan="5" class="prop-time"> <span> <%= prop.time.strftime("%B %-d, %Y %n %l:%M %P EST") %> </span> </td>
             </tr>
             <tr>
-              <td class="odd"> <%= button_tag prop.prop_choices.first.name, type: "button", class: "wager-btn odd", data: { propchoiceid: prop.prop_choices.first.id} %> </td>
+              <td class="odd"> <%= button_tag prop.prop_choices.first.name, type: "button", class: "wager-btn odd-choice", data: { propchoiceid: prop.prop_choices.first.id} %> </td>
               <td class="odd-line"> <%= prop.prop_choices.first.display_line %> </td>
               <td class="prop-proposition"> <%= prop.proposition %> </td>
               <td class="even-line"> <%= prop.prop_choices.last.display_line %> </td>
-              <td class="even right"> <%= button_tag prop.prop_choices.last.name, type: "button", class: "wager-btn even", data: { propchoiceid: prop.prop_choices.last.id} %> </td>
+              <td class="even right"> <%= button_tag prop.prop_choices.last.name, type: "button", class: "wager-btn even-choice", data: { propchoiceid: prop.prop_choices.last.id} %> </td>
             </tr>
             <tr>
-            <td class="available-odd bold"> Max Wager: <%= number_to_currency prop.prop_choices.first.available_dollars %> </td> <td></td>
+            <td class="available-odd bold"> Available: <%= number_to_currency prop.prop_choices.first.available_dollars %> </td> <td></td>
             <td class="prop-timer" data-time="<%= prop.time.to_i * 1000 + 18000000 %>"> </div> </td> <td></td>
-            <td> <span class="available-even right bold"> Max Wager: <%= number_to_currency prop.prop_choices.last.available_dollars %> </span> </td>
+            <td> <span class="available-even right bold"> Available: <%= number_to_currency prop.prop_choices.last.available_dollars %> </span> </td>
             </tr>
             </tbody>
           <% end %>
@@ -30,7 +33,7 @@
 
     var odds = $('.prop-table').find('.available-odd'), i;
     for (var i = 0; i < odds.length; i ++) {
-      if ($(odds[i]).text() == " Max Wager: $0.00 ") {
+      if ($(odds[i]).text() == " Available: $0.00 ") {
         $(odds[i]).removeClass('bold')
       }
     }
@@ -38,7 +41,7 @@
 
     var evens = $('.prop-table').find('.available-even'), i;
     for (var i = 0; i < odds.length; i ++) {
-      if ($(evens[i]).text() == " Max Wager: $0.00 ") {
+      if ($(evens[i]).text() == " Available: $0.00 ") {
         $(evens[i]).removeClass('bold')
       }
     }
@@ -80,7 +83,6 @@
           data: {prop_choice_id: $(value).data('propchoiceid')},
           success: function (data) {
             updateAvailable(data, value);
-            console.log(data)
           },
           error: function (xhr, status, error) {
             console.log(status + error);
@@ -91,23 +93,32 @@
 
     function updateAvailable (responseData, value) {
           available = responseData.available_dollars;
+          display_line = responseData.display_line;
           td = $(value).closest('td');
           container = $(td).closest('tbody');
           if ($(td)[0].classList.contains("odd")) {
             var odd = container.find('.available-odd')
-            odd.html("Max Wager: $" + available.toFixed(2))
+            //var oddChoice = container.find('.odd-choice')
+            console.log(oddChoice)
+            odd.html("Available: $" + available.toFixed(2))
             if (available == 0) {
               $(odd).removeClass("bold")
+              container.find('.odd-line').text(display_line)
+              //oddChoice.disabled = true
             } else {
               $(odd).addClass("bold")
+              container.find('.odd-line').text(display_line)
             }
           } else {
             var even = container.find('.available-even')
-            even.html("Max Wager: $" + available.toFixed(2))
+            even.html("Available: $" + available.toFixed(2))
             if (available == 0) {
               $(even).removeClass("bold")
+              container.find('.even-line').text(display_line)
+              //container.find('.even-choice').disabled = true
             } else {
               $(even).addClass("bold")
+              container.find('.even-line').text(display_line)
             }
           }
     }

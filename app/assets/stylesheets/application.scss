@@ -152,8 +152,12 @@ h5 {
   border-left: 1px solid #ddd;
 }
 
-.prop-time, .prop-timer, .prop-proposition {
+.prop-time, .prop-timer, .prop-proposition, .prop-type {
   text-align: center;
+}
+
+.notice {
+  margin-bottom: 20px;
 }
 
 button.wager-btn {
