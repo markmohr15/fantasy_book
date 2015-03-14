@@ -43,11 +43,12 @@ ActiveAdmin.register Prop do
       end
       row :sport
       row :proposition
-      row "Choice 1 Spread" do
-        prop.opt1_spread_line
-      end
       row "Event Time" do
         prop.time
+      end
+      row :user
+      row "Choice 1 Spread" do
+        prop.opt1_spread_line
       end
       row "Exposure" do
         prop.exposure_to_s
@@ -72,6 +73,7 @@ ActiveAdmin.register Prop do
       f.input :proposition, required: true, input_html: { value: "Vs."}
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
+      f.input :user, as: :select, collection: User.where(role: 3), required: true, include_blank: false
       f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread", class: "hidden"}
       f.input :winner, as: :radio, collection: ["Team1", "Team2", "Push", "NoAction"]
     end
@@ -103,7 +105,7 @@ ActiveAdmin.register Prop do
   end
 
   permit_params :sport_id, :state, :proposition, :time_date,
-  :time_time_hour, :time_time_minute, :opt1_spread, :winner,
+  :time_time_hour, :time_time_minute, :user_id, :opt1_spread, :winner,
    prop_choices_attributes: [:id, :odds, :player1, :player2,
     :player3, :player4, :player5, :available_dollars]
 

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150311054434) do
+ActiveRecord::Schema.define(version: 20150314211458) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string   "namespace",     limit: 255
@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 20150311054434) do
     t.float    "opt1_spread", limit: 24
     t.float    "opt2_spread", limit: 24
     t.integer  "winner",      limit: 4
+    t.integer  "user_id",     limit: 4
   end
 
   add_index "props", ["sport_id"], name: "index_props_on_sport_id", using: :btree

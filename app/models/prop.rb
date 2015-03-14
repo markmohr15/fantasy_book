@@ -12,6 +12,7 @@
 #  opt1_spread :float(24)
 #  opt2_spread :float(24)
 #  winner      :integer
+#  user_id     :integer
 #
 # Indexes
 #
@@ -22,6 +23,7 @@ class Prop < ActiveRecord::Base
   include AASM, StorageConversions
 
   belongs_to :sport
+  belongs_to :user
   has_many :wagers
   has_many :prop_choices
   accepts_nested_attributes_for :prop_choices, allow_destroy: true
