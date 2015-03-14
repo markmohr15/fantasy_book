@@ -1,7 +1,8 @@
 ActiveAdmin.register User do
-  actions :all, except: [:new, :create]
+  actions :all
   filter :email
   filter :username
+  filter :role, as: :select, collection: (player_or_house)
   menu priority: 3
 
   index do
@@ -13,6 +14,7 @@ ActiveAdmin.register User do
     column "Balance", :balance_dollars do |user|
       number_to_currency user.balance_dollars
     end
+    column :role
     actions
   end
 
@@ -30,6 +32,7 @@ ActiveAdmin.register User do
       row :zip
       row :country
       row :phone
+      row :role
       row :current_sign_in_at
       row :last_sign_in_at
       row :current_sign_in_ip
@@ -44,22 +47,25 @@ ActiveAdmin.register User do
       f.input :email
       f.input :name
       f.input :username
-      f.input :balance_dollars, label: "Balance"
+      if f.object.new_record?
+        f.input :password
+      end
       f.input :address
       f.input :city
       f.input :state, as: :select, collection: (us_states)
       f.input :zip
       f.input :country, as: :select, collection: ["USA", "Canada", "Mexico"]
       f.input :phone
+      f.input :role, as: :radio, collection: [["Player", "player", {checked: true}], ["House", "house"]]
     end
     f.actions
   end
 
-  permit_params :email, :name, :username, :balance_dollars, :address, :city, :state, :zip, :country, :phone
+  permit_params :email, :name, :username, :password, :balance_dollars, :address, :city, :state, :zip, :country, :phone, :role
 
   controller do
     def scoped_collection
-      User.where(role: 1)
+      User.where("role = ? or role = ?", 1, 3)
     end
   end
 

@@ -9,6 +9,13 @@ ActiveAdmin.setup do |config|
     end
   end
 
+  def player_or_house
+      [
+        ["Player", 1],
+        ["House", 3]
+      ]
+  end
+
   config.default_namespace = :admin
   config.current_user_method = :current_user
   config.logout_link_path = :destroy_user_session_path
