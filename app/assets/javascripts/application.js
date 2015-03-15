@@ -96,7 +96,7 @@ $(function(){
       $('tbody.actions').before(row);
       $('tbody.actions').removeClass("hidden");
       if (state == "Open") {
-          if ( " " + displayLine + " " == $(pageLine).text()) {
+          if (displayLine.trim() == $(pageLine).text().trim()) {
             // do nothing
         } else {
             wagerList = $('.ticket').find('.wager-prop-choice-id'), i;

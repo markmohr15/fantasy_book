@@ -36,13 +36,13 @@
 
         <tbody class="new-wager-row wager hidden">
         <tr>
-          <td colspan="7"> <p type="text" class="success hidden"></p></td>
+          <td colspan="6"> <p type="text" class="success hidden"></p></td>
         </tr>
         <tr>
-          <td colspan="7"> <p type="text" class="failure hidden"></p></td>
+          <td colspan="6"> <p type="text" class="failure hidden"></p></td>
         </tr>
         <tr>
-          <td colspan="7"> <p type="text" class="wager-info"></p> </td>
+          <td colspan="6"> <p type="text" class="wager-info"></p> </td>
           <td> <%= button_tag "", type: "button", class: "delete-wager glyphicon glyphicon-remove" %> </td>
         </tr>
         <tr>
@@ -52,7 +52,6 @@
           <td> <%= text_field_tag "wager[][prop_choice_id]", nil, class: "wager-prop-choice-id hidden", readonly: "readonly" %> </td>
           <td> <%= text_field_tag "wager[][odds]", nil, class: "wager-odds hidden", readonly: "readonly" %> </td>
           <td> <%= text_field_tag "wager[][spread]", nil, class: "wager-spread hidden", readonly: "readonly" %> </td>
-          <td> <%= text_field_tag "wager[][total]", nil, class: "wager-total hidden", readonly: "readonly" %> </td>
         </tr>
         </tbody>
 

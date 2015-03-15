@@ -41,6 +41,8 @@ class Wager < ActiveRecord::Base
 
   enum state: [ :Pending, :Won, :Lost, :Push, :No_Action ]
   after_create :deduct_risk
+  after_create :contra, if: :player?
+  after_create :deduct_available, if: :player?
 
   aasm column: :state do
     state :Pending, initial: true
@@ -68,6 +70,29 @@ class Wager < ActiveRecord::Base
     end
 
     state :No_Action, after_commit: :return_risk
+  end
+
+  def player?
+    self.user.role == "player"
+  end
+
+  def contra
+    if self.prop_choice == prop.prop_choices.first
+      contra_prop_choice = prop.prop_choices.last
+    else
+      contra_prop_choice = prop.prop_choices.first
+    end
+    Wager.create(prop_id: self.prop.id,
+      user_id: self.prop.user_id,
+      risk: self.risk,
+      prop_choice_id: contra_prop_choice.id,
+    odds: contra_prop_choice.odds,
+    spread: self.spread * -1   )
+  end
+
+  def deduct_available
+    self.prop_choice.available -= self.risk
+    self.prop_choice.save
   end
 
   def result
@@ -143,4 +168,6 @@ class Wager < ActiveRecord::Base
     end
     counter
   end
+
+
 end

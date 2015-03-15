@@ -98,27 +98,29 @@
           container = $(td).closest('tbody');
           if ($(td)[0].classList.contains("odd")) {
             var odd = container.find('.available-odd')
-            //var oddChoice = container.find('.odd-choice')
-            console.log(oddChoice)
+            var oddChoice = container.find('.odd-choice')
             odd.html("Available: $" + available.toFixed(2))
             if (available == 0) {
               $(odd).removeClass("bold")
               container.find('.odd-line').text(display_line)
-              //oddChoice.disabled = true
+              $(oddChoice).prop('disabled', true);
             } else {
               $(odd).addClass("bold")
               container.find('.odd-line').text(display_line)
+              $(oddChoice).prop('disabled', false);
             }
           } else {
             var even = container.find('.available-even')
+            var evenChoice = container.find('.even-choice')
             even.html("Available: $" + available.toFixed(2))
             if (available == 0) {
               $(even).removeClass("bold")
               container.find('.even-line').text(display_line)
-              //container.find('.even-choice').disabled = true
+              $(evenChoice).prop('disabled', true);
             } else {
               $(even).addClass("bold")
               container.find('.even-line').text(display_line)
+              $(evenChoice).prop('disabled', false);
             }
           }
     }
