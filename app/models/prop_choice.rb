@@ -39,6 +39,14 @@ class PropChoice < ActiveRecord::Base
     names.join(", ")
   end
 
+  def display_proposition
+    if self.prop.proposition == "Vs."
+      self.prop.prop_choices.first.name + " Vs. " + self.prop.prop_choices.last.name
+    else
+      self.prop.proposition
+    end
+  end
+
   def player1=(value)
     return if value.blank?
     player = Player.find_by id: value

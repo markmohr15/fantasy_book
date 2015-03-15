@@ -69,7 +69,7 @@ $(function(){
   function handleData (responseData) {
     console.log(responseData);
     state = responseData.prop.state;
-    proposition = responseData.prop.proposition;
+    proposition = responseData.display_proposition;
     displayLine = responseData.display_line;
     propId = responseData.prop.id;
     propChoiceId = responseData.id;

@@ -40,7 +40,7 @@ class Prop < ActiveRecord::Base
 
   before_save :check_state
   before_validation :get_opt2_spread
-  after_touch :auto_move_odds
+  #after_touch :auto_move_odds
 
   def self.search(search_string)
     players = Player.where('name LIKE ? or team LIKE ?', "%#{search_string}%", "%#{search_string}%")

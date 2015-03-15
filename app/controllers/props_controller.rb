@@ -32,7 +32,7 @@ class PropsController < ApplicationController
       format.json do
         prop_choice_id = params[:prop_choice_id]
         @prop_choice = PropChoice.find_by id: prop_choice_id
-        render json: @prop_choice.to_json(:include => [:prop], :methods => [:display_line, :name, :available_dollars])
+        render json: @prop_choice.to_json(:include => [:prop], :methods => [:display_line, :name, :available_dollars, :display_proposition])
       end
     end
   end
