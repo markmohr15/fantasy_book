@@ -31,7 +31,7 @@ class Wager < ActiveRecord::Base
   validates :risk, presence: true
   validates :odds, presence: true
   validates :prop_choice_id, presence: true
-  validate :open?, :odds?, :spread?, on: :create
+  validate :open?, :odds?, :spread?, :available?, on: :create
 
   display_line :spread
   display_juice :odds
@@ -157,6 +157,14 @@ class Wager < ActiveRecord::Base
       errors[:base] << "Prop odds have changed."
     elsif self.prop_choice == self.prop.prop_choices.last && self.spread != self.prop.opt2_spread
       errors[:base] << "Prop odds have changed."
+    end
+  end
+
+  def available?
+    if self.prop_choice.available == 0
+      errors[:base] << "Prop is not currently available."
+    elsif self.risk > self.prop_choice.available
+      errors[:base] << "Risk amount is greater than available amount."
     end
   end
 
