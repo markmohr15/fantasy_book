@@ -14,7 +14,9 @@ ActiveAdmin.register User do
     column "Balance", :balance_dollars do |user|
       number_to_currency user.balance_dollars
     end
-    column :role
+    column "Overall Results" do |user|
+      number_to_currency Wager.player_results(user, "2015-01-01 00:00:00", Time.now)
+    end
     actions
   end
 
@@ -25,6 +27,9 @@ ActiveAdmin.register User do
       row :username
       row "Balance", :balance_dollars do |user|
         number_to_currency user.balance_dollars
+      end
+      row "Overall Results" do |user|
+        number_to_currency Wager.player_results(user, "2015-01-01 00:00:00", Time.now)
       end
       row :address
       row :city

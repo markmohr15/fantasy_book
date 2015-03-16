@@ -192,4 +192,13 @@ class Wager < ActiveRecord::Base
     counter
   end
 
+  def self.player_results(user, start_time, finish_time)
+    wagers = Wager.joins(:prop).where('user_id' => user.id, 'state' => 1..2, 'props.time' => start_time..finish_time)
+    counter = 0
+    wagers.map do |wager|
+      counter += wager.result
+    end
+    counter
+  end
+
 end
