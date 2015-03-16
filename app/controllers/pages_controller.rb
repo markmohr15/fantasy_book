@@ -1,10 +1,6 @@
 class PagesController < ApplicationController
   layout "application"
 
-  def home
-    render
-  end
-
   def contact
     render
   end
@@ -14,6 +10,10 @@ class PagesController < ApplicationController
   end
 
   def rules
+    render
+  end
+
+  def terms
     render
   end
 
