@@ -30,7 +30,7 @@ ActiveAdmin.setup do |config|
     ns.authentication_method = :authenticate_active_admin_user!
     ns.site_title = "FantasyBook Admin"
     ns.site_title_link = "/admin"
-    ns.root_to = 'users#index'
+    ns.root_to = 'dashboard#index'
 
     ns.build_menu :utility_navigation do |menu|
       menu.add label: "View Site &rarr;".html_safe, url: "/"

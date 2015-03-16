@@ -18,7 +18,6 @@ ActiveAdmin.register Prop do
     column "Team 2 Available" do |prop|
       prop.prop_choices.last.available_dollars
     end
-    column "Exposure (Max Loss)", :exposure_to_s
     column :winner
     column :created_at
     actions
@@ -49,9 +48,6 @@ ActiveAdmin.register Prop do
       row :user
       row "Choice 1 Spread" do
         prop.opt1_spread_line
-      end
-      row "Exposure" do
-        prop.exposure_to_s
       end
       row :winner
       row :created_at
