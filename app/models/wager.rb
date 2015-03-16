@@ -37,7 +37,7 @@ class Wager < ActiveRecord::Base
   display_juice :odds
   store_cents :risk, :win
 
-  before_validation :get_win, on: [:create, :update]
+  before_validation :get_win, on: [:create, :update], if: :player?
 
   enum state: [ :Pending, :Won, :Lost, :Push, :No_Action ]
   after_create :deduct_risk
@@ -82,12 +82,8 @@ class Wager < ActiveRecord::Base
     else
       contra_prop_choice = prop.prop_choices.first
     end
-    Wager.create(prop_id: self.prop.id,
-      user_id: self.prop.user_id,
-      risk: self.risk,
-      prop_choice_id: contra_prop_choice.id,
-    odds: contra_prop_choice.odds,
-    spread: self.spread * -1   )
+    Wager.create(prop_id: self.prop.id, user_id: self.prop.user_id, risk: self.win, win: self.risk,
+      prop_choice_id: contra_prop_choice.id, odds: self.odds * -1, spread: self.spread * -1 )
   end
 
   def deduct_available
@@ -177,5 +173,23 @@ class Wager < ActiveRecord::Base
     counter
   end
 
+  def self.pending_house_wagers
+    wagers = Wager.joins(:user).where('users.role' => 3, 'state' => 0)
+    counter = 0
+    wagers.map do |wager|
+      counter += wager.risk_dollars
+    end
+    counter
+  end
+
+  def self.house_results(start_time, finish_time)
+    wagers = Wager.joins(:user).joins(:prop).where('users.role' => 3, 'state' => 1..2,
+     'props.time' => start_time..finish_time )
+    counter = 0
+    wagers.map do |wager|
+      counter += wager.result
+    end
+    counter
+  end
 
 end

@@ -1,33 +1,59 @@
 ActiveAdmin.register_page "Dashboard" do
 
-  menu priority: 1, label: proc{ I18n.t("active_admin.dashboard") }
+menu priority: 1
 
-  content title: proc{ I18n.t("active_admin.dashboard") } do
-    div class: "blank_slate_container", id: "dashboard_default_message" do
-      span class: "blank_slate" do
-        span I18n.t("active_admin.dashboard_welcome.welcome")
-        small I18n.t("active_admin.dashboard_welcome.call_to_action")
-      end
+    content do
+        columns do
+            column do
+            panel "Results (House Accts)" do
+                table do
+                    thead do
+                        tr do
+                            th do
+                                "Pending"
+                            end
+                            th do
+                                "Today"
+                            end
+                            th do
+                                "Last 7 Days"
+                            end
+                            th do
+                                "This Month"
+                            end
+                            th do
+                                "This Year"
+                            end
+                            th do
+                                "Overall"
+                            end
+                        end
+                    end
+                    tr do
+                        td do
+                            number_to_currency Wager.pending_house_wagers
+                        end
+                        td do
+                            number_to_currency Wager.house_results Time.now.to_date, Time.now
+                        end
+                        td do
+                            number_to_currency Wager.house_results Time.now.to_date - 7.days, Time.now
+                        end
+                        td do
+                            number_to_currency Wager.house_results Time.now.to_date.beginning_of_month, Time.now
+                        end
+                        td do
+                            number_to_currency Wager.house_results Time.now.to_date.beginning_of_year, Time.now
+                        end
+                        td do
+                            number_to_currency Wager.house_results "2015-01-01 00:00:00", Time.now
+                        end
+                    end
+                end
+            end
+            end
+        end
     end
 
-    # Here is an example of a simple dashboard with columns and panels.
-    #
-    # columns do
-    #   column do
-    #     panel "Recent Posts" do
-    #       ul do
-    #         Post.recent(5).map do |post|
-    #           li link_to(post.title, admin_post_path(post))
-    #         end
-    #       end
-    #     end
-    #   end
-
-    #   column do
-    #     panel "Info" do
-    #       para "Welcome to ActiveAdmin."
-    #     end
-    #   end
-    # end
-  end # content
 end
+
