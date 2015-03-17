@@ -1,5 +1,23 @@
 require 'rails_helper'
 
-RSpec.describe User, :type => :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+RSpec.describe User, type: :model do
+  let(:user) { build :user}
+  let(:admin) { build :admin}
+  let(:superadmin) { build :superadmin}
+  let(:house) { build :house}
+
+  it "has a valid factory" do
+    expect(user).to be_valid
+    expect(admin).to be_valid
+    expect(superadmin).to be_valid
+    expect(house).to be_valid
+  end
+
+  it "is a player if role equals player" do
+    expect(user.player?).to eq true
+    expect(admin.player?).to eq false
+    expect(superadmin.player?).to eq false
+    expect(house.player?).to eq false
+  end
+
 end
