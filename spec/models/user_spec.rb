@@ -1,10 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  let(:user) { build :user}
-  let(:admin) { build :admin}
-  let(:superadmin) { build :superadmin}
-  let(:house) { build :house}
+  let(:user) { create :user}
+  let(:admin) { create :admin}
+  let(:superadmin) { create :superadmin}
+  let(:house) { create :house}
 
   it "has a valid factory" do
     expect(user).to be_valid

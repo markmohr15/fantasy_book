@@ -1,14 +1,14 @@
 require 'rails_helper'
 
 RSpec.describe Transfer, type: :model do
-  let(:transfer) { build :transfer}
+  let(:transfer) { create :transfer}
 
   it "has a valid factory" do
     expect(transfer).to be_valid
   end
 
   it "after transfer is Pending it deducts the amount from sender" do
-    transfer.save
+    #transfer.save
     expect(transfer.sender.balance).to eq 80000
     expect(transfer.receiver.balance).to eq 100000
   end
@@ -22,7 +22,7 @@ RSpec.describe Transfer, type: :model do
   end
 
   it "returns the money to the sender if transfer is rejected" do
-    transfer.save
+    #transfer.save
     expect(transfer.sender.balance).to eq 80000
     expect(transfer.receiver.balance).to eq 100000
     transfer.state = "Rejected"
