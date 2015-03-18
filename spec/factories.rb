@@ -5,11 +5,18 @@ FactoryGirl.define do
     name "Bo Jackson"
     team "Oakland Raiders"
     position "RB"
+
+    factory :player2 do
+      sport
+      name "Michael Jordan"
+      team "Chicago Bulls"
+      position "SG"
+    end
   end
 
   factory :prop_choice do
     prop
-    sequence(:choice) { |n| "[#{n}, #{n}]" }
+    choice [1, 2]
     odds "-110"
     available "50000"
   end
@@ -20,7 +27,7 @@ FactoryGirl.define do
     state "Open"
     proposition "Vs."
     opt1_spread "5"
-    association :user, factory: :house
+    association :user, factory: :vip
 
     factory :prop_with_prop_choices do
       transient do
@@ -72,17 +79,17 @@ FactoryGirl.define do
     role "superadmin"
   end
 
-  factory :house, class: User do
-    sequence(:email) { |n| "house-#{n}@test.com" }
+  factory :vip, class: User do
+    sequence(:email) { |n| "vip-#{n}@test.com" }
     password "test9012"
-    sequence(:username) { |n| "house-#{n}" }
+    sequence(:username) { |n| "vip-#{n}" }
     address "456 Main St."
     phone "491-555-3322"
     city "Seattle"
     state "Washington"
     country "USA"
     zip "19840"
-    role "house"
+    role "vip"
     name "Larry Bird"
     balance "100000"
   end

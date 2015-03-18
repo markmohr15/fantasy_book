@@ -148,7 +148,7 @@ class Prop < ActiveRecord::Base
     state :Graded, after_commit: :grade_wagers
 
     event :regrade_prop do
-      transitions from: :Graded, to: :Regraded
+      transitions from: :Graded, to: :Regrade
     end
 
     state :Regrade

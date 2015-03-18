@@ -8,7 +8,6 @@ RSpec.describe Transfer, type: :model do
   end
 
   it "after transfer is Pending it deducts the amount from sender" do
-    #transfer.save
     expect(transfer.sender.balance).to eq 80000
     expect(transfer.receiver.balance).to eq 100000
   end
@@ -22,7 +21,6 @@ RSpec.describe Transfer, type: :model do
   end
 
   it "returns the money to the sender if transfer is rejected" do
-    #transfer.save
     expect(transfer.sender.balance).to eq 80000
     expect(transfer.receiver.balance).to eq 100000
     transfer.state = "Rejected"
