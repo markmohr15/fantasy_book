@@ -31,7 +31,7 @@ class Wager < ActiveRecord::Base
   validates :risk, presence: true
   validates :odds, presence: true
   validates :prop_choice_id, presence: true
-  validate :open?, :odds?, :spread?, :available?, on: :create
+  validate :open?, :odds?, :spread?, :available?, on: :create, if: :player?
 
   display_line :spread
   display_juice :odds
