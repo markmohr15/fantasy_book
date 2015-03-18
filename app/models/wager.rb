@@ -173,7 +173,7 @@ class Wager < ActiveRecord::Base
     counter
   end
 
-  def self.pending_house_wagers
+  def self.pending_vip_wagers
     wagers = Wager.joins(:user).where('users.role' => 3, 'state' => 0)
     counter = 0
     wagers.map do |wager|
@@ -182,7 +182,7 @@ class Wager < ActiveRecord::Base
     counter
   end
 
-  def self.house_results(start_time, finish_time)
+  def self.vip_results(start_time, finish_time)
     wagers = Wager.joins(:user).joins(:prop).where('users.role' => 3, 'state' => 1..2,
      'props.time' => start_time..finish_time )
     counter = 0

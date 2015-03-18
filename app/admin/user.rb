@@ -2,7 +2,7 @@ ActiveAdmin.register User do
   actions :all
   filter :email
   filter :username
-  filter :role, as: :select, collection: (player_or_house)
+  filter :role, as: :select, collection: (player_or_vip)
   menu priority: 3
 
   index do
@@ -61,7 +61,7 @@ ActiveAdmin.register User do
       f.input :zip
       f.input :country, as: :select, collection: ["USA", "Canada", "Mexico"]
       f.input :phone
-      f.input :role, as: :radio, collection: [["Player", "player", {checked: true}], ["House", "house"]]
+      f.input :role, as: :radio, collection: [["Player", "player", {checked: true}], ["VIP", "vip"]]
     end
     f.actions
   end

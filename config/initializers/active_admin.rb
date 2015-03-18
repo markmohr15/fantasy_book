@@ -9,10 +9,10 @@ ActiveAdmin.setup do |config|
     end
   end
 
-  def player_or_house
+  def player_or_vip
       [
         ["Player", 1],
-        ["House", 3]
+        ["VIP", 3]
       ]
   end
 

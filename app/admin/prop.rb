@@ -69,7 +69,7 @@ ActiveAdmin.register Prop do
       f.input :proposition, required: true, input_html: { value: "Vs."}
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
-      f.input :user, label: "House Acct", as: :select, collection: User.where(role: 3), required: true, include_blank: false
+      f.input :user, label: "VIP Acct", as: :select, collection: User.where(role: 3), required: true, include_blank: false
       f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread", class: "hidden"}
       f.input :winner, as: :radio, collection: ["Team1", "Team2", "Push", "NoAction"]
     end
