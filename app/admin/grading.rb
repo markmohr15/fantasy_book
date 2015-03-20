@@ -6,21 +6,27 @@ ActiveAdmin.register Prop, as: "Grading" do
   menu priority: 9
   menu label: "Grading"
   config.clear_action_items!
+  config.batch_actions = false
 
-
-
-  index title: "Grading" do
-    selectable_column
-    column :id
-    column :sport
-    column "Status", :state do |grading|
-      grading.aasm.current_state
+  index as: :block, title: "Grading" do |grading|
+    div for: grading, class: "prop" do
+      h3 grading.sport.name
+      h5 grading.time.strftime("%B %-d, %Y %n %l:%M %P EST")
+      div "Team 1: " + grading.prop_choices.first.name + " " + grading.opt1_spread_line.to_s
+      div "Team 2: " + grading.prop_choices.last.name + " " + grading.opt2_spread_line.to_s
+      div class: "grade" do
+        button_tag "T1", class: "team1"
+      end
+      div class: "grade" do
+        button_tag "T2", class: "team2"
+      end
+      div class: "grade" do
+        button_tag "Push", class: "push"
+      end
+      div class: "grade" do
+        button_tag "NA", class: "noAction" # button_tag "Team2" #button_tag "Push" button_tag "No Action"
+      end
     end
-    column "Event Time", :time
-    column "Exposure (Max Loss)", :exposure_to_s
-    column :winner
-    column :created_at
-    actions
   end
 
   sidebar "Prop Info", only: [:edit] do

@@ -30,3 +30,20 @@ input#wager_risk_dollars, input#wager_spread_line, input#wager_odds_juice
 .hidden {
   display: none;
 }
+
+.prop {
+  width: 250px;
+  display: inline-block;
+  border: 1px solid;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 5px;
+}
+
+.team1, .team2, .push, .noAction {
+  padding: 4px 8px 3px
+}
+
+.grade {
+  display: inline-block;
+}

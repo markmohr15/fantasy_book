@@ -190,4 +190,12 @@ class Prop < ActiveRecord::Base
     end
   end
 
+  def display_proposition
+    if self.proposition == "Vs."
+      self.prop_choices.first.name + " Vs. " + self.prop_choices.last.name
+    else
+      self.proposition
+    end
+  end
+
 end
