@@ -27,7 +27,7 @@ Rails.application.routes.draw do
   get "/my_fantasy/my_history", to: "fantasy#my_history"
   get "/my_fantasy/my_stats", to: "fantasy#my_stats"
   get "/my_fantasy/leaderboard", to: "fantasy#leaderboard"
-  resources :props, only: [:index]
+  resources :props
   post "wagers", to: "wagers#create", as: :wagers
   get "pc", to: "props#pc"
   get "prop", to: "props#prop"

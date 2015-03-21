@@ -62,9 +62,9 @@ ActiveAdmin.register Prop do
       if f.object.new_record?
         f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open"], include_blank: false
       elsif @prop.state == "Graded"
-        f.input :state, label: "Status", as: :radio, collection: ["Regrade", "No_Action"], include_blank: false
+        f.input :state, as: :radio, collection: ["Regrade"], input_html: { checked: 'checked', readonly: true }
       else
-        f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open", "Closed", "No_Action"]
+        f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open", "Closed"]
       end
       f.input :proposition, required: true, input_html: { value: "Vs."}
       f.input :sport, include_blank: false

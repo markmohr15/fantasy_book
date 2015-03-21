@@ -1,5 +1,57 @@
 $(function() {
 
+    $('.team1').on("click", function() {
+        var container = $(this).closest('.grade-prop');
+        propID = $(container).data('propid')
+        $.ajax({
+            url: "/props/"+propID+"",
+            dataType: "script",
+            type: "PATCH",
+            contentType: 'application/json',
+            data: JSON.stringify({ prop:{winner:0}, _method:'patch' })
+        })
+        container.hide()
+    })
+
+    $('.team2').on("click", function() {
+        var container = $(this).closest('.grade-prop');
+        propID = $(container).data('propid')
+        $.ajax({
+            url: "/props/"+propID+"",
+            dataType: "script",
+            type: "PATCH",
+            contentType: 'application/json',
+            data: JSON.stringify({ prop:{winner:1}, _method:'patch' })
+        })
+        container.hide()
+    })
+
+    $('.push').on("click", function() {
+        var container = $(this).closest('.grade-prop');
+        propID = $(container).data('propid')
+        $.ajax({
+            url: "/props/"+propID+"",
+            dataType: "script",
+            type: "PATCH",
+            contentType: 'application/json',
+            data: JSON.stringify({ prop:{winner:2}, _method:'patch' })
+        })
+        container.hide()
+    })
+
+    $('.noAction').on("click", function() {
+        var container = $(this).closest('.grade-prop');
+        propID = $(container).data('propid')
+        $.ajax({
+            url: "/props/"+propID+"",
+            dataType: "script",
+            type: "PATCH",
+            contentType: 'application/json',
+            data: JSON.stringify({ prop:{winner:3}, _method:'patch' })
+        })
+        container.hide()
+    })
+
     $('#wager_prop_id').change(function() {
         var prop = document.getElementById('wager_prop_id')
         $.ajax({

@@ -9,9 +9,12 @@ ActiveAdmin.register Prop, as: "Grading" do
   config.batch_actions = false
 
   index as: :block, title: "Grading" do |grading|
-    div for: grading, class: "prop" do
+    div for: grading, class: "grade-prop", "data-propid" => grading.id do
       h3 grading.sport.name
       h5 grading.time.strftime("%B %-d, %Y %n %l:%M %P EST")
+      if grading.proposition != "Vs."
+        div grading.proposition
+      end
       div "Team 1: " + grading.prop_choices.first.name + " " + grading.opt1_spread_line.to_s
       div "Team 2: " + grading.prop_choices.last.name + " " + grading.opt2_spread_line.to_s
       div class: "grade" do
@@ -24,33 +27,8 @@ ActiveAdmin.register Prop, as: "Grading" do
         button_tag "Push", class: "push"
       end
       div class: "grade" do
-        button_tag "NA", class: "noAction" # button_tag "Team2" #button_tag "Push" button_tag "No Action"
+        button_tag "NA", class: "noAction"
       end
-    end
-  end
-
-  sidebar "Prop Info", only: [:edit] do
-    attributes_table_for grading do
-      row "Status", :state do |grading|
-        grading.aasm.current_state
-      end
-      row :sport
-      row :proposition
-      row "Choice 1 Spread" do
-        grading.opt1_spread_line
-      end
-      row "Team 1" do
-        grading.prop_choices.first.name
-      end
-      row "Team 2" do
-        grading.prop_choices.last.name
-      end
-      row "Event Time" do
-        grading.time
-      end
-      row :winner
-      row :created_at
-      row :updated_at
     end
   end
 
@@ -70,7 +48,7 @@ ActiveAdmin.register Prop, as: "Grading" do
 
   controller do
     def scoped_collection
-      Prop.where("state = ? or state = ?", 2, 3)
+      Prop.where state: 2
     end
   end
 

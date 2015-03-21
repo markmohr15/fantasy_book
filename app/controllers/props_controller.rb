@@ -27,6 +27,15 @@ class PropsController < ApplicationController
     end
   end
 
+  def update
+    @prop = Prop.find(params[:id])
+    respond_to do |format|
+      if @prop.update_attributes(prop_params)
+        format.js { render nothing: true }
+      end
+    end
+  end
+
   def pc
     respond_to do |format|
       format.json do
@@ -45,6 +54,12 @@ class PropsController < ApplicationController
         render json: @prop.to_json(:include => [:prop_choices])
       end
     end
+  end
+
+  private
+
+  def prop_params
+    params.require(:prop).permit(:winner)
   end
 
 end
