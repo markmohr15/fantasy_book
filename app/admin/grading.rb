@@ -1,7 +1,6 @@
 ActiveAdmin.register Prop, as: "Grading" do
-  actions :edit, :update, :index
+  actions :index
   filter :sport
-  filter :state, label: "Status", as: :select, collection: Prop.states
   filter :time, label: "Event Time"
   menu priority: 9
   menu label: "Grading"
@@ -31,20 +30,6 @@ ActiveAdmin.register Prop, as: "Grading" do
       end
     end
   end
-
-  form do |f|
-    f.semantic_errors *f.object.errors.keys
-    @prop = Prop.find params[:id] unless f.object.new_record?
-    f.inputs "Prop Details" do
-      if @prop.state == "Graded"
-        f.input :state, as: :radio, collection: ["Regrade"], input_html: { checked: 'checked', readonly: true }
-      end
-      f.input :winner, as: :radio, collection: ["Team1", "Team2", "Push", "NoAction"]
-    end
-    f.actions
-  end
-
-  permit_params :state, :winner
 
   controller do
     def scoped_collection
