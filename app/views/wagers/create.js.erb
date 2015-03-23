@@ -48,7 +48,7 @@
               container.find('.wager-total').val(total);
             }
           <% else %>
-            container.find('.success').text("Bet ID: <%= wager.id %>")
+            container.find('.success').text("Ticket ID: <%= wager.id %>")
             container.find('.success').removeClass("hidden")
             container.find('.delete-wager').remove()
             html = " <br/> Risk " + "<%= number_to_currency wager.risk_dollars %>" + " to Win " + "<%= number_to_currency wager.win_dollars %>"

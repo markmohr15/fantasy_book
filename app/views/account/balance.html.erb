@@ -1,6 +1,6 @@
 <div class="container padding-large-horizontal">
 
 Current Balance: <%= number_to_currency current_user.balance_dollars %> <br />
-Pending Wagers: <%= number_to_currency Wager.pending_wagers(current_user) %>
+Pending: <%= number_to_currency Wager.pending_wagers(current_user) %>
 
 </div>

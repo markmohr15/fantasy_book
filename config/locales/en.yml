@@ -30,7 +30,7 @@ en:
 
   wager:
     invalid_password: "Invalid Password. Please try again."
-    successful_wager: "Thank you for your wager."
-    closed: "One or more of your events is closed for wagering"
+    successful_wager: "Successful, Thank you."
+    closed: "One or more of your events is closed."
     line_change: "One or more of your events' line changed."
 
