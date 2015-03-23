@@ -18,7 +18,8 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) { |u| u.permit(:username, :email, :password, :password_confirmation, :name, :address, :city, :state, :zip, :country, :phone) }
     devise_parameter_sanitizer.for(:sign_in) { |u| u.permit(:login, :username, :email, :password, :remember_me) }
     devise_parameter_sanitizer.for(:account_update) { |u| u.permit(:username, :email, :password,
-     :password_confirmation, :name, :address, :city, :state, :zip, :country, :phone, :current_password) }
+     :password_confirmation, :name, :address, :city, :state, :zip,
+     :country, :phone, :email_notif, :sms_notif, :current_password) }
   end
 
   def after_sign_in_path_for(resource)

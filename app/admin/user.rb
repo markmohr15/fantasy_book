@@ -25,7 +25,7 @@ ActiveAdmin.register User do
       row :email
       row :name
       row :username
-      row "Balance", :balance_dollars do |user|
+      row "Balance" do |user|
         number_to_currency user.balance_dollars
       end
       row "Overall Results" do |user|
@@ -37,6 +37,12 @@ ActiveAdmin.register User do
       row :zip
       row :country
       row :phone
+      row "Email Notification" do |user|
+        user.email_notif.to_s
+      end
+      row "SMS Notification" do |user|
+        user.sms_notif.to_s
+      end
       row :role
       row :current_sign_in_at
       row :last_sign_in_at
@@ -70,6 +76,8 @@ ActiveAdmin.register User do
       f.input :zip
       f.input :country, as: :select, collection: ["USA", "Canada", "Mexico"]
       f.input :phone
+      f.input :email_notif, as: :radio, collection: [["Yes", true], ["No", false]], label: "Email Notification"
+      f.input :sms_notif, as: :radio, collection: [["Yes", true], ["No", false]], label: "SMS Notification"
       f.input :role, as: :radio, collection: [["Player", "player", {checked: true}], ["VIP", "vip"]]
     end
     f.inputs do
@@ -84,7 +92,8 @@ ActiveAdmin.register User do
   end
 
   permit_params :email, :name, :username, :password, :balance_dollars, :address,
-  :city, :state, :zip, :country, :phone, :role, credits_attributes: [:id, :amount_dollars, :note, :user_id, :admin_id]
+  :city, :state, :zip, :country, :phone, :email_notif, :sms_notif, :role,
+  credits_attributes: [:id, :amount_dollars, :note, :user_id, :admin_id]
 
   controller do
     def scoped_collection

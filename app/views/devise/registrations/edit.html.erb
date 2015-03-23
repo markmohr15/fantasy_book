@@ -24,12 +24,22 @@
       <%= f.text_field :zip %>
     </div>
     <div class="field">
+      <%= f.label :country %>
+      <%= f.select :country, options_for_select(countries, f.object.country || "United States") %>
+    </div>
+    <div class="field">
       <%= f.label :phone %>
       <%= f.text_field :phone %>
     </div>
     <div class="field">
-      <%= f.label :country %>
-      <%= f.select :country, options_for_select(countries, f.object.country || "United States") %>
+      <%= f.label :email_notif, "Email Notification" %>
+      <%= f.check_box :email_notif %>
+    </div>
+    <div class="field">
+      <%= f.label :sms_notif, "SMS Notification" %>
+      <%= f.check_box :sms_notif %>
+      <i>(Make sure your phone number above can receive text messages.)</i>
+    </div>
     <br />
     <br />
     <div class="field">

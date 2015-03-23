@@ -25,6 +25,8 @@
 #  role                   :integer          default("1")
 #  name                   :string(255)
 #  balance                :integer          default("0")
+#  email_notif            :boolean          default("1")
+#  sms_notif              :boolean          default("0")
 #
 # Indexes
 #
