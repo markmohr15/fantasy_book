@@ -21,4 +21,13 @@ class Credit < ActiveRecord::Base
   validates :user_id, presence: true
 
   store_cents :amount
+
+  after_create :add_credit
+
+  def add_credit
+    self.user.balance += self.amount
+    self.user.save
+  end
+
+
 end

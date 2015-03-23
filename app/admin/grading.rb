@@ -4,7 +4,6 @@ ActiveAdmin.register Prop, as: "Grading" do
   filter :time, label: "Event Time"
   menu priority: 9
   menu label: "Grading"
-  config.clear_action_items!
   config.batch_actions = false
 
   index as: :block, title: "Grading" do |grading|

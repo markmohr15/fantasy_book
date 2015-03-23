@@ -6,18 +6,6 @@ ActiveAdmin.register Wager do
   menu priority: 7
   #custom risk filter
 
-  #  id             :integer          not null, primary key
-#  prop_id        :integer
-#  user_id        :integer
-#  state          :integer          default("0")
-#  risk           :integer
-#  win            :integer
-#  prop_choice_id :integer
-#  odds           :integer
-#  created_at     :datetime         not null
-#  updated_at     :datetime         not null
-#  spread         :float(24)
-
   index do
     selectable_column
     column "Ticket", :id
