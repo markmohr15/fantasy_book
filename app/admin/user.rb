@@ -47,7 +47,16 @@ ActiveAdmin.register User do
     end
   end
 
+  sidebar "House Credits", only: [:show] do
+    table_for user.credits do
+      column "Amount", :amount_dollars
+      column :admin
+      column :created_at
+    end
+  end
+
   form do |f|
+    @user = User.find params[:id] unless f.object.new_record?
     f.inputs "User Details" do
       f.input :email
       f.input :name
@@ -63,10 +72,19 @@ ActiveAdmin.register User do
       f.input :phone
       f.input :role, as: :radio, collection: [["Player", "player", {checked: true}], ["VIP", "vip"]]
     end
+    f.inputs do
+      f.has_many :credits, new_record: "House Credit" do |c|
+        c.input :amount_dollars, label: "Amount"
+        c.input :note
+        c.input :user_id, input_html: { value: @user.id }, as: :hidden
+        c.input :admin_id, input_html: { value: current_user.id }, as: :hidden
+      end
+    end
     f.actions
   end
 
-  permit_params :email, :name, :username, :password, :balance_dollars, :address, :city, :state, :zip, :country, :phone, :role
+  permit_params :email, :name, :username, :password, :balance_dollars, :address,
+  :city, :state, :zip, :country, :phone, :role, credits_attributes: [:id, :amount_dollars, :note, :user_id, :admin_id]
 
   controller do
     def scoped_collection

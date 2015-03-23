@@ -54,9 +54,11 @@ class User < ActiveRecord::Base
   has_many :transfers_as_receiver, class_name: "Transfer", foreign_key: "receiver_id"
   has_many :credits
   has_many :credits_as_admin, class_name: "Credit", foreign_key: "admin_id"
+
   enum role: [ :admin, :player, :superadmin, :vip ]
 
   store_cents :balance
+  accepts_nested_attributes_for :credits
 
   attr_accessor :login
 

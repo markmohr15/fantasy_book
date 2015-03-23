@@ -11,7 +11,6 @@ ActiveAdmin.register Credit do
       number_to_currency credit.amount_dollars
     end
     column :admin
-
     actions
   end
 
@@ -41,6 +40,6 @@ ActiveAdmin.register Credit do
     credit.admin = current_user
   end
 
-  permit_params :user_id, :amount_dollars, :note, :admin_id
+  permit_params :user_id, :amount_dollars, :note
 
 end

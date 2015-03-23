@@ -29,5 +29,4 @@ class Credit < ActiveRecord::Base
     self.user.save
   end
 
-
 end
