@@ -52,8 +52,12 @@ class Bonus < ActiveRecord::Base
     not_released = earned - self.released_dollars
     not_released = not_released - not_released % 10
     self.user.balance += not_released * 100
-    self.user.save
     self.released += not_released * 100
+    if self.pending == 0 && self.released != self.amount
+      self.user.balance_dollars += self.amount_dollars - self.released_dollars
+      self.released = self.amount
+    end
+    self.user.save
     self.save
   end
 
