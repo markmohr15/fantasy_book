@@ -24,10 +24,23 @@ class Bonus < ActiveRecord::Base
 
   enum state: [ :Pending, :Complete, :Expired ]
 
-  before_validation :set_pending
+  before_validation :set_pending, on: :create
 
   def set_pending
     self.pending = self.amount
+  end
+
+  def process_bonus(wager_amount)
+    self.pending -= wager_amount / self.rollover
+    if self.pending <= 0
+      extra = self.pending * self.rollover * -1
+      self.pending = 0
+      self.complete_bonus!
+      nextBonus = Bonus.find_by(user_id: self.user_id, state: "Pending")
+      nextBonus.pending -= extra / nextBonus.rollover
+      nextBonus.save
+    end
+    self.save
   end
 
   aasm column: :state do

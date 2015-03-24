@@ -43,6 +43,7 @@ class Wager < ActiveRecord::Base
   after_create :deduct_risk
   after_create :contra, if: :player?
   after_create :deduct_available, if: :player?
+  before_save :check_bonus
 
   aasm column: :state do
     state :Pending, initial: true
@@ -199,6 +200,12 @@ class Wager < ActiveRecord::Base
       counter += wager.result
     end
     counter
+  end
+
+  def check_bonus
+    return if self.state == "Pending" || self.state == "No_Action"
+    bonus = Bonus.find_by(user_id: self.user_id, state: "Pending")
+    bonus.process_bonus(self.win)
   end
 
 end
