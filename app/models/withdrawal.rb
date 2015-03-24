@@ -11,5 +11,11 @@
 #
 
 class Withdrawal < ActiveRecord::Base
+  include StorageConversions
+
   belongs_to :user
+  validates :user_id, presence: true
+  validates :amount, presence: true
+
+  store_cents :amount
 end
