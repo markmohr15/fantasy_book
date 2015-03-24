@@ -41,14 +41,6 @@ class ApplicationController < ActionController::Base
     new_user_session_path
   end
 
-  def require_admin
-    current_user.role == 0 || unauthorized
-  end
-
-  def require_player
-    current_user.role == 1 || unauthorized
-  end
-
   def unauthorized
     redirect_to root_url, alert: t("sessions.unauthorized")
   end
