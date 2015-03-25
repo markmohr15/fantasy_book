@@ -5,7 +5,9 @@ ActiveAdmin.register Credit do
   actions :all, except: [:destroy, :edit]
 
   index do
-    column :user
+    column "User" do |wager|
+      link_to(wager.user.name, admin_user_path(wager.user.id))
+    end
     column "Amount" do |credit|
       number_to_currency credit.amount_dollars
     end
@@ -15,7 +17,9 @@ ActiveAdmin.register Credit do
 
   show do
     attributes_table do
-      row :user
+      row "User" do |wager|
+        link_to(wager.user.name, admin_user_path(wager.user.id))
+      end
       row "Amount" do
         number_to_currency credit.amount_dollars
       end

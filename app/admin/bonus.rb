@@ -5,7 +5,9 @@ ActiveAdmin.register Bonus do
   menu label: "Bonuses"
 
   index do
-    column :user
+    column "User" do |wager|
+      link_to(wager.user.name, admin_user_path(wager.user.id))
+    end
     column "Bonus Amount" do |bonus|
       number_to_currency bonus.amount_dollars
     end
@@ -22,7 +24,9 @@ ActiveAdmin.register Bonus do
 
   show do
     attributes_table do
-      row :user
+      row "User" do |wager|
+        link_to(wager.user.name, admin_user_path(wager.user.id))
+      end
       row "Bonus Amount" do
         number_to_currency bonus.amount_dollars
       end
