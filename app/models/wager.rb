@@ -205,6 +205,8 @@ class Wager < ActiveRecord::Base
   def check_bonus
     return if self.state == "Pending" || self.state == "No_Action"
     bonus = Bonus.find_by(user_id: self.user_id, state: "Pending")
+    return if bonus.nil?
+    binding.pry
     bonus.process_bonus(self.win)
   end
 

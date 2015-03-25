@@ -39,14 +39,16 @@ class Bonus < ActiveRecord::Base
       self.pending = 0
       self.complete_bonus!
       nextBonus = Bonus.find_by(user_id: self.user_id, state: "Pending")
-      nextBonus.pending -= extra / nextBonus.rollover
-      nb_earned = nextBonus.amount_dollars - nextBonus.pending_dollars
-      nb_not_released = nb_earned - nextBonus.released_dollars
-      nb_not_released = nb_not_released - nb_not_released % 10
-      nextBonus.user.balance += nb_not_released * 100
-      nextBonus.user.save
-      nextBonus.released += nb_not_released * 100
-      nextBonus.save
+      unless nextBonus.nil?
+        nextBonus.pending -= extra / nextBonus.rollover
+        nb_earned = nextBonus.amount_dollars - nextBonus.pending_dollars
+        nb_not_released = nb_earned - nextBonus.released_dollars
+        nb_not_released = nb_not_released - nb_not_released % 10
+        nextBonus.user.balance += nb_not_released * 100
+        nextBonus.user.save
+        nextBonus.released += nb_not_released * 100
+        nextBonus.save
+      end
     end
     earned = self.amount_dollars - self.pending_dollars
     not_released = earned - self.released_dollars
