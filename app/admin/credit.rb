@@ -1,7 +1,6 @@
 ActiveAdmin.register Credit do
-  filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order('name')
-  filter :amount
-  filter :admin, as: :select, collection: User.where("role = ? or role = ?", 0, 2).order('name')
+  filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("name")
+  filter :admin, as: :select, collection: User.where("role = ? or role = ?", 0, 2).order("name")
   config.batch_actions = false
   actions :all, except: [:destroy, :edit]
 

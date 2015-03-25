@@ -61,6 +61,14 @@ ActiveAdmin.register User do
     end
   end
 
+  sidebar "Bonuses", only: [:show] do
+    table_for user.bonuses do
+      column "Amount", :amount_dollars
+      column "Type", :kind
+      column "Status", :state
+    end
+  end
+
   form do |f|
     @user = User.find params[:id] unless f.object.new_record?
     f.inputs "User Details" do

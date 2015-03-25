@@ -1,18 +1,60 @@
 ActiveAdmin.register Bonus do
+  filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("name")
+  filter :kind, as: :select, collection: ["Initial Deposit", "Refer A Friend", "Other"]
+  filter :state, label: "Status", as: :select, collection: Bonus.states
+  menu label: "Bonuses"
 
+  index do
+    column :user
+    column "Bonus Amount" do |bonus|
+      number_to_currency bonus.amount_dollars
+    end
+    column "Pending" do |bonus|
+      number_to_currency bonus.pending_dollars
+    end
+    column "Released" do |bonus|
+      number_to_currency bonus.released_dollars
+    end
+    column :kind
+    column :state
+    actions
+  end
 
-  # See permitted parameters documentation:
-  # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters
-  #
-  # permit_params :list, :of, :attributes, :on, :model
-  #
-  # or
-  #
-  # permit_params do
-  #   permitted = [:permitted, :attributes]
-  #   permitted << :other if resource.something?
-  #   permitted
-  # end
+  show do
+    attributes_table do
+      row :user
+      row "Bonus Amount" do
+        number_to_currency bonus.amount_dollars
+      end
+      row "Pending" do
+        number_to_currency bonus.pending_dollars
+      end
+      row "Released" do
+        number_to_currency bonus.released_dollars
+      end
+      row :rollover
+      row :kind
+      row :state
+      row :created_at
+      row :updated_at
+    end
+  end
 
+  form do |f|
+    f.semantic_errors *f.object.errors.keys
+    f.inputs "Bonus" do
+      f.input :user, required: true, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("name")
+      f.input :amount_dollars, label: "Bonus Amount", required: true
+      f.input :pending_dollars, label: "Pending"
+      f.input :released_dollars, label: "Released"
+      f.input :rollover, required: true
+      f.input :kind, label: "Bonus Type", as: :select, collection: ["Initial Deposit", "Refer A Friend", "Other"]
+      f.input :state, label: "Status", as: :select, collection: ["Pending", "Complete", "Expired"]
+    end
+    f.actions
+  end
+
+  permit_params :user_id, :amount_dollars, :pending_dollars, :released_dollars,
+   :rollover, :kind, :state
 
 end
