@@ -43,7 +43,7 @@ class Wager < ActiveRecord::Base
   after_create :deduct_risk
   after_create :contra, if: :player?
   after_create :deduct_available, if: :player?
-  before_save :check_bonus
+  before_save :check_bonus, if: :never_graded?
 
   aasm column: :state do
     state :Pending, initial: true
@@ -75,6 +75,10 @@ class Wager < ActiveRecord::Base
 
   def player?
     self.user.role == "player"
+  end
+
+  def never_graded?
+    self.created_at == self.updated_at
   end
 
   def contra
@@ -206,7 +210,6 @@ class Wager < ActiveRecord::Base
     return if self.state == "Pending" || self.state == "No_Action"
     bonus = Bonus.find_by(user_id: self.user_id, state: "Pending")
     return if bonus.nil?
-    binding.pry
     bonus.process_bonus(self.win)
   end
 
