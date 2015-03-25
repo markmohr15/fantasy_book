@@ -46,7 +46,6 @@ ActiveAdmin.register Bonus do
       f.input :user, required: true, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("name")
       f.input :amount_dollars, label: "Bonus Amount", required: true
       f.input :pending_dollars, label: "Pending"
-      f.input :released_dollars, label: "Released"
       f.input :rollover, required: true
       f.input :kind, label: "Bonus Type", as: :select, collection: ["Initial Deposit", "Refer A Friend", "Other"]
       f.input :state, label: "Status", as: :select, collection: ["Pending", "Complete", "Expired"]
@@ -54,7 +53,6 @@ ActiveAdmin.register Bonus do
     f.actions
   end
 
-  permit_params :user_id, :amount_dollars, :pending_dollars, :released_dollars,
-   :rollover, :kind, :state
+  permit_params :user_id, :amount_dollars, :pending_dollars,  :rollover, :kind, :state
 
 end
