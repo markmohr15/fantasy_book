@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   match "/my_account/transfer", to: "account#transfer", via: [:get, :post]
   get "/my_account/balance", to: "account#balance"
   get "/my_account/challenge", to: "account#challenge"
+  get "/my_account/bonuses", to: "account#bonuses"
   get "/my_fantasy/my_action", to: "fantasy#my_action"
   get "/my_fantasy/my_history", to: "fantasy#my_history"
   get "/my_fantasy/my_stats", to: "fantasy#my_stats"

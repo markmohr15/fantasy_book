@@ -44,6 +44,10 @@ class AccountController < ApplicationController
     render
   end
 
+  def bonuses
+    @bonuses = Bonus.where(user_id: current_user.id)
+  end
+
   private
 
   def transfer_params
