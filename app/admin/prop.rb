@@ -45,7 +45,9 @@ ActiveAdmin.register Prop do
       row "Event Time" do
         prop.time
       end
-      row :user
+      row "User" do |wager|
+        link_to(wager.user.name, admin_user_path(wager.user.id))
+      end
       row "Choice 1 Spread" do
         prop.opt1_spread_line
       end
