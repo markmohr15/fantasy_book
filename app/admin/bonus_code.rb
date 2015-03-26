@@ -34,7 +34,7 @@ ActiveAdmin.register BonusCode do
     f.semantic_errors *f.object.errors.keys
     f.inputs "Bonus Code Details" do
       f.input :code, required: true
-      f.input :percentage, required: true
+      f.input :percentage
       f.input :rollover, required: true
       f.input :maximum_dollars, label: "Max Bonus Amount"
       f.input :note

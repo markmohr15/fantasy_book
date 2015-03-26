@@ -45,7 +45,7 @@ class AccountController < ApplicationController
   end
 
   def bonuses
-    @bonuses = Bonus.where(user_id: current_user.id)
+    @bonuses = Bonus.where(user_id: current_user.id).order("created_at DESC" )
   end
 
   private

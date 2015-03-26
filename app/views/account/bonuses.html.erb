@@ -8,6 +8,7 @@
         <th> Released </th>
         <th> Earned </th>
         <th> Remaining </th>
+        <th> Rollover Requirement </th>
         <th> Type </th>
       </tr>
     </thead>
@@ -19,6 +20,7 @@
         <td> <%= number_to_currency bonus.released_dollars %> </td>
         <td> <%= number_to_currency bonus.earned %> </td>
         <td> <%= number_to_currency bonus.pending_dollars %> </td>
+        <td> <%= bonus.rollover %>x</td>
         <td> <%= bonus.kind %> </td>
       </tr>
     <% end %>
