@@ -42,15 +42,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  validates :username, presence: true,  if: :player?
-  validates :username, uniqueness: true, case_sensitive: false, if: :player?
-  validates :address, presence: true, if: :player?
-  validates :city, presence: true, if: :player?
-  validates :state, presence: true, if: :player?
-  validates :zip, presence: true, if: :player?
-  validates :country, presence: true, if: :player?
-  validates :name, presence: true
-
   has_many :wagers
   has_many :props
   has_many :transfers_as_sender, class_name: "Transfer", foreign_key: "sender_id"
@@ -61,10 +52,21 @@ class User < ActiveRecord::Base
   has_many :withdrawals
   has_many :bonuses
 
-  enum role: [ :admin, :player, :superadmin, :vip ]
+  validates :username, presence: true,  if: :player?
+  validates :username, uniqueness: true, case_sensitive: false, if: :player?
+  validates :address, presence: true, if: :player?
+  validates :city, presence: true, if: :player?
+  validates :state, presence: true, if: :player?
+  validates :zip, presence: true, if: :player?
+  validates :country, presence: true, if: :player?
+  validates :name, presence: true
 
   store_cents :balance
   accepts_nested_attributes_for :credits
+
+  enum role: [ :admin, :player, :superadmin, :vip ]
+
+  after_create :referral
 
   attr_accessor :login
 
@@ -79,6 +81,12 @@ class User < ActiveRecord::Base
     else
       where(conditions).first
     end
+  end
+
+  def referral
+    referrer = User.find_by(username: self.referral_code)
+    return if referrer.nil?
+    #more stuff here
   end
 
 end

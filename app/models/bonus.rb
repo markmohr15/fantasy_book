@@ -2,22 +2,24 @@
 #
 # Table name: bonuses
 #
-#  id         :integer          not null, primary key
-#  user_id    :integer
-#  amount     :integer
-#  pending    :integer
-#  kind       :string(255)
-#  rollover   :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  state      :integer
-#  released   :integer          default("0")
+#  id            :integer          not null, primary key
+#  user_id       :integer
+#  amount        :integer
+#  pending       :integer
+#  kind          :string(255)
+#  rollover      :integer
+#  created_at    :datetime         not null
+#  updated_at    :datetime         not null
+#  state         :integer
+#  released      :integer          default("0")
+#  bonus_code_id :integer
 #
 
 class Bonus < ActiveRecord::Base
   include AASM, StorageConversions
 
   belongs_to :user
+  belongs_to :bonus_code
   validates :user_id, presence: true
   validates :amount, presence: true
 

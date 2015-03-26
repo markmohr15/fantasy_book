@@ -11,18 +11,29 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326064831) do
+ActiveRecord::Schema.define(version: 20150326193441) do
+
+  create_table "bonus_codes", force: :cascade do |t|
+    t.string   "code",       limit: 255
+    t.integer  "percentage", limit: 4
+    t.integer  "rollover",   limit: 4
+    t.string   "note",       limit: 255
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.integer  "maximum",    limit: 4,   default: 1000000
+  end
 
   create_table "bonuses", force: :cascade do |t|
-    t.integer  "user_id",    limit: 4
-    t.integer  "amount",     limit: 4
-    t.integer  "pending",    limit: 4
-    t.string   "kind",       limit: 255
-    t.integer  "rollover",   limit: 4
-    t.datetime "created_at",                         null: false
-    t.datetime "updated_at",                         null: false
-    t.integer  "state",      limit: 4
-    t.integer  "released",   limit: 4,   default: 0
+    t.integer  "user_id",       limit: 4
+    t.integer  "amount",        limit: 4
+    t.integer  "pending",       limit: 4
+    t.string   "kind",          limit: 255
+    t.integer  "rollover",      limit: 4
+    t.datetime "created_at",                            null: false
+    t.datetime "updated_at",                            null: false
+    t.integer  "state",         limit: 4
+    t.integer  "released",      limit: 4,   default: 0
+    t.integer  "bonus_code_id", limit: 4
   end
 
   create_table "credits", force: :cascade do |t|
