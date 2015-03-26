@@ -1,7 +1,28 @@
 <div class="container padding-large-horizontal">
+  <table class="table table-striped table-responsive">
+    <thead>
+      <tr>
+        <th> Date Awarded </th>
+        <th> Status </th>
+        <th> Amount </th>
+        <th> Released </th>
+        <th> Earned </th>
+        <th> Remaining </th>
+        <th> Type </th>
+      </tr>
+    </thead>
+    <% @bonuses.each do |bonus| %>
+      <tr>
+        <td> <%= bonus.created_at.strftime("%m/%d/%y") %> </td>
+        <td> <%= bonus.state %> </td>
+        <td> <%= number_to_currency bonus.amount_dollars %> </td>
+        <td> <%= number_to_currency bonus.released_dollars %> </td>
+        <td> <%= number_to_currency bonus.earned %> </td>
+        <td> <%= number_to_currency bonus.pending_dollars %> </td>
+        <td> <%= bonus.kind %> </td>
+      </tr>
+    <% end %>
+  </table>
 
-<% @bonuses.each do |bonus| %>
-<div>  <%= bonus.amount_dollars %> </div>
-<% end %>
-
+  <p> Note: Bonuses are released in ten dollar increments. </p>
 </div>

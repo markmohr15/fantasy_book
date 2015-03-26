@@ -45,6 +45,28 @@ class Bonus < ActiveRecord::Base
     self.user.save
   end
 
+  def earned
+    self.amount_dollars - self.pending_dollars - self.released_dollars
+  end
+
+  def self.pending_bonuses(user)
+    bonuses = Bonus.where(user_id: user.id, state: "Pending")
+    counter = 0
+    bonuses.map do |bonus|
+      counter += bonus.pending_dollars
+    end
+    counter
+  end
+
+  def self.earned_bonuses(user)
+    bonuses = Bonus.where(user_id: user.id, state: "Pending")
+    counter = 0
+    bonuses.map do |bonus|
+      counter += bonus.earned
+    end
+    counter
+  end
+
   def process_bonus(wager_amount)
     self.pending -= wager_amount / self.rollover
     if self.pending <= 0

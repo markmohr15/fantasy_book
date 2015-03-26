@@ -1,6 +1,22 @@
 <div class="container padding-large-horizontal">
-
-Current Balance: <%= number_to_currency current_user.balance_dollars %> <br />
-Pending: <%= number_to_currency Wager.pending_wagers(current_user) %>
-
+  <div class ="col-md-6">
+    <table class="table table-striped table-responsive">
+      <tr>
+        <td> Current Cash Balance: </td>
+        <td> <%= number_to_currency current_user.balance_dollars %> </td>
+      </tr>
+      <tr>
+        <td> Pending Props: </td>
+        <td> <%= number_to_currency Wager.pending_wagers(current_user) %> </td>
+      </tr>
+      <tr>
+        <td> Earned Bonus: </td>
+        <td> <%= number_to_currency Bonus.earned_bonuses(current_user) %> </td>
+      </tr>
+      <tr>
+        <td> Pending Bonus: </td>
+        <td> <%= number_to_currency Bonus.pending_bonuses(current_user) %> </td>
+      </tr>
+    </table>
+  </div>
 </div>
