@@ -21,13 +21,26 @@ class Bonus < ActiveRecord::Base
   belongs_to :bonus_code
   validates :user_id, presence: true
   validates :amount, presence: true
+  validate :available?
 
   store_cents :amount, :pending, :released
 
   enum state: [ :Pending, :Complete, :Expired ]
 
-  before_validation :set_pending, on: :create
+  before_validation :set_amounts, on: :create
   before_save :release
+
+  def available?
+    unless self.bonus_code.nil?
+      if self.bonus_code.enabled == false
+        errors[:base] << "Bonus Code not available"
+      end
+      binding.pry
+      if Bonus.where(user_id: self.user.id, bonus_code_id: self.bonus_code_id).exists? && self.bonus_code.one_time == true
+        errors[:base] << "Bonus Code already redeemed"
+      end
+    end
+  end
 
   def set_amounts
     if self.amount > self.bonus_code.maximum

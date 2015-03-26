@@ -10,6 +10,8 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  maximum    :integer          default("1000000")
+#  enabled    :boolean          default("1")
+#  one_time   :boolean          default("1")
 #
 
 class BonusCode < ActiveRecord::Base
