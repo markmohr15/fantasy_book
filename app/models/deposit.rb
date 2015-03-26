@@ -8,6 +8,7 @@
 #  method     :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
+#  bonus_code :string(255)
 #
 
 class Deposit < ActiveRecord::Base
@@ -19,12 +20,21 @@ class Deposit < ActiveRecord::Base
 
   store_cents :amount
 
-  after_create :initial_bonus
+  after_create :bonus_check #, :initial_bonus
 
-  def initial_bonus
-    if self.user.deposits.count == 1
-      Bonus.create(user_id: self.id, amount: self.amount * 0.10,
-        kind: "Initial", rollover: 20)
-    end
+  #def initial_bonus
+   # if self.user.deposits.count == 1
+    #  Bonus.create(user_id: self.id, amount: self.amount * 0.10,
+     #   kind: "Initial", rollover: 20)
+    #end
+  #end
+
+  def bonus_check
+    return if self.bonus_code.nil?
+    bc = BonusCode.find_by code: self.bonus_code
+    return if bc.nil?
+    #check for eligibility here
+    Bonus.create(user_id: self.user_id, amount: self.amount * bc.precentage / 100.0,
+     bonus_code_id: bc.id)
   end
 end

@@ -29,11 +29,15 @@ class Bonus < ActiveRecord::Base
   before_validation :set_pending, on: :create
   before_save :release
 
-  def set_pending
+  def set_amounts
+    if self.amount > self.bonus_code.maximum
+      self.amount = self.bonus_code.maximum
+    end
     self.pending = self.amount
     unless self.bonus_code.nil?
       self.rollover = self.bonus_code.rollover
     end
+
   end
 
   def description
@@ -42,6 +46,24 @@ class Bonus < ActiveRecord::Base
     else
       self.bonus_code.code
     end
+  end
+
+  def earned
+    self.amount_dollars - self.pending_dollars - self.released_dollars
+  end
+
+  def process_bonus(wager_amount)
+    self.pending -= wager_amount / self.rollover
+    if self.pending <= 0
+      extra = self.pending * self.rollover * -1
+      self.pending = 0
+      self.complete_bonus!
+      nextBonus = Bonus.find_by(user_id: self.user_id, state: "Pending")
+      unless nextBonus.nil?
+        nextBonus.process_bonus(extra)
+      end
+    end
+    self.save
   end
 
   def release
@@ -55,10 +77,6 @@ class Bonus < ActiveRecord::Base
       self.released = self.amount
     end
     self.user.save
-  end
-
-  def earned
-    self.amount_dollars - self.pending_dollars - self.released_dollars
   end
 
   def self.pending_bonuses(user)
@@ -77,20 +95,6 @@ class Bonus < ActiveRecord::Base
       counter += bonus.earned
     end
     counter
-  end
-
-  def process_bonus(wager_amount)
-    self.pending -= wager_amount / self.rollover
-    if self.pending <= 0
-      extra = self.pending * self.rollover * -1
-      self.pending = 0
-      self.complete_bonus!
-      nextBonus = Bonus.find_by(user_id: self.user_id, state: "Pending")
-      unless nextBonus.nil?
-        nextBonus.process_bonus(extra)
-      end
-    end
-    self.save
   end
 
   aasm column: :state do
