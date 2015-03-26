@@ -44,6 +44,7 @@ ActiveAdmin.register User do
         user.sms_notif.to_s
       end
       row :role
+      row :referral_code
       row :current_sign_in_at
       row :last_sign_in_at
       row :current_sign_in_ip
@@ -87,6 +88,7 @@ ActiveAdmin.register User do
       f.input :email_notif, as: :radio, collection: [["Yes", true], ["No", false]], label: "Email Notification"
       f.input :sms_notif, as: :radio, collection: [["Yes", true], ["No", false]], label: "SMS Notification"
       f.input :role, as: :radio, collection: [["Player", "player", {checked: true}], ["VIP", "vip"]]
+      f.input :referral_code
     end
     f.inputs do
       f.has_many :credits, new_record: "House Credit" do |c|

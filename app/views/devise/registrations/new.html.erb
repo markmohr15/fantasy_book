@@ -52,6 +52,8 @@
     <%= f.password_field :password_confirmation, autocomplete: "off", placeholder: "Password Confirmation" %>
   </div>
     <br />
+  <div class="field">
+    <%= f.text_field :referral_code, placeholder: "Referral Code/Username of Referrer" %>
   <div class="actions">
     <%= f.submit "Sign up" %>
   </div>

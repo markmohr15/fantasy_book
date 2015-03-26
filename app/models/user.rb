@@ -27,6 +27,7 @@
 #  balance                :integer          default("0")
 #  email_notif            :boolean          default("1")
 #  sms_notif              :boolean          default("0")
+#  referral_code          :string(255)
 #
 # Indexes
 #
