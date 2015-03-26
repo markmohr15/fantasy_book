@@ -32,6 +32,17 @@ class Bonus < ActiveRecord::Base
 
   def set_pending
     self.pending = self.amount
+    unless self.bonus_code.nil?
+      self.rollover = self.bonus_code.rollover
+    end
+  end
+
+  def description
+    if self.bonus_code.nil?
+      "Other"
+    else
+      self.bonus_code.code
+    end
   end
 
   def release
