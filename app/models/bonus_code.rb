@@ -17,5 +17,11 @@ class BonusCode < ActiveRecord::Base
 
   has_many :bonuses
 
+  validates :code, presence: true
+  validates :code, uniqueness: true
+  validates :percentage, presence: true
+  validates :rollover, presence: true
+  validates :maximum, presence: true
+
   store_cents :maximum
 end

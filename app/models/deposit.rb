@@ -20,14 +20,7 @@ class Deposit < ActiveRecord::Base
 
   store_cents :amount
 
-  after_create :bonus_check #, :initial_bonus
-
-  #def initial_bonus
-   # if self.user.deposits.count == 1
-    #  Bonus.create(user_id: self.id, amount: self.amount * 0.10,
-     #   kind: "Initial", rollover: 20)
-    #end
-  #end
+  after_create :bonus_check
 
   def bonus_check
     return if self.bonus_code.nil?
