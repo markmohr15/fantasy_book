@@ -6,7 +6,6 @@
 #  user_id       :integer
 #  amount        :integer
 #  pending       :integer
-#  kind          :string(255)
 #  rollover      :integer
 #  created_at    :datetime         not null
 #  updated_at    :datetime         not null
