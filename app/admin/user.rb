@@ -110,7 +110,7 @@ ActiveAdmin.register User do
 
   permit_params :email, :name, :username, :password, :balance_dollars, :address,
   :city, :state, :zip, :country, :phone, :email_notif, :sms_notif, :role, :affiliate,
-  , :referral_code, credits_attributes: [:id, :amount_dollars, :note, :user_id, :admin_id]
+  :referral_code, credits_attributes: [:id, :amount_dollars, :note, :user_id, :admin_id]
 
   controller do
     def scoped_collection
