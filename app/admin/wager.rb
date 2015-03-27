@@ -1,6 +1,6 @@
 ActiveAdmin.register Wager do
   filter :id
-  filter :user
+  filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :prop_id
   filter :state, label: "Status", as: :select, collection: Wager.states
   menu priority: 7
@@ -10,7 +10,7 @@ ActiveAdmin.register Wager do
     selectable_column
     column "Ticket", :id
     column "User" do |wager|
-      link_to(wager.user.name, admin_user_path(wager.user.id))
+      link_to(wager.user.username, admin_user_path(wager.user.id))
     end
     column "Prop" do |wager|
       link_to(wager.prop.id, admin_prop_path(wager.prop.id))
@@ -37,7 +37,7 @@ ActiveAdmin.register Wager do
         wager.id
       end
       row "User" do |wager|
-        link_to(wager.user.name, admin_user_path(wager.user.id))
+        link_to(wager.user.username, admin_user_path(wager.user.id))
       end
       row "Prop" do |wager|
         link_to(wager.prop.id, admin_prop_path(wager.prop.id))
@@ -73,7 +73,7 @@ ActiveAdmin.register Wager do
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs "Wager Details" do
-      f.input :user, required: true
+      f.input :user, required: true, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
       f.input :prop_id, as: :select, collection: Prop.where("state = ? or state = ?", 0, 1).collect {|p| ["#{p.proposition} - #{p.prop_choices.first.name} Vs. #{p.prop_choices.last.name}", p.id]}, required: true
       f.input :prop_choice_id, as: :radio, collection: ["Team 1", "Team 2"], required: true
       f.input :risk_dollars, label: "Risk $", required: true

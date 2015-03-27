@@ -1,12 +1,12 @@
 ActiveAdmin.register Bonus do
-  filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("name")
+  filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :bonus_code
   filter :state, label: "Status", as: :select, collection: Bonus.states
   menu label: "Bonuses"
 
   index do
     column "User" do |wager|
-      link_to(wager.user.name, admin_user_path(wager.user.id))
+      link_to(wager.user.username, admin_user_path(wager.user.id))
     end
     column "Bonus Amount" do |bonus|
       number_to_currency bonus.amount_dollars
@@ -25,7 +25,7 @@ ActiveAdmin.register Bonus do
   show do
     attributes_table do
       row "User" do |bonus|
-        link_to(bonus.user.name, admin_user_path(bonus.user.id))
+        link_to(bonus.user.username, admin_user_path(bonus.user.id))
       end
       row "Bonus Amount" do
         number_to_currency bonus.amount_dollars
@@ -49,7 +49,7 @@ ActiveAdmin.register Bonus do
   form do |f|
     f.semantic_errors *f.object.errors.keys
     f.inputs "Bonus" do
-      f.input :user, required: true, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("name")
+      f.input :user, required: true, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
       f.input :amount_dollars, label: "Bonus Amount", required: true
       if f.object.new_record?
         f.input :bonus_code, label: "Bonus Code", as: :select, collection: BonusCode.all.collect {|bc| ["#{bc.code} - #{bc.rollover}x rollover", bc.id]}

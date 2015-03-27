@@ -2,6 +2,7 @@ ActiveAdmin.register Prop do
   filter :sport
   filter :state, label: "Status", as: :select, collection: Prop.states
   filter :time, label: "Event Time"
+  filter :user, label: "VIP Player", as: :select, collection: User.where(role: 3).order("username").collect {|u| ["#{u.username}", u.id]}
   menu priority: 6
 
   index do
@@ -46,7 +47,7 @@ ActiveAdmin.register Prop do
         prop.time
       end
       row "User" do |wager|
-        link_to(wager.user.name, admin_user_path(wager.user.id))
+        link_to(wager.user.username, admin_user_path(wager.user.id))
       end
       row "Choice 1 Spread" do
         prop.opt1_spread_line
@@ -71,7 +72,7 @@ ActiveAdmin.register Prop do
       f.input :proposition, required: true, input_html: { value: "Vs."}
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
-      f.input :user, label: "VIP Acct", as: :select, collection: User.where(role: 3), required: true, include_blank: false
+      f.input :user, label: "VIP Acct", as: :select, collection: User.where(role: 3).order("username").collect {|u| ["#{u.username}", u.id]}, required: true, include_blank: false
       f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread", class: "hidden"}
       f.input :winner, as: :radio, collection: ["Team1", "Team2", "Push", "NoAction"]
     end

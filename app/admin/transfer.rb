@@ -1,7 +1,7 @@
 ActiveAdmin.register Transfer do
   menu priority: 8
-  filter :sender
-  filter :receiver
+  filter :sender, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
+  filter :receiver, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :state, label: "Status"
 
   index do
@@ -42,8 +42,8 @@ ActiveAdmin.register Transfer do
   form do |f|
     f.inputs "Transfer" do
       @transfer = Transfer.find params[:id] unless f.object.new_record?
-      f.input :sender, as: :select, collection: (User.where role: 1)
-      f.input :receiver, as: :select, collection: (User.where role: 1)
+      f.input :sender, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
+      f.input :receiver, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
       f.input :amount_dollars, label: "Amount"
       if f.object.new_record?
         f.input :state, as: :radio, collection: ["Pending", "Approved"]
