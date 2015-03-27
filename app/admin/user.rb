@@ -3,6 +3,7 @@ ActiveAdmin.register User do
   filter :email
   filter :username
   filter :role, as: :select, collection: (player_or_vip)
+  filter :affiliate, as: :select, collection: [["True", true], ["False", false]]
   menu priority: 3
 
   index do
@@ -44,6 +45,9 @@ ActiveAdmin.register User do
         user.sms_notif.to_s
       end
       row :role
+      row "Affiliate?" do |user|
+        user.affiliate.to_s
+      end
       row :referral_code
       row :current_sign_in_at
       row :last_sign_in_at
@@ -88,6 +92,7 @@ ActiveAdmin.register User do
       f.input :email_notif, as: :radio, collection: [["Yes", true], ["No", false]], label: "Email Notification"
       f.input :sms_notif, as: :radio, collection: [["Yes", true], ["No", false]], label: "SMS Notification"
       f.input :role, as: :radio, collection: [["Player", "player", {checked: true}], ["VIP", "vip"]]
+      f.input :affiliate, as: :radio, collection: [["Yes", true], ["No", false]]
       f.input :referral_code
     end
     unless f.object.new_record?
@@ -104,8 +109,8 @@ ActiveAdmin.register User do
   end
 
   permit_params :email, :name, :username, :password, :balance_dollars, :address,
-  :city, :state, :zip, :country, :phone, :email_notif, :sms_notif, :role,
-  credits_attributes: [:id, :amount_dollars, :note, :user_id, :admin_id]
+  :city, :state, :zip, :country, :phone, :email_notif, :sms_notif, :role, :affiliate,
+  , :referral_code, credits_attributes: [:id, :amount_dollars, :note, :user_id, :admin_id]
 
   controller do
     def scoped_collection

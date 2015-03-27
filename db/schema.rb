@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150327205845) do
+ActiveRecord::Schema.define(version: 20150327220433) do
 
   create_table "bonus_codes", force: :cascade do |t|
     t.string   "code",       limit: 255
@@ -133,6 +133,7 @@ ActiveRecord::Schema.define(version: 20150327205845) do
     t.boolean  "email_notif",            limit: 1,   default: true
     t.boolean  "sms_notif",              limit: 1,   default: false
     t.string   "referral_code",          limit: 255
+    t.boolean  "affiliate",              limit: 1,   default: false
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
