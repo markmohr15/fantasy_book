@@ -9,7 +9,7 @@
 #  note       :string(255)
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
-#  maximum    :integer          default("1000000")
+#  maximum    :integer          default("20000")
 #  enabled    :boolean          default("1")
 #  one_time   :boolean          default("1")
 #

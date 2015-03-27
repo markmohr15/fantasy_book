@@ -11,16 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326210845) do
+ActiveRecord::Schema.define(version: 20150327205845) do
 
   create_table "bonus_codes", force: :cascade do |t|
     t.string   "code",       limit: 255
     t.integer  "percentage", limit: 4
     t.integer  "rollover",   limit: 4
     t.string   "note",       limit: 255
-    t.datetime "created_at",                               null: false
-    t.datetime "updated_at",                               null: false
-    t.integer  "maximum",    limit: 4,   default: 1000000
+    t.datetime "created_at",                             null: false
+    t.datetime "updated_at",                             null: false
+    t.integer  "maximum",    limit: 4,   default: 20000
     t.boolean  "enabled",    limit: 1,   default: true
     t.boolean  "one_time",   limit: 1,   default: true
   end
