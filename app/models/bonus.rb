@@ -35,7 +35,6 @@ class Bonus < ActiveRecord::Base
       if self.bonus_code.enabled == false
         errors[:base] << "Bonus Code not available"
       end
-      binding.pry
       if Bonus.where(user_id: self.user.id, bonus_code_id: self.bonus_code_id).exists? && self.bonus_code.one_time == true
         errors[:base] << "Bonus Code already redeemed"
       end
