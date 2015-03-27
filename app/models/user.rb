@@ -66,7 +66,7 @@ class User < ActiveRecord::Base
 
   enum role: [ :admin, :player, :superadmin, :vip ]
 
-  after_create :referral
+  before_create :verify_referral_code
 
   attr_accessor :login
 
@@ -83,10 +83,12 @@ class User < ActiveRecord::Base
     end
   end
 
-  def referral
-    referrer = User.find_by(username: self.referral_code)
-    return if referrer.nil?
-    #more stuff here
+  def verify_referral_code
+    rc = User.find_by username: self.referral_code
+    if rc.nil?
+      self.referral_code = nil
+    end
   end
+
 
 end
