@@ -1,6 +1,6 @@
 ActiveAdmin.register Bonus do
   filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("name")
-  filter :kind, as: :select, collection: ["Initial Deposit", "Refer A Friend", "Other"]
+  filter :bonus_code
   filter :state, label: "Status", as: :select, collection: Bonus.states
   menu label: "Bonuses"
 
@@ -64,6 +64,6 @@ ActiveAdmin.register Bonus do
     f.actions
   end
 
-  permit_params :user_id, :amount_dollars, :bonus_code_id, :pending_dollars,  :rollover, :kind, :state
+  permit_params :user_id, :amount_dollars, :bonus_code_id, :pending_dollars,  :rollover, :state
 
 end
