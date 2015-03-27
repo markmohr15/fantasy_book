@@ -90,12 +90,14 @@ ActiveAdmin.register User do
       f.input :role, as: :radio, collection: [["Player", "player", {checked: true}], ["VIP", "vip"]]
       f.input :referral_code
     end
-    f.inputs do
-      f.has_many :credits, new_record: "House Credit" do |c|
-        c.input :amount_dollars, label: "Amount"
-        c.input :note
-        c.input :user_id, input_html: { value: @user.id }, as: :hidden
-        c.input :admin_id, input_html: { value: current_user.id }, as: :hidden
+    unless f.object.new_record?
+      f.inputs do
+        f.has_many :credits, new_record: "House Credit" do |c|
+          c.input :amount_dollars, label: "Amount"
+          c.input :note
+          c.input :user_id, input_html: { value: @user.id }, as: :hidden
+          c.input :admin_id, input_html: { value: current_user.id }, as: :hidden
+        end
       end
     end
     f.actions
