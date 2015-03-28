@@ -48,6 +48,11 @@ class AccountController < ApplicationController
     @bonuses = Bonus.where(user_id: current_user.id).order("created_at DESC" )
   end
 
+  def affiliate
+    redirect_to root_path unless current_user.affiliate?
+    @aps = AffiliatePayment.where(affiliate_id: current_user.id).order("created_at DESC")
+  end
+
   private
 
   def transfer_params

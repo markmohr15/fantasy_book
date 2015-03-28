@@ -56,6 +56,9 @@
         <li role="presentation" class="<%= 'active' if current_page?(my_account_withdraw_path) %>"> <%= link_to "Withdraw", my_account_withdraw_path %></li>
         <li role="presentation" class="<%= 'active' if current_page?(my_account_transfer_path) %>"> <%= link_to "Transfer", my_account_transfer_path %></li>
         <li role="presentation" class="<%= 'active' if current_page?(my_account_bonuses_path) %>"> <%= link_to "Bonuses", my_account_bonuses_path %></li>
+        <% if current_user.affiliate? %>
+          <li role="presentation" class="<%= 'active' if current_page?(my_account_affiliate_path) %>"> <%= link_to "Affiliate", my_account_affiliate_path %></li>
+        <% end %>
         <li role="presentation" class="<%= 'active' if current_page?(my_account_balance_path) %>"> <%= link_to "Balance", my_account_balance_path %></li>
       </ul>
     </div>
