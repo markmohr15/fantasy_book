@@ -28,6 +28,7 @@
 #  email_notif            :boolean          default("1")
 #  sms_notif              :boolean          default("0")
 #  referral_code          :string(255)
+#  affiliate              :boolean          default("0")
 #
 # Indexes
 #
@@ -51,6 +52,8 @@ class User < ActiveRecord::Base
   has_many :deposits
   has_many :withdrawals
   has_many :bonuses
+  has_many :affiliate_payments
+  has_many :affiliate_payments_as_affiliate, class_name: "AffiliatePayment", foreign_key: "affiliate_id"
 
   validates :username, presence: true,  if: :player?
   validates :username, uniqueness: true, case_sensitive: false, if: :player?

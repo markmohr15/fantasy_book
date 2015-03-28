@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150327220433) do
+ActiveRecord::Schema.define(version: 20150328000545) do
+
+  create_table "affiliate_payments", force: :cascade do |t|
+    t.integer  "amount",       limit: 4
+    t.integer  "state",        limit: 4
+    t.integer  "affiliate_id", limit: 4
+    t.integer  "user_id",      limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
 
   create_table "bonus_codes", force: :cascade do |t|
     t.string   "code",       limit: 255

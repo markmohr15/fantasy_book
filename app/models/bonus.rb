@@ -28,7 +28,7 @@ class Bonus < ActiveRecord::Base
   enum state: [ :Pending, :Complete, :Expired ]
 
   before_validation :set_amounts, on: :create
-  before_save :release
+  before_save :release, on: :edit
 
   def available?
     unless self.bonus_code.nil?
@@ -49,7 +49,6 @@ class Bonus < ActiveRecord::Base
     unless self.bonus_code.nil?
       self.rollover = self.bonus_code.rollover
     end
-
   end
 
   def description
