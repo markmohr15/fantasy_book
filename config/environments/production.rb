@@ -1,6 +1,15 @@
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
+  #MAILGUN
+  config.action_mailer.delivery_method  = :mailgun
+  config.action_mailer.mailgun_settings = {
+    api_host: "mg.fantasybook.guru",
+    api_key:  "key-4ffa5a2fcedaa0b5bdc7c4a1014576ac"
+  }
+
+
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

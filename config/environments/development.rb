@@ -18,6 +18,13 @@ Rails.application.configure do
   config.action_mailer.default_url_options = { host: 'localhost', port: 3000 }
   config.action_mailer.raise_delivery_errors = false
 
+  config.action_mailer.delivery_method = :mailgun
+  config.action_mailer.mailgun_settings = {
+        api_key: 'key-4ffa5a2fcedaa0b5bdc7c4a1014576ac',
+        domain: 'postmaster@sandbox26be926ec5da4a1296644e50a15cf2d7.mailgun.org'
+  }
+
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 
