@@ -2,7 +2,7 @@ class PagesController < ApplicationController
   layout "application"
 
   def contact
-    PropMailer.test_email(current_user).deliver_later
+    render
   end
 
   def privacy

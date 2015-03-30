@@ -24,7 +24,6 @@ Rails.application.configure do
         domain: 'postmaster@sandbox26be926ec5da4a1296644e50a15cf2d7.mailgun.org'
   }
 
-
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

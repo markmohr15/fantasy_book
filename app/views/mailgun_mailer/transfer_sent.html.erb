@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <%= @transfer.receiver.username %>, you just received a transfer in the amount of <%= number_to_currency @transfer.amount_dollars %> from <%= @transfer.sender.username %>.  <br/>
+  Good luck, <br/> <br/>
+  FantasyBook.guru
+</body>
+</html>

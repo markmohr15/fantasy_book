@@ -6,7 +6,6 @@ class WagersController < ApplicationController
     if current_user.valid_password?(params[:password])
       @wagers = params[:wager].map { |attrs| Wager.create(attrs.to_hash.merge(user_id: current_user.id)) unless attrs["prop_id"] == "" }
       @wagers = @wagers[0...-1]
-      PropMailer.test_email(current_user).deliver_later
     else
       @password_error = "Invalid Password"
     end

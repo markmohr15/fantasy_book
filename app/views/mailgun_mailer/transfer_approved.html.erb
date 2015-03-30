@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <%= @transfer.sender.username %>, your transfer of <%= number_to_currency @transfer.amount_dollars %> to <%= @transfer.receiver.username %> was approved.  <br/>
+  Thank you, <br/> <br/>
+  FantasyBook.guru
+</body>
+</html>

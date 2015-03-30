@@ -25,6 +25,7 @@ class AccountController < ApplicationController
         transfer.sender_id = current_user.id
         if transfer.save
           redirect_to my_account_transfer_path
+          MailgunMailer.transfer_request(transfer).deliver_later
         else
           render action: :transfer
         end

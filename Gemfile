@@ -21,7 +21,6 @@ gem "just-datetime-picker"
 gem "rails_12factor"
 gem 'momentjs-rails', '>= 2.9.0'
 gem 'bootstrap3-datetimepicker-rails', '~> 4.0.0'
-
 gem 'rails-mailgun', git: "git://github.com/code-mancers/rails-mailgun.git"
 
 group :development, :test do
