@@ -13,7 +13,6 @@ class WagersController < ApplicationController
       format.html
       format.js
     end
-
   end
 
   private

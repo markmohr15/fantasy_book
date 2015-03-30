@@ -20,6 +20,11 @@ class MailgunMailer < ActionMailer::Base
     mail to: @transfer.receiver.email, from: "postmaster@fantasybook.guru", subject: "Transfer Received"
   end
 
+  def transfer_rejected transfer
+    @transfer = transfer
+    mail to: @transfer.sender.email, from: "postmaster@fantasybook.guru", subject: "Transfer Rejected"
+  end
+
 end
 
 

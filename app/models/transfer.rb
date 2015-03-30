@@ -42,6 +42,7 @@ class Transfer < ActiveRecord::Base
     elsif self.state == "Rejected"
       self.sender.balance += self.amount
       self.sender.save
+      MailgunMailer.transfer_rejected(self).deliver_later
     end
   end
 
