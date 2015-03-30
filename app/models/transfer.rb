@@ -37,8 +37,8 @@ class Transfer < ActiveRecord::Base
     if self.state == "Approved"
       self.receiver.balance += self.amount
       self.receiver.save
-      MailgunMailer.transfer_approved(transfer).deliver_later
-      MailgunMailer.transfer_sent(transfer).deliver_later
+      MailgunMailer.transfer_approved(self).deliver_later
+      MailgunMailer.transfer_sent(self).deliver_later
     elsif self.state == "Rejected"
       self.sender.balance += self.amount
       self.sender.save
