@@ -27,6 +27,7 @@ ActiveAdmin.register User, as: "Admin" do
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs "Admin Details" do
       f.input :email
       f.input :name

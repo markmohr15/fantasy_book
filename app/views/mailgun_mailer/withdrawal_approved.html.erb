@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <%= @withdrawal.user.username %>, your <%= @withdrawal.kind %> withdrawal request in the amount of <%= number_to_currency @withdrawal.net_amount %> was approved.  <br/>
+  Thank you, <br/> <br/>
+  FantasyBook.guru
+</body>
+</html>

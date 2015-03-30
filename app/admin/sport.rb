@@ -15,6 +15,7 @@ ActiveAdmin.register Sport do
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     f.inputs "Sport" do
       f.input :name
     end

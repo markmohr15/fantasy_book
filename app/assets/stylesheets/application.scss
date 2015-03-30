@@ -92,14 +92,14 @@ input#q {
   width: 325px;
 }
 
-.transfer-form {
+.transfer-form, .withdrawal-form {
   label {
     float: left;
   }
   span {
     float: right;
   }
-  input {
+  input, select#method {
     float: right;
     width: 150px;
     font-size: small;

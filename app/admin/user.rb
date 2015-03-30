@@ -75,6 +75,7 @@ ActiveAdmin.register User do
   end
 
   form do |f|
+    f.semantic_errors *f.object.errors.keys
     @user = User.find params[:id] unless f.object.new_record?
     f.inputs "User Details" do
       f.input :email

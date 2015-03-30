@@ -189,6 +189,11 @@ $(function(){
     format: "L"
     });
 
+  $('input#amount_dollars').on('keyup', function(e) {
+    $('input#fee').val(($('input#amount_dollars').val() * 0.035).toFixed(2))
+    $('input#net').val(($('input#amount_dollars').val() - $('input#fee').val()).toFixed(2))
+  });
+
 });
 
 

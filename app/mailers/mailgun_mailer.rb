@@ -25,6 +25,21 @@ class MailgunMailer < ActionMailer::Base
     mail to: @transfer.sender.email, from: "postmaster@fantasybook.guru", subject: "Transfer Rejected"
   end
 
+  def withdrawal_request withdrawal
+    @withdrawal = withdrawal
+    mail to: @withdrawal.user.email, from: "postmaster@fantasybook.guru", subject: "Withdrawal Request"
+  end
+
+  def withdrawal_approved withdrawal
+    @withdrawal = withdrawal
+    mail to: @withdrawal.user.email, from: "postmaster@fantasybook.guru", subject: "Withdrawal Approved"
+  end
+
+  def withdrawal_rejected withdrawal
+    @withdrawal = withdrawal
+    mail to: @withdrawal.user.email, from: "postmaster@fantasybook.guru", subject: "Withdrawal Rejected"
+  end
+
 end
 
 

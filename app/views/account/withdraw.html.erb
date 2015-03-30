@@ -1,4 +1,40 @@
 <div class="container padding-large-horizontal">
+  <div class ="col-md-6">
+    <div class = "withdrawal-form">
+    <%= form_tag my_account_withdraw_path, autocomplete: "off" do %>
+      <label> Current Balance </label>
+      <span> <%= number_to_currency current_user.balance_dollars %> </span> <br /> <br />
+      <%= label_tag :amount_dollars, "Amount" %>
+      <%= text_field_tag :amount_dollars, nil, value: params[:amount_dollars] %> <br /><br />
+      <%= label_tag :fee, "Fee" %>
+      <%= text_field_tag :fee, nil, value: params[:fee], readonly: "readonly" %> <br /><br />
+      <%= label_tag :net, "Net Amount" %>
+      <%= text_field_tag :net, nil, value: params[:net], readonly: "readonly" %> <br /><br />
+      <%= label_tag :method, "Method" %>
+      <%= select_tag :method, options_for_select(@options, params[:method]) %> <br /><br />
+      <div class="form-actions"> <%= submit_tag "Withdraw" %> </div>
+    <% end %>
+    </div>
+  </div>
 
-
+  <div class ="col-md-6">
+    <table class="table table-striped table-responsive">
+      <thead>
+        <tr>
+          <th> Date </th>
+          <th> Status </th>
+          <th> Amount </th>
+          <th> Method </th>
+        </tr>
+      </thead>
+      <% @withdrawals.each do |withdrawal| %>
+        <tr>
+          <td><%= withdrawal.created_at.strftime("%m/%d/%y") %> </td>
+          <td><%= withdrawal.state %> </td>
+          <td><%= number_to_currency withdrawal.net_amount %> </td>
+          <td><%= withdrawal.method %> </td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
 </div>

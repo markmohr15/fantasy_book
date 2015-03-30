@@ -19,7 +19,7 @@ Rails.application.routes.draw do
   get "/rules", to: "pages#rules"
   get "/terms_of_use", to: "pages#terms", as: :terms
   get "/my_account/deposit", to: "account#deposit"
-  get "/my_account/withdraw", to: "account#withdraw"
+  match "/my_account/withdraw", to: "account#withdraw", via: [:get, :post]
   match "/my_account/transfer", to: "account#transfer", via: [:get, :post]
   get "/my_account/balance", to: "account#balance"
   get "/my_account/challenge", to: "account#challenge"

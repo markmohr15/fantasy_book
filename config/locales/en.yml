@@ -27,6 +27,7 @@ en:
 
   account:
     invalid_username: "That is not a valid username.  Please try again."
+    insufficient_funds: "Insufficient funds for this transaction."
 
   wager:
     invalid_password: "Invalid Password. Please try again."
