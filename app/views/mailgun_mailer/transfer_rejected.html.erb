@@ -4,7 +4,7 @@
   <title></title>
 </head>
 <body>
-  Sorry yo <%= @transfer.sender.username %>, your transfer of <%= number_to_currency @transfer.amount_dollars %> to <%= @transfer.receiver.username %> was rejected.  <br/>  If you need further information on this decision, please contact us at <a href="mailto:info@fantasybook.guru" target="_top"> info@fantasybook.guru </a>
+  Sorry <%= @transfer.sender.username %>, your transfer of <%= number_to_currency @transfer.amount_dollars %> to <%= @transfer.receiver.username %> was rejected.  <br/>  If you need further information on this decision, please contact us at <a href="mailto:info@fantasybook.guru" target="_top"> info@fantasybook.guru </a>.
   Thank you, <br/> <br/>
   FantasyBook.guru
 </body>
