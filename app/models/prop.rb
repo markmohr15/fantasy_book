@@ -40,6 +40,7 @@ class Prop < ActiveRecord::Base
 
   before_save :check_state
   before_validation :get_opt2_spread
+  after_save :close_wagering
   #after_touch :auto_move_odds
 
   def self.search(search_string)
@@ -121,6 +122,15 @@ class Prop < ActiveRecord::Base
   def has_winner?
     self.winner != nil
   end
+
+  def close_wagering
+    if self.state == "Offline" || self.state == "Open"
+      self.state = "Closed"
+      self.save
+    end
+  end
+
+  handle_asynchronously :close_wagering, :run_at => Proc.new { |i| i.time }
 
   aasm column: :state do
     state :Offline, initial: true
