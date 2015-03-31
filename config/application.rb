@@ -24,7 +24,7 @@ module FantasyBook
     config.active_record.raise_in_transactional_callbacks = true
     config.assets.precompile += %w( admin.js )
     config.active_job.queue_adapter = :delayed_job
-    config.time_zone = 'New_York'
+    heroku config:add TZ="America/New_York"
     config.active_record.default_timezone = :local
   end
 end
