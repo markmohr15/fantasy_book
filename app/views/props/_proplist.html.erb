@@ -18,7 +18,7 @@
             </tr>
             <tr>
             <td class="available-odd bold"> Available: <%= number_to_currency prop.prop_choices.first.available_dollars %> </td> <td></td>
-            <td class="prop-timer" data-time="<%= prop.time.to_i %>"> </div> </td> <td></td>
+            <td class="prop-timer" data-time="<%= prop.time.to_i * 1000  %>"> </div> </td> <td></td>
             <td> <span class="available-even right bold"> Available: <%= number_to_currency prop.prop_choices.last.available_dollars %> </span> </td>
             </tr>
             </tbody>
