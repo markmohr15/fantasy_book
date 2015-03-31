@@ -2,7 +2,7 @@ ActiveAdmin.register Prop, as: "Grading" do
   actions :index
   filter :sport
   filter :time, label: "Event Time"
-  menu priority: 9
+  menu priority: 32
   menu label: "Grading"
   config.batch_actions = false
 

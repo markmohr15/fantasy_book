@@ -31,7 +31,7 @@ class Wager < ActiveRecord::Base
   validates :risk, presence: true
   validates :odds, presence: true
   validates :prop_choice_id, presence: true
-  validate :open?, :odds?, :spread?, :available?, on: :create, if: :player?
+  validate :open?, :odds?, :spread?, :available?, :balance?, on: :create, if: :player?
 
   display_line :spread
   display_juice :odds
@@ -166,6 +166,12 @@ class Wager < ActiveRecord::Base
       errors[:base] << "Prop is not currently available."
     elsif self.risk > self.prop_choice.available
       errors[:base] << "Risk amount is greater than available amount."
+    end
+  end
+
+  def balance?
+    if self.risk > self.user.balance
+      errors[:base] << "Insufficient funds for this contest."
     end
   end
 

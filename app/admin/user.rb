@@ -4,7 +4,7 @@ ActiveAdmin.register User do
   filter :username
   filter :role, as: :select, collection: (player_or_vip)
   filter :affiliate, as: :select, collection: [["True", true], ["False", false]]
-  menu priority: 3
+  menu priority: -5
 
   index do
     selectable_column

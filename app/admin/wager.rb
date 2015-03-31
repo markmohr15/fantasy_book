@@ -3,7 +3,7 @@ ActiveAdmin.register Wager do
   filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :prop_id
   filter :state, label: "Status", as: :select, collection: Wager.states
-  menu priority: 7
+  menu priority: -13
   #custom risk filter
 
   index do

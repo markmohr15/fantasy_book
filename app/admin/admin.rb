@@ -1,5 +1,5 @@
 ActiveAdmin.register User, as: "Admin" do
-  menu priority: 2
+  menu priority: 30
   menu if: proc{ current_user.role == "superadmin" }
 
   filter :name

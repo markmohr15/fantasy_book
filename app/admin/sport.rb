@@ -1,6 +1,6 @@
 ActiveAdmin.register Sport do
   config.filters = false
-  menu priority: 4
+  menu priority: -16
 
   index do
     selectable_column

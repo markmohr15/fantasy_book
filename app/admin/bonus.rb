@@ -3,6 +3,7 @@ ActiveAdmin.register Bonus do
   filter :bonus_code
   filter :state, label: "Status", as: :select, collection: Bonus.states
   menu label: "Bonuses"
+  menu priority: -9
 
   index do
     column "User" do |wager|

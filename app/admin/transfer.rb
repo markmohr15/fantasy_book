@@ -1,5 +1,5 @@
 ActiveAdmin.register Transfer do
-  menu priority: 8
+  menu priority: -10
   filter :sender, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :receiver, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :state, label: "Status", as: :select, collection: Transfer.states
