@@ -1,7 +1,7 @@
 ActiveAdmin.register AffiliatePayment do
   filter :user, as: :select, collection: User.where(affiliate: true).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :state, label: "Status", as: :select, collection: AffiliatePayment.states
-  menu priority: -6
+  menu priority: 13
 
   index do
     column "Affiliate" do |ap|

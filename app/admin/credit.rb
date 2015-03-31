@@ -3,7 +3,7 @@ ActiveAdmin.register Credit do
   filter :admin, as: :select, collection: User.where("role = ? or role = ?", 0, 2).order("name")
   config.batch_actions = false
   actions :all, except: [:destroy, :edit]
-  menu priority: -7
+  menu priority: 12
 
   index do
     column "User" do |wager|

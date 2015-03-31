@@ -1,6 +1,6 @@
 ActiveAdmin.register_page "Dashboard" do
 
-    menu priority: -17
+    menu priority: 1
 
     content do
         columns do

@@ -1,7 +1,7 @@
 ActiveAdmin.register BonusCode do
   filter :percentage
   filter :rollover
-  menu priority: -8
+  menu priority: 11
 
   index do
     selectable_column

@@ -1,5 +1,5 @@
 ActiveAdmin.register Deposit do
-  menu priority: -12
+  menu priority: 7
 
 
   # See permitted parameters documentation:

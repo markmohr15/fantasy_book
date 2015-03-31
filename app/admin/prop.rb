@@ -3,7 +3,7 @@ ActiveAdmin.register Prop do
   filter :state, label: "Status", as: :select, collection: Prop.states
   filter :time, label: "Event Time"
   filter :user, label: "VIP Player", as: :select, collection: User.where(role: 3).order("username").collect {|u| ["#{u.username}", u.id]}
-  menu priority: -14
+  menu priority: 4
 
   index do
     selectable_column

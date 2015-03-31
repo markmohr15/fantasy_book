@@ -2,7 +2,7 @@ ActiveAdmin.register Withdrawal do
   filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :state, label: "Status", as: :select, collection: Withdrawal.states
   filter :kind, label: "Method", as: :select, collection: ["ACH", "Check"]
-  menu priority: -11
+  menu priority: 8
 
   index do
     selectable_column
