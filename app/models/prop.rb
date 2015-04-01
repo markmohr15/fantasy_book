@@ -126,6 +126,7 @@ class Prop < ActiveRecord::Base
   end
 
   def get_dj_id
+    Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
     self.delayed_job_id = Delayed::Job.last.id - 10
     self.save
   end
@@ -134,7 +135,6 @@ class Prop < ActiveRecord::Base
 
   def close_wagering
     if self.state == "Offline" || self.state == "Open"
-      Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
       self.state = "Closed"
       self.save
     end
