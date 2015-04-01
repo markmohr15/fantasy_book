@@ -39,11 +39,21 @@ class Prop < ActiveRecord::Base
   enum state: [ :Offline, :Open, :Closed, :Graded, :Regrade ]
   enum winner: [ :Team1, :Team2, :Push, :NoAction]
 
+  after_initialize :set_time
   before_save :check_state
   before_validation :get_opt2_spread
   after_save :close_wagering, if: Proc.new {|a| a.time_changed?}
   after_save :get_dj_id, if: Proc.new {|a| a.time_changed?}
   #after_touch :auto_move_odds
+  attr_accessor :ampm_time
+
+  def set_time
+    self.time ||= Time.now
+  end
+
+  def ampm_time
+    self.time.strftime("%I:%M %P")
+  end
 
   def self.search(search_string)
     players = Player.where('name LIKE ? or team LIKE ?', "%#{search_string}%", "%#{search_string}%")

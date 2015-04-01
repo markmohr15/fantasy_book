@@ -1,5 +1,19 @@
 $(function() {
 
+    $('.just-datetime-picker-time').on("keyup", function() {
+        var time = $('.just-datetime-picker-time')
+        var hour = $(time[0]).val()
+        var minute = $(time[1]).val()
+        if (hour == 00)
+             $('#prop_ampm_time').val("12:" + minute + " am")
+        else if (hour < 13) {
+            $('#prop_ampm_time').val(hour + ":" + minute + " am")
+        } else {
+            $('#prop_ampm_time').val(hour - 12 + ":" + minute + " pm")
+        }
+
+    })
+
     $('.team1').on("click", function() {
         var container = $(this).closest('.grade-prop');
         propID = $(container).data('propid')

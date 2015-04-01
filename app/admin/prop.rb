@@ -66,15 +66,16 @@ ActiveAdmin.register Prop do
         f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open"], include_blank: false
       elsif @prop.state == "Graded"
         f.input :state, as: :radio, collection: ["Regrade"], input_html: { checked: 'checked', readonly: true }
+        f.input :winner, as: :radio, collection: ["Team1", "Team2", "Push", "NoAction"]
       else
         f.input :state, label: "Status", as: :radio, collection: ["Offline", "Open", "Closed"]
       end
       f.input :proposition, required: true, input_html: { value: "Vs."}
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
+      f.input :ampm_time, label: "12 Hour Time", input_html: { readonly: true }
       f.input :user, label: "VIP Acct", as: :select, collection: User.where(role: 3).order("username").collect {|u| ["#{u.username}", u.id]}, required: true, include_blank: false
-      f.input :opt1_spread, label: "Choice 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread", class: "hidden"}
-      f.input :winner, as: :radio, collection: ["Team1", "Team2", "Push", "NoAction"]
+      f.input :opt1_spread, label: "Team 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread" }
     end
     f.inputs "Prop Choices" do
       (2 - f.object.prop_choices.count).times do

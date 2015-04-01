@@ -1,8 +1,7 @@
 ActiveAdmin.register User do
-  actions :all
+  filter :role, as: :check_boxes, collection: (player_or_vip)
   filter :email
   filter :username
-  filter :role, as: :select, collection: (player_or_vip)
   filter :affiliate, as: :select, collection: [["True", true], ["False", false]]
   menu priority: 14
 
