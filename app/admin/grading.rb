@@ -1,6 +1,6 @@
 ActiveAdmin.register Prop, as: "Grading" do
   actions :index
-  menu if: proc{ current_user.superadmin? }, label: "Grading", priority: 6
+  menu label: "Grading", priority: 6
   filter :sport
   filter :time, label: "Event Time"
   config.batch_actions = false
@@ -30,12 +30,6 @@ ActiveAdmin.register Prop, as: "Grading" do
   end
 
   controller do
-    before_filter :superadmin_filter
-
-    def superadmin_filter
-     raise ActionController::RoutingError.new "Not Found" unless current_user.superadmin?
-    end
-
     def scoped_collection
       Prop.where state: 2
     end

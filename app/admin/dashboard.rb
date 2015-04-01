@@ -1,6 +1,6 @@
 ActiveAdmin.register_page "Dashboard" do
 
-    menu priority: 1
+    menu if: proc{ current_user.superadmin? }, priority: 1
 
     content do
         columns do
@@ -52,6 +52,13 @@ ActiveAdmin.register_page "Dashboard" do
                     end
                 end
             end
+        end
+    end
+    controller do
+        before_filter :superadmin_filter
+
+        def superadmin_filter
+            redirect_to admin_users_path unless current_user.role == "superadmin"
         end
     end
 

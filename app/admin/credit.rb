@@ -3,7 +3,7 @@ ActiveAdmin.register Credit do
   filter :admin, as: :select, collection: User.where("role = ? or role = ?", 0, 2).order("name")
   config.batch_actions = false
   actions :all, except: [:destroy, :edit]
-  menu priority: 12
+  menu if: proc{ current_user.superadmin? }, priority: 12
 
   index do
     column "User" do |wager|
@@ -45,5 +45,13 @@ ActiveAdmin.register Credit do
   end
 
   permit_params :user_id, :amount_dollars, :note
+
+  controller do
+    before_filter :superadmin_filter
+
+    def superadmin_filter
+      raise ActionController::RoutingError.new "Not Found" unless current_user.role == "superadmin"
+    end
+  end
 
 end
