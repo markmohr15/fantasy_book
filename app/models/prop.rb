@@ -45,14 +45,6 @@ class Prop < ActiveRecord::Base
   after_save :get_dj_id, if: Proc.new {|a| a.time_changed?}
   #after_touch :auto_move_odds
 
-  def get_dj_id
-    self.delayed_job_id = Delayed::Job.last.id - 1
-    self.save
-  end
-
-  handle_asynchronously :get_dj_id, :run_at => Proc.new { 45.seconds.from_now }
-
-
   def self.search(search_string)
     players = Player.where('name LIKE ? or team LIKE ?', "%#{search_string}%", "%#{search_string}%")
     choice_collection = []
@@ -132,6 +124,13 @@ class Prop < ActiveRecord::Base
   def has_winner?
     self.winner != nil
   end
+
+  def get_dj_id
+    self.delayed_job_id = Delayed::Job.last.id - 10
+    self.save
+  end
+
+  handle_asynchronously :get_dj_id, :run_at => Proc.new { 9.seconds.from_now }
 
   def close_wagering
     if self.state == "Offline" || self.state == "Open"
