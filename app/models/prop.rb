@@ -2,17 +2,18 @@
 #
 # Table name: props
 #
-#  id          :integer          not null, primary key
-#  sport_id    :integer
-#  time        :datetime
-#  created_at  :datetime         not null
-#  updated_at  :datetime         not null
-#  state       :integer          default("0")
-#  proposition :text(65535)
-#  opt1_spread :float(24)
-#  opt2_spread :float(24)
-#  winner      :integer
-#  user_id     :integer
+#  id             :integer          not null, primary key
+#  sport_id       :integer
+#  time           :datetime
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  state          :integer          default("0")
+#  proposition    :text(65535)
+#  opt1_spread    :float(24)
+#  opt2_spread    :float(24)
+#  winner         :integer
+#  user_id        :integer
+#  delayed_job_id :integer
 #
 # Indexes
 #
@@ -40,8 +41,17 @@ class Prop < ActiveRecord::Base
 
   before_save :check_state
   before_validation :get_opt2_spread
-  after_save :close_wagering
+  after_save :close_wagering, if: Proc.new {|a| a.time_changed?}
+  after_save :get_dj_id, if: Proc.new {|a| a.time_changed?}
   #after_touch :auto_move_odds
+
+  def get_dj_id
+    self.delayed_job_id = Delayed::Job.last.id - 1
+    self.save
+  end
+
+  handle_asynchronously :get_dj_id, :run_at => Proc.new { 45.seconds.from_now }
+
 
   def self.search(search_string)
     players = Player.where('name LIKE ? or team LIKE ?', "%#{search_string}%", "%#{search_string}%")
@@ -125,6 +135,7 @@ class Prop < ActiveRecord::Base
 
   def close_wagering
     if self.state == "Offline" || self.state == "Open"
+      Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
       self.state = "Closed"
       self.save
     end

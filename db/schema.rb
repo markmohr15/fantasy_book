@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150331164136) do
+ActiveRecord::Schema.define(version: 20150401163251) do
 
   create_table "affiliate_payments", force: :cascade do |t|
     t.integer  "amount",       limit: 4
@@ -103,16 +103,17 @@ ActiveRecord::Schema.define(version: 20150331164136) do
   add_index "prop_choices", ["prop_id"], name: "index_prop_choices_on_prop_id", using: :btree
 
   create_table "props", force: :cascade do |t|
-    t.integer  "sport_id",    limit: 4
+    t.integer  "sport_id",       limit: 4
     t.datetime "time"
-    t.datetime "created_at",                            null: false
-    t.datetime "updated_at",                            null: false
-    t.integer  "state",       limit: 4,     default: 0
-    t.text     "proposition", limit: 65535
-    t.float    "opt1_spread", limit: 24
-    t.float    "opt2_spread", limit: 24
-    t.integer  "winner",      limit: 4
-    t.integer  "user_id",     limit: 4
+    t.datetime "created_at",                               null: false
+    t.datetime "updated_at",                               null: false
+    t.integer  "state",          limit: 4,     default: 0
+    t.text     "proposition",    limit: 65535
+    t.float    "opt1_spread",    limit: 24
+    t.float    "opt2_spread",    limit: 24
+    t.integer  "winner",         limit: 4
+    t.integer  "user_id",        limit: 4
+    t.integer  "delayed_job_id", limit: 4
   end
 
   add_index "props", ["sport_id"], name: "index_props_on_sport_id", using: :btree
