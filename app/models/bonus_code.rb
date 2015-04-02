@@ -12,6 +12,7 @@
 #  maximum    :integer          default("20000")
 #  enabled    :boolean          default("1")
 #  one_time   :boolean          default("1")
+#  length     :integer
 #
 
 class BonusCode < ActiveRecord::Base

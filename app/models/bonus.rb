@@ -12,6 +12,7 @@
 #  state         :integer
 #  released      :integer          default("0")
 #  bonus_code_id :integer
+#  exp_date      :date
 #
 
 class Bonus < ActiveRecord::Base
