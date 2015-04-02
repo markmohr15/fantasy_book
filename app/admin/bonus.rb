@@ -18,7 +18,9 @@ ActiveAdmin.register Bonus do
     column "Released" do |bonus|
       number_to_currency bonus.released_dollars
     end
-    column :bonus_code
+    column "Bonus Code" do |bonus|
+      link_to(bonus.bonus_code.code, admin_bonus_code_path(bonus.bonus_code.id)) if bonus.bonus_code
+    end
     column :state
     actions
   end
@@ -39,9 +41,10 @@ ActiveAdmin.register Bonus do
       end
       row :rollover
       row "Bonus Code" do |bonus|
-        link_to(bonus.bonus_code.code, admin_bonus_code_path(bonus.bonus_code.id))
+        link_to(bonus.bonus_code.code, admin_bonus_code_path(bonus.bonus_code.id)) if bonus.bonus_code
       end
       row :state
+      row :exp_date
       row :created_at
       row :updated_at
     end
@@ -55,17 +58,20 @@ ActiveAdmin.register Bonus do
       if f.object.new_record?
         f.input :bonus_code, label: "Bonus Code", as: :select, collection: BonusCode.all.collect {|bc| ["#{bc.code} - #{bc.rollover}x rollover", bc.id]}
         f.input :rollover, hint: "Leave blank if using Bonus Code"
+        f.input :exp_date, label: "Exp Date", as: :datepicker, hint: "Leave blank if using Bonus Code"
       else
         f.input :pending_dollars, label: "Pending"
         f.input :rollover
         f.input :bonus_code_id, label: "Bonus Code", as: :select, collection: BonusCode.all.collect {|bc| ["#{bc.code} - #{bc.percentage}% with #{bc.rollover}x rollover", bc.id]}
         f.input :state, label: "Status", as: :select, collection: ["Pending", "Complete", "Expired"]
+        f.input :exp_date, label: "Exp Date"
       end
     end
     f.actions
   end
 
-  permit_params :user_id, :amount_dollars, :bonus_code_id, :pending_dollars,  :rollover, :state
+  permit_params :user_id, :amount_dollars, :bonus_code_id, :pending_dollars,
+  :rollover, :state, :exp_date
 
   controller do
     before_filter state: :index do

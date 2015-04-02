@@ -25,6 +25,7 @@ class BonusCode < ActiveRecord::Base
   validates :percentage, presence: true
   validates :rollover, presence: true
   validates :maximum, presence: true
+  validates :length, presence: true
 
   store_cents :maximum
 end

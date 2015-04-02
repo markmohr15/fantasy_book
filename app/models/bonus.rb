@@ -49,6 +49,7 @@ class Bonus < ActiveRecord::Base
     self.pending = self.amount
     unless self.bonus_code.nil?
       self.rollover = self.bonus_code.rollover
+      self.exp_date = Date.today + self.bonus_code.length.days
     end
   end
 
