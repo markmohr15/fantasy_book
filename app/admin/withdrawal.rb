@@ -1,6 +1,6 @@
 ActiveAdmin.register Withdrawal do
-  filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :state, label: "Status", as: :select, collection: Withdrawal.states
+  filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :kind, label: "Method", as: :select, collection: ["ACH", "Check"]
   menu if: proc{ current_user.superadmin? }, priority: 8
 
@@ -73,6 +73,10 @@ ActiveAdmin.register Withdrawal do
 
     def superadmin_filter
       raise ActionController::RoutingError.new "Not Found" unless current_user.role == "superadmin"
+    end
+
+    before_filter state: :index do
+        params[:q] = {state_eq: "Pending"} if params[:commit].blank?
     end
   end
 

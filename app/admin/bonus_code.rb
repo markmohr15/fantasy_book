@@ -1,4 +1,5 @@
 ActiveAdmin.register BonusCode do
+  filter :enabled
   filter :percentage
   filter :rollover
   menu priority: 11
@@ -58,5 +59,11 @@ ActiveAdmin.register BonusCode do
 
   permit_params :code, :percentage, :rollover, :maximum_dollars,
   :enabled, :one_time, :note
+
+  controller do
+    before_filter enabled: :index do
+        params[:q] = {enabled_eq: true} if params[:commit].blank?
+    end
+  end
 
 end

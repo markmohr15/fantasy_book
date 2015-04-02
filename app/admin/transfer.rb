@@ -1,8 +1,8 @@
 ActiveAdmin.register Transfer do
   menu priority: 9
+  filter :state, label: "Status", as: :select, collection: Transfer.states
   filter :sender, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :receiver, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
-  filter :state, label: "Status", as: :select, collection: Transfer.states
 
   index do
     selectable_column
@@ -58,6 +58,12 @@ ActiveAdmin.register Transfer do
   end
 
   permit_params :sender_id, :receiver_id, :amount_dollars, :state
+
+  controller do
+    before_filter state: :index do
+        params[:q] = {state_eq: "Pending"} if params[:commit].blank?
+    end
+  end
 
 end
 

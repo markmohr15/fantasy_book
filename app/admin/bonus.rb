@@ -1,7 +1,7 @@
 ActiveAdmin.register Bonus do
+  filter :state, label: "Status", as: :select, collection: Bonus.states
   filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :bonus_code
-  filter :state, label: "Status", as: :select, collection: Bonus.states
   menu label: "Bonuses"
   menu priority: 10
 
@@ -66,5 +66,11 @@ ActiveAdmin.register Bonus do
   end
 
   permit_params :user_id, :amount_dollars, :bonus_code_id, :pending_dollars,  :rollover, :state
+
+  controller do
+    before_filter state: :index do
+        params[:q] = {state_eq: "Pending"} if params[:commit].blank?
+    end
+  end
 
 end
