@@ -9,7 +9,7 @@ ActiveAdmin.register Bonus do
     column "User" do |wager|
       link_to(wager.user.username, admin_user_path(wager.user.id))
     end
-    column "Bonus Amount" do |bonus|
+    column "Amount" do |bonus|
       number_to_currency bonus.amount_dollars
     end
     column "Pending" do |bonus|
@@ -30,7 +30,7 @@ ActiveAdmin.register Bonus do
       row "User" do |bonus|
         link_to(bonus.user.username, admin_user_path(bonus.user.id))
       end
-      row "Bonus Amount" do
+      row "Amount" do
         number_to_currency bonus.amount_dollars
       end
       row "Pending" do
@@ -54,7 +54,7 @@ ActiveAdmin.register Bonus do
     f.semantic_errors *f.object.errors.keys
     f.inputs "Bonus" do
       f.input :user, required: true, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
-      f.input :amount_dollars, label: "Bonus Amount", required: true
+      f.input :amount_dollars, label: "Amount", required: true
       if f.object.new_record?
         f.input :bonus_code, label: "Bonus Code", as: :select, collection: BonusCode.all.collect {|bc| ["#{bc.code} - #{bc.rollover}x rollover", bc.id]}
         f.input :rollover, hint: "Leave blank if using Bonus Code"

@@ -20,6 +20,12 @@ ActiveAdmin.register BonusCode do
     column "One Time" do |bonus_code|
       bonus_code.one_time.to_s
     end
+    column "Total Bonus Amt" do |bonus_code|
+      number_to_currency BonusCode.total_by_code(bonus_code)
+    end
+    column "Pending Bonus Amt" do |bonus_code|
+      number_to_currency BonusCode.pending_by_code(bonus_code)
+    end
     actions
   end
 

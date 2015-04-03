@@ -27,7 +27,7 @@ class Bonus < ActiveRecord::Base
   belongs_to :bonus_code
   validates :user_id, presence: true
   validates :amount, presence: true
-  validate :available?
+  validate :available?, on: :create
 
   store_cents :amount, :pending, :released
 

@@ -28,4 +28,22 @@ class BonusCode < ActiveRecord::Base
   validates :length, presence: true
 
   store_cents :maximum
+
+  def self.pending_by_code(code)
+    bonuses = Bonus.where(bonus_code_id: code.id, state:0)
+    counter = 0
+    bonuses.each do |bonus|
+      counter += bonus.pending_dollars
+    end
+    counter
+  end
+
+  def self.total_by_code(code)
+    bonuses = Bonus.where(bonus_code_id: code.id)
+    counter = 0
+    bonuses.each do |bonus|
+      counter += bonus.amount_dollars
+    end
+    counter
+  end
 end
