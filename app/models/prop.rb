@@ -79,6 +79,10 @@ class Prop < ActiveRecord::Base
       self.ungrade_wagers
       self.state = "Closed"
       self.grade_prop!
+      wagers = Wager.where(prop_id: self.id)
+      wagers.each do |wager|
+        MailgunMailer.contest_graded(wager).deliver_later
+      end
     end
   end
 
