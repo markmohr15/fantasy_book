@@ -1,9 +1,11 @@
-  <%= @wager.user.username %>, your contest of <%= @wager.prop.prop_choices.first.name %> Vs. <%= @wager.prop.prop_choices.last.name %> has begun.
-  Your Contest Selection Details:
-  Selection: <%= @wager.prop_choice.name %>
-  Risk: <%= @wager.risk_dollars %>
-  Win: <%= @wager.win_dollars %>
+<%= @wager.user.username %>, your contest of <%= @wager.prop.prop_choices.first.name %> Vs. <%= @wager.prop.prop_choices.last.name %> has begun.
 
-  Good Luck,
+Your Contest Selection Details:
 
-  FantasyBook.guru
+Selection: <%= @wager.prop_choice.name %>
+Risk: <%= @wager.risk_dollars %>
+Win: <%= @wager.win_dollars %>
+
+Good Luck,
+
+FantasyBook.guru
