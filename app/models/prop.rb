@@ -71,6 +71,10 @@ class Prop < ActiveRecord::Base
   def check_state
     if self.state == "Closed" && has_winner?
       self.grade_prop!
+      wagers = Wager.where(prop_id: self.id)
+      wagers.each do |wager|
+        MailgunMailer.contest_graded(wager).deliver_later
+      end
     elsif self.state == "Regrade"
       self.ungrade_wagers
       self.state = "Closed"

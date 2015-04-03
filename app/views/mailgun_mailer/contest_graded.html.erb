@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title></title>
+</head>
+<body>
+  <%= @wager.user.username %>, your contest of <%= @wager.prop.prop_choices.first.name %> Vs. <%= @wager.prop.prop_choices.last.name %> has completed.  <br/>
+  Your Contest Selection Details: <br/>
+
+  Selection: <%= @wager.prop_choice.name %> <br/>
+  Risk: <%= @wager.risk_dollars %> <br/>
+  Win: <%= @wager.win_dollars %> <br/>
+  Result: <%= @wager.result %> <br/> <br/>
+
+  Thanks for Playing, <br/> <br/>
+  FantasyBook.guru
+</body>
+</html>

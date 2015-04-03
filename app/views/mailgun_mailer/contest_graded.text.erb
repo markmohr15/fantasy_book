@@ -1,0 +1,11 @@
+<%= @wager.user.username %>, your contest of <%= @wager.prop.prop_choices.first.name %> Vs. <%= @wager.prop.prop_choices.last.name %> has completed.
+
+  Your Contest Selection Details:
+  Selection: <%= @wager.prop_choice.name %>
+  Risk: <%= @wager.risk_dollars %>
+  Win: <%= @wager.win_dollars %>
+  Result <%= @wager.result %>
+
+  Thanks for Playing,
+
+  FantasyBook.guru
