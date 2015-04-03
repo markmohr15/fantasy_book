@@ -6,9 +6,9 @@
 <body>
   <%= @wager.user.username %>, your contest of <%= @wager.prop.prop_choices.first.name %> Vs. <%= @wager.prop.prop_choices.last.name %> has begun.  <br/>
   Your Contest Selection Details: <br/><br/>
-  Selection: <%= @wager.prop_choice.name %> <br/>
-  Risk: <%= @wager.risk_dollars %> <br/>
-  Win: <%= @wager.win_dollars %> <br/> <br/>
+  Selection: <%= number_to_currency @wager.prop_choice.name %> <br/>
+  Buy-In: <%= number_to_currency @wager.risk_dollars %> <br/>
+  Win: <%= number_to_currency @wager.win_dollars %> <br/> <br/>
   Good Luck, <br/> <br/>
   FantasyBook.guru
 </body>

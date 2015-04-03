@@ -3,8 +3,8 @@
 Your Contest Selection Details:
 
 Selection: <%= @wager.prop_choice.name %>
-Risk: <%= @wager.risk_dollars %>
-Win: <%= @wager.win_dollars %>
+Buy-In: <%= number_to_currency @wager.risk_dollars %>
+Win: <%= number_to_currency @wager.win_dollars %>
 
 Good Luck,
 
