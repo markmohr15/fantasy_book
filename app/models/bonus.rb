@@ -14,6 +14,11 @@
 #  bonus_code_id :integer
 #  exp_date      :date
 #
+# Indexes
+#
+#  index_bonuses_on_bonus_code_id  (bonus_code_id)
+#  index_bonuses_on_user_id        (user_id)
+#
 
 class Bonus < ActiveRecord::Base
   include AASM, StorageConversions

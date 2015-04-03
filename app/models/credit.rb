@@ -10,6 +10,11 @@
 #  updated_at :datetime         not null
 #  user_id    :integer
 #
+# Indexes
+#
+#  index_credits_on_admin_id  (admin_id)
+#  index_credits_on_user_id   (user_id)
+#
 
 class Credit < ActiveRecord::Base
   include StorageConversions

@@ -10,6 +10,10 @@
 #  updated_at :datetime         not null
 #  bonus_code :string(255)
 #
+# Indexes
+#
+#  index_deposits_on_user_id  (user_id)
+#
 
 class Deposit < ActiveRecord::Base
   include StorageConversions

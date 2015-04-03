@@ -16,8 +16,9 @@
 #
 # Indexes
 #
-#  index_wagers_on_prop_id  (prop_id)
-#  index_wagers_on_user_id  (user_id)
+#  index_wagers_on_prop_choice_id  (prop_choice_id)
+#  index_wagers_on_prop_id         (prop_id)
+#  index_wagers_on_user_id         (user_id)
 #
 
 class Wager < ActiveRecord::Base

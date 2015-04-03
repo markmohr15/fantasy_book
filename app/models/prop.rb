@@ -18,6 +18,7 @@
 # Indexes
 #
 #  index_props_on_sport_id  (sport_id)
+#  index_props_on_user_id   (user_id)
 #
 
 class Prop < ActiveRecord::Base

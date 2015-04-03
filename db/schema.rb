@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150402062957) do
+ActiveRecord::Schema.define(version: 20150403180706) do
 
   create_table "affiliate_payments", force: :cascade do |t|
     t.integer  "amount",       limit: 4
@@ -21,6 +21,9 @@ ActiveRecord::Schema.define(version: 20150402062957) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
   end
+
+  add_index "affiliate_payments", ["affiliate_id"], name: "index_affiliate_payments_on_affiliate_id", using: :btree
+  add_index "affiliate_payments", ["user_id"], name: "index_affiliate_payments_on_user_id", using: :btree
 
   create_table "bonus_codes", force: :cascade do |t|
     t.string   "code",       limit: 255
@@ -48,6 +51,9 @@ ActiveRecord::Schema.define(version: 20150402062957) do
     t.date     "exp_date"
   end
 
+  add_index "bonuses", ["bonus_code_id"], name: "index_bonuses_on_bonus_code_id", using: :btree
+  add_index "bonuses", ["user_id"], name: "index_bonuses_on_user_id", using: :btree
+
   create_table "credits", force: :cascade do |t|
     t.integer  "admin_id",   limit: 4
     t.integer  "amount",     limit: 4
@@ -56,6 +62,9 @@ ActiveRecord::Schema.define(version: 20150402062957) do
     t.datetime "updated_at",             null: false
     t.integer  "user_id",    limit: 4
   end
+
+  add_index "credits", ["admin_id"], name: "index_credits_on_admin_id", using: :btree
+  add_index "credits", ["user_id"], name: "index_credits_on_user_id", using: :btree
 
   create_table "delayed_jobs", force: :cascade do |t|
     t.integer  "priority",   limit: 4,     default: 0, null: false
@@ -81,6 +90,8 @@ ActiveRecord::Schema.define(version: 20150402062957) do
     t.datetime "updated_at",             null: false
     t.string   "bonus_code", limit: 255
   end
+
+  add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
 
   create_table "players", force: :cascade do |t|
     t.integer  "sport_id",   limit: 4
@@ -119,6 +130,7 @@ ActiveRecord::Schema.define(version: 20150402062957) do
   end
 
   add_index "props", ["sport_id"], name: "index_props_on_sport_id", using: :btree
+  add_index "props", ["user_id"], name: "index_props_on_user_id", using: :btree
 
   create_table "sports", force: :cascade do |t|
     t.string   "name",       limit: 255
@@ -134,6 +146,9 @@ ActiveRecord::Schema.define(version: 20150402062957) do
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
   end
+
+  add_index "transfers", ["receiver_id"], name: "index_transfers_on_receiver_id", using: :btree
+  add_index "transfers", ["sender_id"], name: "index_transfers_on_sender_id", using: :btree
 
   create_table "users", force: :cascade do |t|
     t.string   "email",                  limit: 255, default: "",    null: false
@@ -180,6 +195,7 @@ ActiveRecord::Schema.define(version: 20150402062957) do
     t.float    "spread",         limit: 24
   end
 
+  add_index "wagers", ["prop_choice_id"], name: "index_wagers_on_prop_choice_id", using: :btree
   add_index "wagers", ["prop_id"], name: "index_wagers_on_prop_id", using: :btree
   add_index "wagers", ["user_id"], name: "index_wagers_on_user_id", using: :btree
 
@@ -192,5 +208,7 @@ ActiveRecord::Schema.define(version: 20150402062957) do
     t.integer  "state",      limit: 4,   default: 0
     t.integer  "fee",        limit: 4
   end
+
+  add_index "withdrawals", ["user_id"], name: "index_withdrawals_on_user_id", using: :btree
 
 end

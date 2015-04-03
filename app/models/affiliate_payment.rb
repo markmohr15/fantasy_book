@@ -10,6 +10,11 @@
 #  created_at   :datetime         not null
 #  updated_at   :datetime         not null
 #
+# Indexes
+#
+#  index_affiliate_payments_on_affiliate_id  (affiliate_id)
+#  index_affiliate_payments_on_user_id       (user_id)
+#
 
 class AffiliatePayment < ActiveRecord::Base
   include StorageConversions

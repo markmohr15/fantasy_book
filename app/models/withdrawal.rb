@@ -11,6 +11,10 @@
 #  state      :integer          default("0")
 #  fee        :integer
 #
+# Indexes
+#
+#  index_withdrawals_on_user_id  (user_id)
+#
 
 class Withdrawal < ActiveRecord::Base
   include StorageConversions
