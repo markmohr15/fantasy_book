@@ -110,6 +110,15 @@ class Bonus < ActiveRecord::Base
     counter
   end
 
+  def self.total_pending_bonuses
+    bonuses = Bonus.where(state:0)
+    counter = 0
+    bonuses.each do |bonus|
+      counter += bonus.pending_dollars
+    end
+    counter
+  end
+
   aasm column: :state do
     state :Pending, initial: true
 

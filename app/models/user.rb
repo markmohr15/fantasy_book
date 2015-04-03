@@ -93,4 +93,13 @@ class User < ActiveRecord::Base
     end
   end
 
+  def self.total_player_balances
+    players = User.where(role:1)
+    counter = 0
+    players.each do |player|
+      counter += player.balance_dollars
+    end
+    counter
+  end
+
 end
