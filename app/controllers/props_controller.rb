@@ -59,7 +59,7 @@ class PropsController < ApplicationController
   private
 
   def prop_params
-    params.require(:prop).permit(:winner)
+    params.require(:prop).permit(:winner, :state)
   end
 
 end

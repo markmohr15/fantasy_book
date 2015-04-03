@@ -20,6 +20,10 @@ $(function() {
                 // do nothing
             } else {
                 $(grades[i]).css("background-color", "lightgray")
+                $(grades[i]).find('.team1').attr('class', 'regradeTeam1');
+                $(grades[i]).find('.team2').attr('class', 'regradeTeam2');
+                $(grades[i]).find('.push').attr('class', 'regradePush');
+                $(grades[i]).find('.noAction').attr('class', 'regradeNoAction');
             }
         }
     })
@@ -36,7 +40,24 @@ $(function() {
         })
         $(container).css("background-color", "lightgray");
         container.find('.winner').append("Team1");
+        $(container).find('.team1').attr('class', 'regradeTeam1');
+        $(container).find('.team2').attr('class', 'regradeTeam2');
+        $(container).find('.push').attr('class', 'regradePush');
+        $(container).find('.noAction').attr('class', 'regradeNoAction');
     })
+
+    $('.index').on('click', '.regradeTeam1',(function() {
+        var container = $(this).closest('.grade-prop');
+        propID = $(container).data('propid')
+        $.ajax({
+            url: "/props/"+propID+"",
+            dataType: "script",
+            type: "PATCH",
+            contentType: 'application/json',
+            data: JSON.stringify({ prop:{winner:0, state:4}, _method:'patch' })
+        })
+        container.find('.winner').text("Winner: Team1");
+    }))
 
     $('.team2').on("click", function() {
         var container = $(this).closest('.grade-prop');
@@ -50,7 +71,24 @@ $(function() {
         })
         $(container).css("background-color", "lightgray");
         container.find('.winner').append("Team2");
+        $(container).find('.team1').attr('class', 'regradeTeam1');
+        $(container).find('.team2').attr('class', 'regradeTeam2');
+        $(container).find('.push').attr('class', 'regradePush');
+        $(container).find('.noAction').attr('class', 'regradeNoAction');
     })
+
+    $('.index').on('click', '.regradeTeam2',(function() {
+        var container = $(this).closest('.grade-prop');
+        propID = $(container).data('propid')
+        $.ajax({
+            url: "/props/"+propID+"",
+            dataType: "script",
+            type: "PATCH",
+            contentType: 'application/json',
+            data: JSON.stringify({ prop:{winner:1, state:4}, _method:'patch' })
+        })
+        container.find('.winner').text("Winner: Team2");
+    }))
 
     $('.push').on("click", function() {
         var container = $(this).closest('.grade-prop');
@@ -64,7 +102,24 @@ $(function() {
         })
         $(container).css("background-color", "lightgray");
         container.find('.winner').append("Push");
+        $(container).find('.team1').attr('class', 'regradeTeam1');
+        $(container).find('.team2').attr('class', 'regradeTeam2');
+        $(container).find('.push').attr('class', 'regradePush');
+        $(container).find('.noAction').attr('class', 'regradeNoAction');
     })
+
+    $('.index').on('click', '.regradePush',(function() {
+        var container = $(this).closest('.grade-prop');
+        propID = $(container).data('propid')
+        $.ajax({
+            url: "/props/"+propID+"",
+            dataType: "script",
+            type: "PATCH",
+            contentType: 'application/json',
+            data: JSON.stringify({ prop:{winner:2, state:4}, _method:'patch' })
+        })
+        container.find('.winner').text("Winner: Push");
+    }))
 
     $('.noAction').on("click", function() {
         var container = $(this).closest('.grade-prop');
@@ -78,7 +133,24 @@ $(function() {
         })
         $(container).css("background-color", "lightgray");
         container.find('.winner').append("NoAction");
+        $(container).find('.team1').attr('class', 'regradeTeam1');
+        $(container).find('.team2').attr('class', 'regradeTeam2');
+        $(container).find('.push').attr('class', 'regradePush');
+        $(container).find('.noAction').attr('class', 'regradeNoAction');
     })
+
+    $('.index').on('click', '.regradeNoAction',(function() {
+        var container = $(this).closest('.grade-prop');
+        propID = $(container).data('propid')
+        $.ajax({
+            url: "/props/"+propID+"",
+            dataType: "script",
+            type: "PATCH",
+            contentType: 'application/json',
+            data: JSON.stringify({ prop:{winner:3, state:4}, _method:'patch' })
+        })
+        container.find('.winner').text("Winner: NoAction");
+    }))
 
     $('#wager_prop_id').change(function() {
         var prop = document.getElementById('wager_prop_id')
