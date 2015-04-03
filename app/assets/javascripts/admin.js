@@ -11,7 +11,17 @@ $(function() {
         } else {
             $('#prop_ampm_time').val(hour - 12 + ":" + minute + " pm")
         }
+    })
 
+    $(document).ready(function(){
+        grades = $('.grade-prop'), i;
+        for (var i = 0; i < grades.length; i ++) {
+            if ($(grades[i]).find('.winner').text() == "Winner: ") {
+                // do nothing
+            } else {
+                $(grades[i]).css("background-color", "lightgray")
+            }
+        }
     })
 
     $('.team1').on("click", function() {
@@ -24,7 +34,8 @@ $(function() {
             contentType: 'application/json',
             data: JSON.stringify({ prop:{winner:0}, _method:'patch' })
         })
-        container.hide()
+        $(container).css("background-color", "lightgray");
+        container.find('.winner').append("Team1");
     })
 
     $('.team2').on("click", function() {
@@ -37,7 +48,8 @@ $(function() {
             contentType: 'application/json',
             data: JSON.stringify({ prop:{winner:1}, _method:'patch' })
         })
-        container.hide()
+        $(container).css("background-color", "lightgray");
+        container.find('.winner').append("Team2");
     })
 
     $('.push').on("click", function() {
@@ -50,7 +62,8 @@ $(function() {
             contentType: 'application/json',
             data: JSON.stringify({ prop:{winner:2}, _method:'patch' })
         })
-        container.hide()
+        $(container).css("background-color", "lightgray");
+        container.find('.winner').append("Push");
     })
 
     $('.noAction').on("click", function() {
@@ -63,7 +76,8 @@ $(function() {
             contentType: 'application/json',
             data: JSON.stringify({ prop:{winner:3}, _method:'patch' })
         })
-        container.hide()
+        $(container).css("background-color", "lightgray");
+        container.find('.winner').append("NoAction");
     })
 
     $('#wager_prop_id').change(function() {

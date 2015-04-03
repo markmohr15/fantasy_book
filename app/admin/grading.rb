@@ -14,6 +14,9 @@ ActiveAdmin.register Prop, as: "Grading" do
       end
       div "Team 1: " + grading.prop_choices.first.name + " " + grading.opt1_spread_line.to_s
       div "Team 2: " + grading.prop_choices.last.name + " " + grading.opt2_spread_line.to_s
+      div class: "winner" do
+        "Winner: " + grading.winner.to_s
+      end
       div class: "grade" do
         button_tag "T1", class: "team1"
       end
@@ -31,7 +34,7 @@ ActiveAdmin.register Prop, as: "Grading" do
 
   controller do
     def scoped_collection
-      Prop.where state: 2
+      Prop.where("state = ? or state = ? and updated_at > ?", 2, 3, 24.hours.ago)
     end
   end
 
