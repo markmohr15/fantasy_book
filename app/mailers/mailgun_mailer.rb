@@ -5,6 +5,16 @@ class MailgunMailer < ActionMailer::Base
     mail to: @user.email, from: "postmaster@fantasybook.guru", subject: "Thank You."
   end
 
+  def contest_started wager
+    @wager = wager
+    mail to: @wager.user.email, from: "postmaster@fantasybook.guru", subject: "Contest Started"
+  end
+
+  def contest_graded wager
+    @wager = wager
+    mail to: @wager.user.email, from: "postmaster@fantasybook.guru", subject: "Contest Finished"
+  end
+
   def transfer_request transfer
     @transfer = transfer
     mail to: @transfer.sender.email, from: "postmaster@fantasybook.guru", subject: "Transfer Requested"

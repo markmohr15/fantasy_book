@@ -71,11 +71,11 @@ ActiveAdmin.register Wager, as: "Matchup" do
   end
 
   form do |f|
-    f.semantic_errors *f.object.errors.keys
+   # f.semantic_errors *f.object.errors.keys
     f.inputs "Matchup Details" do
-      f.input :user, required: true, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
-      f.input :prop_id, as: :select, collection: Prop.where("state = ? or state = ?", 0, 1).collect {|p| ["#{p.proposition} - #{p.prop_choices.first.name} Vs. #{p.prop_choices.last.name}", p.id]}, required: true
-      f.input :prop_choice_id, label: "Selection", as: :radio, collection: ["Team 1", "Team 2"], required: true
+      f.input :user, required: true, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}, include_blank: false
+      f.input :prop_id, as: :select, collection: Prop.where("state = ?", 1).collect {|p| ["#{p.prop_choices.first.name} Vs. #{p.prop_choices.last.name}", p.id]}, required: true
+      f.input :prop_choice_id, label: "Selection", as: :radio, collection: ["Team 1", "Team 2"], required: true, include_blank: false
       f.input :risk_dollars, label: "Risk $", required: true
       if f.object.new_record?
         f.input :spread, input_html: { readonly: true }

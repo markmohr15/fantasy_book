@@ -148,6 +148,10 @@ class Prop < ActiveRecord::Base
       self.state = "Closed"
       self.save
     end
+    wagers = Wager.where(prop_id: self.id)
+    wagers.each do |wager|
+      MailgunMailer.contest_started(wager).deliver_later
+    end
   end
 
   handle_asynchronously :close_wagering, :run_at => Proc.new { |i| i.time }
