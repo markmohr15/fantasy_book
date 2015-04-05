@@ -43,6 +43,6 @@ class MassEmail < ActiveRecord::Base
     end
   end
 
-  handle_asynchronously :send_emails, :run_at => Proc.new { |i| i.send_at }
+  handle_asynchronously :send_emails, queue: "MassEmail", :run_at => Proc.new { |i| i.send_at }
 
 end
