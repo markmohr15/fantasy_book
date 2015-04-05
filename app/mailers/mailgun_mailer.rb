@@ -5,6 +5,12 @@ class MailgunMailer < ActionMailer::Base
     mail to: @user.email, from: "postmaster@fantasybook.guru", subject: "Thank You."
   end
 
+  def mass_email mass_email, user
+    @user = user
+    @mass_email = mass_email
+    mail to: @user.email, from: "postmaster@fantasybook.guru", subject: @mass_email.subject
+  end
+
   def contest_started wager
     @wager = wager
     mail to: @wager.user.email, from: "postmaster@fantasybook.guru", subject: "Contest Started"

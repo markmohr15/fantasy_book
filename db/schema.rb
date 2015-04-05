@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150403180706) do
+ActiveRecord::Schema.define(version: 20150404221539) do
 
   create_table "affiliate_payments", force: :cascade do |t|
     t.integer  "amount",       limit: 4
@@ -92,6 +92,15 @@ ActiveRecord::Schema.define(version: 20150403180706) do
   end
 
   add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
+
+  create_table "mass_emails", force: :cascade do |t|
+    t.text     "message",    limit: 65535
+    t.string   "subject",    limit: 255
+    t.integer  "group",      limit: 4
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+    t.datetime "send_at"
+  end
 
   create_table "players", force: :cascade do |t|
     t.integer  "sport_id",   limit: 4
