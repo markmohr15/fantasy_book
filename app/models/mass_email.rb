@@ -41,7 +41,7 @@ class MassEmail < ActiveRecord::Base
     self.save
   end
 
-  handle_asynchronously :get_dj_id, queue: "Get_DJ_ID", :run_at => Proc.new { 9.seconds.from_now }
+  handle_asynchronously :get_dj_id, queue: "Get_DJ_ID", :run_at => Proc.new { 5.seconds.from_now }
 
   def send_emails
     if self.group == "Players_And_VIP"
