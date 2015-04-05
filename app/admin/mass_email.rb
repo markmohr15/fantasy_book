@@ -1,5 +1,4 @@
 ActiveAdmin.register MassEmail do
-  actions :all, except: [:edit]
   filter :group
   filter :created_at
   menu priority: 16

@@ -146,11 +146,11 @@ class Prop < ActiveRecord::Base
 
   def get_dj_id
     Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
-    self.delayed_job_id = Delayed::Job.where(queue: "CloseWagering").last
+    self.delayed_job_id = Delayed::Job.where(queue: "CloseWagering").last.id
     self.save
   end
 
-  handle_asynchronously :get_dj_id, queue: "Get_DJ_ID", :run_at => Proc.new { 9.seconds.from_now }
+  handle_asynchronously :get_dj_id, queue: "Get_DJ_ID", :run_at => Proc.new { 5.seconds.from_now }
 
   def close_wagering
     if self.state == "Offline" || self.state == "Open"

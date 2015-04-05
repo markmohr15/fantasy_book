@@ -2,13 +2,14 @@
 #
 # Table name: mass_emails
 #
-#  id         :integer          not null, primary key
-#  message    :text(65535)
-#  subject    :string(255)
-#  group      :integer
-#  created_at :datetime         not null
-#  updated_at :datetime         not null
-#  send_at    :datetime
+#  id             :integer          not null, primary key
+#  message        :text(65535)
+#  subject        :string(255)
+#  group          :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  send_at        :datetime
+#  delayed_job_id :integer
 #
 
 class MassEmail < ActiveRecord::Base
@@ -22,11 +23,25 @@ class MassEmail < ActiveRecord::Base
   enum group: [ :Players_And_VIP, :Players, :VIP, :AllAdmins]
 
   after_initialize :set_time
-  after_create :send_emails
+  after_save :send_emails, if: Proc.new {|a| a.send_at_changed?}
+  after_save :get_dj_id, if: Proc.new {|a| a.send_at_changed?}
+  before_destroy :delete_dj
 
   def set_time
     self.send_at ||= Time.now + 10.minutes
   end
+
+  def delete_dj
+    Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
+  end
+
+  def get_dj_id
+    Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
+    self.delayed_job_id = Delayed::Job.where(queue: "MassEmail").last.id
+    self.save
+  end
+
+  handle_asynchronously :get_dj_id, queue: "Get_DJ_ID", :run_at => Proc.new { 9.seconds.from_now }
 
   def send_emails
     if self.group == "Players_And_VIP"
