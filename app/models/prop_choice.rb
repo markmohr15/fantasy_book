@@ -27,9 +27,15 @@ class PropChoice < ActiveRecord::Base
   validates :choice, presence: true
   validates :odds, presence: true
 
+  after_initialize :set_odds
+
   store_cents :available
 
   attr_accessor :player1, :player2, :player3, :player4, :player5
+
+  def set_odds
+    self.odds ||= -110
+  end
 
   def name
     names = []
