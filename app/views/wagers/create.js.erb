@@ -29,9 +29,8 @@
             function handleData (responseData) {
               console.log(responseData);
               odds = responseData.odds;
-              total = responseData.prop.over_under;
               name = responseData.name
-              proposition = responseData.prop.proposition;
+              display_proposition = responseData.display_proposition
               displayLine = responseData.display_line;
               propChoiceId = responseData.id;
               var wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
@@ -40,12 +39,11 @@
                 container = $('.ticket').find(wagerList[i]).closest('tbody')
                 }
               }
-              html = "<strong>" + proposition + "</strong>" + " <br/>" + name + " " + displayLine
+              html = "<strong>" + display_proposition + "</strong>" + " <br/>" + name + " " + displayLine
               container.find('.wager-info').html("");
               container.find('.wager-info').append(html);
               container.find('.wager-odds').val(odds);
               container.find('.wager-spread').val(spread);
-              container.find('.wager-total').val(total);
             }
           <% else %>
             container.find('.success').text("Ticket ID: <%= wager.id %>")
