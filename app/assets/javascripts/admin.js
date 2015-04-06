@@ -208,21 +208,40 @@ $(function() {
     $('#wrapper').on('change', '.player1', (function() {
         var container = $(this).closest('fieldset');
         container.find('.player2').removeClass('hidden');
+        if ($("option:selected", this).text() == "Create a new player") {
+            container.find('.player1new').removeClass('hidden');
+        }
     }))
 
     $('#wrapper').on('change', '.player2', (function() {
         var container = $(this).closest('fieldset');
         container.find('.player3').removeClass('hidden');
+        if ($("option:selected", this).text() == "Create a new player") {
+            container.find('.player2new').removeClass('hidden');
+        }
     }))
 
     $('#wrapper').on('change', '.player3', (function() {
         var container = $(this).closest('fieldset');
         container.find('.player4').removeClass('hidden');
+        if ($("option:selected", this).text() == "Create a new player") {
+            container.find('.player3new').removeClass('hidden');
+        }
     }))
 
     $('#wrapper').on('change', '.player4', (function() {
         var container = $(this).closest('fieldset');
         container.find('.player5').removeClass('hidden');
+        if ($("option:selected", this).text() == "Create a new player") {
+            container.find('.player4new').removeClass('hidden');
+        }
+    }))
+
+    $('#wrapper').on('change', '.player5', (function() {
+        var container = $(this).closest('fieldset');
+        if ($("option:selected", this).text() == "Create a new player") {
+            container.find('.player5new').removeClass('hidden');
+        }
     }))
 
     player2s = $('.player2e')

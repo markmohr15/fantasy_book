@@ -83,11 +83,16 @@ ActiveAdmin.register Prop do
       end
       f.has_many :prop_choices, new_record: false do |s|
         if f.object.new_record?
-          s.input :player1, as: :select, collection: (Player.all), wrapper_html: { class: "player1"}, required: true
-          s.input :player2, as: :select, collection: (Player.all), wrapper_html: { class: "player2 hidden"}
-          s.input :player3, as: :select, collection: (Player.all), wrapper_html: { class: "player3 hidden"}
-          s.input :player4, as: :select, collection: (Player.all), wrapper_html: { class: "player4 hidden"}
-          s.input :player5, as: :select, collection: (Player.all), wrapper_html: { class: "player5 hidden"}
+          s.input :player1, as: :select, collection: Player.all.map {|p| [p.name, p.id]} + ["Create a new player"], wrapper_html: { class: "player1"}, required: true
+          s.input :player1new, wrapper_html: { class: "player1new hidden"}, label: "New Player1"
+          s.input :player2, as: :select, collection: Player.all.map {|p| [p.name, p.id]} + ["Create a new player"], wrapper_html: { class: "player2 hidden"}
+          s.input :player2new, wrapper_html: { class: "player2new hidden"}, label: "New Player2"
+          s.input :player3, as: :select, collection: Player.all.map {|p| [p.name, p.id]} + ["Create a new player"], wrapper_html: { class: "player3 hidden"}
+          s.input :player3new, wrapper_html: { class: "player3new hidden"}, label: "New Player3"
+          s.input :player4, as: :select, collection: Player.all.map {|p| [p.name, p.id]} + ["Create a new player"], wrapper_html: { class: "player4 hidden"}
+          s.input :player4new, wrapper_html: { class: "player4new hidden"}, label: "New Player4"
+          s.input :player5, as: :select, collection: Player.all.map {|p| [p.name, p.id]} + ["Create a new player"], wrapper_html: { class: "player5 hidden"}
+          s.input :player5new, wrapper_html: { class: "player5new hidden"}, label: "New Player5"
           s.input :odds, as: :select, collection: (vigs)
           s.input :available_dollars, label: "Max Available", wrapper_html: { class: "available"}
         else
@@ -106,7 +111,8 @@ ActiveAdmin.register Prop do
 
   permit_params :sport_id, :state, :proposition, :time_date,
   :time_time_hour, :time_time_minute, :user_id, :opt1_spread, :winner,
-   prop_choices_attributes: [:id, :odds, :player1, :player2,
-    :player3, :player4, :player5, :available_dollars]
+   prop_choices_attributes: [:id, :odds, :player1, :player1new, :player2,
+   :player2new, :player3, :player3new, :player4, :player4new, :player5,
+   :player5new, :available_dollars]
 
 end

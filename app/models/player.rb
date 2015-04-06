@@ -20,6 +20,5 @@ class Player < ActiveRecord::Base
   belongs_to :sport
 
   validates :name, presence: true
-  validates :sport_id, presence: true
 
 end

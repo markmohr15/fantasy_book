@@ -49,6 +49,7 @@ class PropChoice < ActiveRecord::Base
 
   def player1=(value)
     return if value.blank?
+    return if value == "Create a new player"
     player = Player.find_by id: value
     if player.nil?
       player = Player.find_by name: value
@@ -57,8 +58,16 @@ class PropChoice < ActiveRecord::Base
     self.choice[0] = player.id
   end
 
+  def player1new=(value)
+    return if value.blank?
+    player = Player.create(name: value)
+    self.choice ||= []
+    self.choice[0] = player.id
+  end
+
   def player2=(value)
     return if value.blank?
+    return if value == "Create a new player"
     player = Player.find_by id: value
     if player.nil?
       player = Player.find_by name: value
@@ -67,8 +76,16 @@ class PropChoice < ActiveRecord::Base
     self.choice[1] = player.id
   end
 
+  def player2new=(value)
+    return if value.blank?
+    player = Player.create(name: value)
+    self.choice ||= []
+    self.choice[1] = player.id
+  end
+
   def player3=(value)
     return if value.blank?
+    return if value == "Create a new player"
     player = Player.find_by id: value
     if player.nil?
       player = Player.find_by name: value
@@ -77,8 +94,16 @@ class PropChoice < ActiveRecord::Base
     self.choice[2] = player.id
   end
 
+  def player3new=(value)
+    return if value.blank?
+    player = Player.create(name: value)
+    self.choice ||= []
+    self.choice[2] = player.id
+  end
+
   def player4=(value)
     return if value.blank?
+    return if value == "Create a new player"
     player = Player.find_by id: value
     if player.nil?
       player = Player.find_by name: value
@@ -87,12 +112,27 @@ class PropChoice < ActiveRecord::Base
     self.choice[3] = player.id
   end
 
+  def player4new=(value)
+    return if value.blank?
+    player = Player.create(name: value)
+    self.choice ||= []
+    self.choice[3] = player.id
+  end
+
   def player5=(value)
     return if value.blank?
+    return if value == "Create a new player"
     player = Player.find_by id: value
     if player.nil?
       player = Player.find_by name: value
     end
+    self.choice ||= []
+    self.choice[4] = player.id
+  end
+
+  def player5new=(value)
+    return if value.blank?
+    player = Player.create(name: value)
     self.choice ||= []
     self.choice[4] = player.id
   end
@@ -103,10 +143,18 @@ class PropChoice < ActiveRecord::Base
     Player.find_by(id: self.choice[0]).name
   end
 
+  def player1new
+    return
+  end
+
   def player2
     return if choice.nil?
     return if self.choice[1].nil?
     Player.find_by(id: self.choice[1]).name
+  end
+
+  def player2new
+    return
   end
 
   def player3
@@ -115,16 +163,28 @@ class PropChoice < ActiveRecord::Base
     Player.find_by(id: self.choice[2]).name
   end
 
+  def player3new
+    return
+  end
+
   def player4
     return if choice.nil?
     return if self.choice[3].nil?
     Player.find_by(id: self.choice[3]).name
   end
 
+  def player4new
+    return
+  end
+
   def player5
     return if choice.nil?
     return if choice[4].nil?
     Player.find_by(id: self.choice[4]).name
+  end
+
+  def player5new
+    return
   end
 
   def display_line
