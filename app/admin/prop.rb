@@ -75,7 +75,7 @@ ActiveAdmin.register Prop do
       f.input :time, as: :just_datetime_picker, required: true
       f.input :ampm_time, label: "12 Hour Time", input_html: { readonly: true }
       f.input :user, label: "VIP Acct", as: :select, collection: User.where(role: 3).order("username").collect {|u| ["#{u.username}", u.id]}, required: true, include_blank: false
-      f.input :opt1_spread, label: "Team 1 Spread", as: :select, collection: (point_spreads), :wrapper_html => { id: "opt1-spread" }
+      f.input :opt1_spread, label: "Team 1 Spread", step: 0.1, :wrapper_html => { id: "opt1-spread" }
     end
     f.inputs "Prop Choices" do
       (2 - f.object.prop_choices.count).times do

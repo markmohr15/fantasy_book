@@ -40,7 +40,7 @@ class Prop < ActiveRecord::Base
   enum state: [ :Offline, :Open, :Closed, :Graded, :Regrade ]
   enum winner: [ :Team1, :Team2, :Push, :NoAction]
 
-  after_initialize :set_time
+  after_initialize :set_time, :set_opt1_spread
   before_save :check_state
   before_validation :get_opt2_spread
   after_save :close_wagering, if: Proc.new {|a| a.time_changed?}
@@ -50,6 +50,10 @@ class Prop < ActiveRecord::Base
 
   def set_time
     self.time ||= Time.now
+  end
+
+  def set_opt1_spread
+    self.opt1_spread ||= 0
   end
 
   def ampm_time
