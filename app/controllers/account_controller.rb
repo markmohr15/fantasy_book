@@ -8,7 +8,6 @@ class AccountController < ApplicationController
 
   def charge_card
     @amount = params[:amount_dollars].to_f * 100
-    #binding.pry
 
     customer = Stripe::Customer.create(
       :email => 'example@stripe.com',
