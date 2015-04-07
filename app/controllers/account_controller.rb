@@ -6,6 +6,26 @@ class AccountController < ApplicationController
     render
   end
 
+  def charge_card
+    @amount = 500
+
+    customer = Stripe::Customer.create(
+      :email => 'example@stripe.com',
+      :card  => params[:stripeToken]
+    )
+
+    charge = Stripe::Charge.create(
+      :customer    => customer.id,
+      :amount      => @amount,
+      :description => "FantasyBook.guru",
+      :currency    => "usd"
+    )
+
+    rescue Stripe::CardError => e
+      flash[:error] = e.message
+      redirect_to my_account_deposit_path
+  end
+
   def withdraw
     @options = ["ACH", "Check"]
     @withdrawals = Withdrawal.where(user_id: current_user.id).order('created_at DESC')
