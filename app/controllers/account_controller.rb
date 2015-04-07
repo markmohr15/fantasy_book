@@ -95,7 +95,7 @@ class AccountController < ApplicationController
   end
 
   def withdrawal_params
-    params.permit(:amount_dollars, :method)
+    params.permit(:amount_dollars, :kind)
   end
 
 end

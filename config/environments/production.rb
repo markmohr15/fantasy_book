@@ -5,7 +5,7 @@ Rails.application.configure do
   config.action_mailer.delivery_method  = :mailgun
   config.action_mailer.mailgun_settings = {
     api_host: "mg.fantasybook.guru",
-    api_key:  "key-4ffa5a2fcedaa0b5bdc7c4a1014576ac"
+    api_key:  ENV['MAILGUN_API_KEY']
   }
 
   # Code is not reloaded between requests.
