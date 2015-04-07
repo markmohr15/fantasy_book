@@ -8,7 +8,8 @@
 
   <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
           data-key="<%= Rails.configuration.stripe[:publishable_key] %>"
-          data-description="Deposit">
+          data-description="Deposit"
+          data-label="Deposit">
   </script>
 <% end %>
 

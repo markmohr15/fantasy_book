@@ -24,7 +24,7 @@ class Deposit < ActiveRecord::Base
 
   store_cents :amount
 
-  after_create :bonus, :affiliate_and_refer_a_friend
+  after_create :bonus, :affiliate_and_refer_a_friend, :add_funds
 
   def bonus
     return if self.bonus_code.nil?
@@ -51,6 +51,11 @@ class Deposit < ActiveRecord::Base
           bonus_code_id: BonusCode.find_by(code: "Refer-A-Friend").id)
       end
     end
+  end
+
+  def add_funds
+    self.user.balance += self.amount
+    self.user.save
   end
 
 end
