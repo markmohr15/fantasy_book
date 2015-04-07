@@ -7,19 +7,25 @@ class AccountController < ApplicationController
   end
 
   def charge_card
-    @amount = 500
+    @amount = params[:amount_dollars].to_f * 100
+    #binding.pry
 
     customer = Stripe::Customer.create(
       :email => 'example@stripe.com',
       :card  => params[:stripeToken]
     )
 
-    charge = Stripe::Charge.create(
+    if charge = Stripe::Charge.create(
       :customer    => customer.id,
-      :amount      => @amount,
+      :amount      => @amount.to_i,
       :description => "FantasyBook.guru",
       :currency    => "usd"
     )
+      deposit = Deposit.new(deposit_params)
+      deposit.user_id = current_user.id
+      deposit.kind = "Stripe"
+      deposit.save
+    end
 
     rescue Stripe::CardError => e
       flash[:error] = e.message
@@ -98,4 +104,7 @@ class AccountController < ApplicationController
     params.permit(:amount_dollars, :kind)
   end
 
+  def deposit_params
+    params.permit(:amount_dollars, :bonus_code)
+  end
 end

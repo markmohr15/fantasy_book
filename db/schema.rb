@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150405034141) do
+ActiveRecord::Schema.define(version: 20150407191641) do
 
   create_table "affiliate_payments", force: :cascade do |t|
     t.integer  "amount",       limit: 4
@@ -85,7 +85,7 @@ ActiveRecord::Schema.define(version: 20150405034141) do
   create_table "deposits", force: :cascade do |t|
     t.integer  "user_id",    limit: 4
     t.integer  "amount",     limit: 4
-    t.string   "method",     limit: 255
+    t.string   "kind",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "bonus_code", limit: 255
