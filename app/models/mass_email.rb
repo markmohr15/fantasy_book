@@ -58,16 +58,11 @@ class MassEmail < ActiveRecord::Base
         MailgunMailer.mass_email(self, recipient).deliver_later
       end
       if recipient.sms_notif?
-        MassEmail.mass_sms(self, recipient)
+        Text.mass_sms(self, recipient)
       end
     end
   end
 
   handle_asynchronously :notify, queue: "Notify", :run_at => Proc.new { |i| i.send_at }
-
-  def self.mass_sms mass_email, user
-    client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
-    message = client.messages.create from: "+15406843040", to: user.phone, body: mass_email.message
-  end
 
 end
