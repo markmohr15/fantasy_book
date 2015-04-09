@@ -8,6 +8,9 @@ Rails.application.configure do
     api_key:  ENV['MAILGUN_API_KEY']
   }
 
+  #TWILIO
+  config.middleware.use Rack::TwilioWebhookAuthentication, Rails.application.secrets.twilio_auth_token, '/voice'
+
   # Code is not reloaded between requests.
   config.cache_classes = true
 

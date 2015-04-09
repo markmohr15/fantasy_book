@@ -34,6 +34,7 @@ Rails.application.routes.draw do
   post "wagers", to: "wagers#create", as: :wagers
   get "pc", to: "props#pc"
   get "prop", to: "props#prop"
+  post "/notifications/notify", to: "twilio#notify"
 
   root to: "props#index"
 end

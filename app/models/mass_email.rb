@@ -23,7 +23,7 @@ class MassEmail < ActiveRecord::Base
   enum group: [ :Players_And_VIP, :Players, :VIP, :AllAdmins]
 
   after_initialize :set_time
-  after_save :send_emails, if: Proc.new {|a| a.send_at_changed?}
+  after_save :notify, if: Proc.new {|a| a.send_at_changed?}
   after_save :get_dj_id, if: Proc.new {|a| a.send_at_changed?}
   before_destroy :delete_dj
 
@@ -37,13 +37,13 @@ class MassEmail < ActiveRecord::Base
 
   def get_dj_id
     Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
-    self.delayed_job_id = Delayed::Job.where(queue: "MassEmail").last.id
+    self.delayed_job_id = Delayed::Job.where(queue: "Notify").last.id
     self.save
   end
 
   handle_asynchronously :get_dj_id, queue: "Get_DJ_ID", :run_at => Proc.new { 5.seconds.from_now }
 
-  def send_emails
+  def notify
     if self.group == "Players_And_VIP"
       recipients = User.where("role = ? or role = ?", 1, 3)
     elsif self.group == "Players"
@@ -54,10 +54,20 @@ class MassEmail < ActiveRecord::Base
       recipients = User.where("role = ? or role = ?", 0, 2)
     end
     recipients.each do |recipient|
-      MailgunMailer.mass_email(self, recipient).deliver_later
+      if recipient.email_notif?
+        MailgunMailer.mass_email(self, recipient).deliver_later
+      end
+      if recipient.sms_notif?
+        MassEmail.mass_sms(self, recipient)
+      end
     end
   end
 
-  handle_asynchronously :send_emails, queue: "MassEmail", :run_at => Proc.new { |i| i.send_at }
+  handle_asynchronously :notify, queue: "Notify", :run_at => Proc.new { |i| i.send_at }
+
+  def self.mass_sms mass_email, user
+    client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
+    message = client.messages.create from: "+15406843040", to: user.phone, body: mass_email.message
+  end
 
 end
