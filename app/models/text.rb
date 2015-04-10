@@ -24,7 +24,7 @@ class Text < ActiveRecord::Base
   end
 
   def self.transfer_approved transfer
-    text = transfer.sender.username + ", your transfer of " + sprintf('%.2f', transfer.amount_dollars).to_s + " to " transfer.receiver.username + " was approved.\nThank you,\nFantasyBook.guru"
+    text = transfer.sender.username + ", your transfer of " + sprintf('%.2f', transfer.amount_dollars).to_s + " to " + transfer.receiver.username + " was approved.\nThank you,\nFantasyBook.guru"
     client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
     message = client.messages.create from: "+15406843040", to: transfer.sender.phone, body: text
   end
