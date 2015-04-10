@@ -6,13 +6,13 @@ class Text < ActiveRecord::Base
   end
 
   def self.contest_started wager
-    text = wager.user.username + ", " + wager.prop.prop_choices.first.name + " Vs. " + wager.prop.prop_choices.last.name + " has begun.\nYour Selection: " + wager.prop_choice.name + "\nBuy-In: $" + sprintf('%.2f', wager.risk_dollars).to_s + "\nWin: $" + sprintf('%.2f', wager.win_dollars).to_s + "\nGood Luck,\nFantasyBook.guru"
+    text = wager.user.username + ", " + wager.prop.display_proposition + " has begun.\nYour Selection: " + wager.prop_choice.name + "\nBuy-In: $" + sprintf('%.2f', wager.risk_dollars).to_s + "\nWin: $" + sprintf('%.2f', wager.win_dollars).to_s + "\nGood Luck,\nFantasyBook.guru"
     client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
     message = client.messages.create from: "+15406843040", to: wager.user.phone, body: text
   end
 
   def self.contest_graded wager
-    text = wager.user.username + ", " + wager.prop.prop_choices.first.name + " Vs. " + wager.prop.prop_choices.last.name + " has completed.\nYour Selection: " + wager.prop_choice.name + "\nBuy-In: $" + sprintf('%.2f', wager.risk_dollars).to_s + "\nWin: $" + sprintf('%.2f', wager.win_dollars).to_s + "Result: $" + sprintf('%.2f', wager.result).to_s + "\nThanks for Playing,\nFantasyBook.guru"
+    text = wager.user.username + ", " + wager.prop.display_proposition + " has completed.\nYour Selection: " + wager.prop_choice.name + "\nBuy-In: $" + sprintf('%.2f', wager.risk_dollars).to_s + "\nWin: $" + sprintf('%.2f', wager.win_dollars).to_s + "\nResult: $" + sprintf('%.2f', wager.result).to_s + "\nThanks for Playing,\nFantasyBook.guru"
     client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
     message = client.messages.create from: "+15406843040", to: wager.user.phone, body: text
   end

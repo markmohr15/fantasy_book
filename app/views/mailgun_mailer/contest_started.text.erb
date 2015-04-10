@@ -1,6 +1,6 @@
 <%= @wager.user.username %>, your contest of <%= @wager.prop.prop_choices.first.name %> Vs. <%= @wager.prop.prop_choices.last.name %> has begun.
 
-Your Contest Selection Details:
+Your Contest Details:
 
 Selection: <%= @wager.prop_choice.name %>
 Buy-In: <%= number_to_currency @wager.risk_dollars %>
