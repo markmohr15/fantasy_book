@@ -34,14 +34,11 @@ class AccountController < ApplicationController
   def withdraw
     @options = ["ACH", "Check"]
     @withdrawals = Withdrawal.where(user_id: current_user.id).order('created_at DESC')
-    if params[:amount_dollars].blank?
-
-    else
+    unless params[:amount_dollars].blank?
       withdrawal = Withdrawal.new withdrawal_params
       withdrawal.user_id = current_user.id
       if withdrawal.save
         redirect_to my_account_withdraw_path
-        MailgunMailer.withdrawal_request(withdrawal).deliver_later
       else
         flash.now[:alert] = t("account.insufficient_funds")
         render action: :withdraw
@@ -64,7 +61,6 @@ class AccountController < ApplicationController
         transfer.sender_id = current_user.id
         if transfer.save
           redirect_to my_account_transfer_path
-          MailgunMailer.transfer_request(transfer).deliver_later
         else
           render action: :transfer
         end

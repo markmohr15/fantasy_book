@@ -30,7 +30,7 @@ class Transfer < ActiveRecord::Base
 
   store_cents :amount
 
-  after_create :deduct
+  after_create :deduct, :notify
   after_save :process
 
   def deduct
@@ -38,16 +38,40 @@ class Transfer < ActiveRecord::Base
     self.sender.save
   end
 
+  def notify
+    if self.sender.email_notif?
+      MailgunMailer.transfer_request(self).deliver_later
+    end
+    if self.sender.sms_notif?
+      Text.transfer_request(self)
+    end
+  end
+
   def process
     if self.state == "Approved"
       self.receiver.balance += self.amount
       self.receiver.save
-      MailgunMailer.transfer_approved(self).deliver_later
-      MailgunMailer.transfer_sent(self).deliver_later
+      if self.sender.email_notif?
+        MailgunMailer.transfer_approved(self).deliver_later
+      end
+      if self.sender.sms_notif?
+        Text.transfer_approved(self)
+      end
+      if self.receiver.email_notif?
+        MailgunMailer.transfer_sent(self).deliver_later
+      end
+      if self.receiver.sms_notif?
+        Text.transfer_sent(self)
+      end
     elsif self.state == "Rejected"
       self.sender.balance += self.amount
       self.sender.save
-      MailgunMailer.transfer_rejected(self).deliver_later
+      if self.sender.email_notif?
+        MailgunMailer.transfer_rejected(self).deliver_later
+      end
+      if self.sender.sms_notif?
+        Text.transfer_rejected(self)
+      end
     end
   end
 

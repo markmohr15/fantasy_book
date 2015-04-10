@@ -78,7 +78,12 @@ class Prop < ActiveRecord::Base
       self.grade_prop!
       wagers = Wager.where(prop_id: self.id)
       wagers.each do |wager|
-        MailgunMailer.contest_graded(wager).deliver_later
+        if wager.user.email_notif?
+          MailgunMailer.contest_graded(wager).deliver_later
+        end
+        if wager.user.sms_notif?
+          Text.contest_graded(wager)
+        end
       end
     elsif self.state == "Regrade"
       self.ungrade_wagers
@@ -86,7 +91,12 @@ class Prop < ActiveRecord::Base
       self.grade_prop!
       wagers = Wager.where(prop_id: self.id)
       wagers.each do |wager|
-        MailgunMailer.contest_graded(wager).deliver_later
+        if wager.user.email_notif?
+          MailgunMailer.contest_graded(wager).deliver_later
+        end
+        if wager.user.sms_notif?
+          Text.contest_graded(wager)
+        end
       end
     end
   end
@@ -163,7 +173,12 @@ class Prop < ActiveRecord::Base
     end
     wagers = Wager.where(prop_id: self.id)
     wagers.each do |wager|
-      MailgunMailer.contest_started(wager).deliver_later
+      if wager.user.email_notif?
+        MailgunMailer.contest_started(wager).deliver_later
+      end
+      if wager. user.sms_notif?
+        Text.contest_started(wager)
+      end
     end
   end
 
