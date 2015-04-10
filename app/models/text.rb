@@ -56,7 +56,7 @@ class Text < ActiveRecord::Base
   def self.withdrawal_rejected withdrawal
     text = withdrawal.user.username + ", your " + withdrawal.kind + " withdrawal in the amount of " + sprintf('%.2f', withdrawal.net_amount).to_s + "was rejected.  If you need further information, please contact us at info@fantasybook.guru.\nThank you,\nFantasyBook.guru"
     client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
-    message = client.messages.create from: "+15406843040", to: withdrawal.user.phone, body: mass_email.message
+    message = client.messages.create from: "+15406843040", to: withdrawal.user.phone, body: text
   end
 
 end
