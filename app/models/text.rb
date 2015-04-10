@@ -59,4 +59,10 @@ class Text < ActiveRecord::Base
     message = client.messages.create from: "+15406843040", to: withdrawal.user.phone, body: text
   end
 
+  def self.deposit_made deposit_made
+    text = deposit.user.username + ", your " + deposit.kind + " deposit in the amount of $" + sprintf('%.2f', withdrawal.net_amount).to_s + " was approved. \nThank you,\nFantasyBook.guru"
+    client = Twilio::REST::Client.new Rails.application.secrets.twilio_account_sid, Rails.application.secrets.twilio_auth_token
+    message = client.messages.create from: "+15406843040", to: deposit.user.phone, body: text
+  end
+
 end

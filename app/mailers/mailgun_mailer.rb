@@ -56,5 +56,10 @@ class MailgunMailer < ActionMailer::Base
     mail to: @withdrawal.user.email, from: "postmaster@fantasybook.guru", subject: "Withdrawal Rejected"
   end
 
+  def deposit_made deposit
+    @deposit = deposit
+    mail to: @deposit.user.email, from: "postmaster@fantasybook.guru", subject: "Deposit Approved"
+  end
+
 end
 

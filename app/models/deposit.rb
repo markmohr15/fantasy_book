@@ -24,7 +24,7 @@ class Deposit < ActiveRecord::Base
 
   store_cents :amount
 
-  after_create :bonus, :affiliate_and_refer_a_friend, :add_funds
+  after_create :bonus, :affiliate_and_refer_a_friend, :add_funds, :notify
 
   def bonus
     return if self.bonus_code.nil?
@@ -56,6 +56,15 @@ class Deposit < ActiveRecord::Base
   def add_funds
     self.user.balance += self.amount
     self.user.save
+  end
+
+  def notify
+    if self.user.email_notif?
+      MailgunMailer.deposit_made(self).deliver_later
+    end
+    if self.user.sms_notif?
+      Text.deposit_made(self)
+    end
   end
 
 end
