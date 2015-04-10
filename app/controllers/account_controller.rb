@@ -22,7 +22,7 @@ class AccountController < ApplicationController
     )
       deposit = Deposit.new(deposit_params)
       deposit.user_id = current_user.id
-      deposit.kind = "Stripe"
+      deposit.kind = "Credit Card"
       deposit.save
     end
 
