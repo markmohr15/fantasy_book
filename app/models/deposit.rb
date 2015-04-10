@@ -27,7 +27,7 @@ class Deposit < ActiveRecord::Base
   after_create :bonus, :affiliate_and_refer_a_friend, :add_funds, :notify
 
   def bonus
-    return #if self.bonus_code.blank?
+    return if self.bonus_code.blank?
     bc = BonusCode.find_by code: self.bonus_code
     return if bc.nil?
     Bonus.create(user_id: self.user_id, amount: self.amount * bc.percentage / 100.0,
@@ -35,6 +35,7 @@ class Deposit < ActiveRecord::Base
   end
 
   def affiliate_and_refer_a_friend
+    return if self.user.referral_code.nil?
     referrer = User.find_by username: self.user.referral_code
     return if referrer.nil?
     if referrer.affiliate?
