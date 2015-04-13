@@ -143,7 +143,7 @@ class Wager < ActiveRecord::Base
   end
 
   def open?
-    if self.prop.state != "Open"
+    if self.prop.state != "Open" || self.prop.time.past?
       errors[:base] << "Prop is not open for wagering."
     end
   end
