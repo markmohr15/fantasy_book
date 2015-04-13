@@ -48,14 +48,14 @@ class Bonus < ActiveRecord::Base
   end
 
   def set_amounts
-    if self.amount > self.bonus_code.maximum
-      self.amount = self.bonus_code.maximum
-    end
-    self.pending = self.amount
     unless self.bonus_code.nil?
       self.rollover = self.bonus_code.rollover
       self.exp_date = Date.today + self.bonus_code.length.days
+      if self.amount > self.bonus_code.maximum
+        self.amount = self.bonus_code.maximum
+      end
     end
+    self.pending = self.amount
   end
 
   def description

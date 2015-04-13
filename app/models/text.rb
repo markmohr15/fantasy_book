@@ -1,3 +1,12 @@
+# == Schema Information
+#
+# Table name: texts
+#
+#  id         :integer          not null, primary key
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#
+
 class Text < ActiveRecord::Base
 
   def self.mass_sms mass_email, user

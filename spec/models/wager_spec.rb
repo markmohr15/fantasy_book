@@ -7,6 +7,10 @@ RSpec.describe Wager, type: :model do
   risk: 11000, prop_choice_id: prop.prop_choices.first.id,
   odds: prop.prop_choices.first.odds, spread: prop.opt1_spread )}
 
+  it "has a valid factory" do
+    expect(wager).to be_valid
+  end
+
   it "is a player" do
     expect(wager.player?).to eq true
   end

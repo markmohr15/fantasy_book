@@ -64,9 +64,7 @@ ActiveAdmin.register Withdrawal do
     f.actions
   end
 
-  permit_params :user_id, :amount_dollars, :fee_dollars, :method, :state
-
-  permit_params :user_id, :amount_dollars, :note
+  permit_params :user_id, :amount_dollars, :fee_dollars, :kind, :state
 
   controller do
     before_filter :superadmin_filter

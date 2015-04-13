@@ -87,6 +87,7 @@ class User < ActiveRecord::Base
   end
 
   def verify_referral_code
+    return if self.referral_code.nil?
     rc = User.find_by username: self.referral_code
     if rc.nil?
       self.referral_code = nil

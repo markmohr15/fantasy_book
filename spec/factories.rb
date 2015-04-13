@@ -23,7 +23,7 @@ FactoryGirl.define do
 
   factory :prop do
     sport
-    time "2015-04-01 10:00:00"
+    time Time.now + 2.days
     state "Open"
     proposition "Vs."
     opt1_spread "5"
@@ -93,5 +93,60 @@ FactoryGirl.define do
     name "Larry Bird"
     balance "100000"
   end
+
+  factory :affiliate, class: User do
+    sequence(:email) { |n| "ap-#{n}@test.com" }
+    password "test5544"
+    sequence(:username) { |n| "ap-#{n}" }
+    address "1121 Dodge St."
+    phone "456-777-3300"
+    city "Chicago"
+    state "Illinois"
+    country "USA"
+    zip "65740"
+    role "player"
+    name "Jack Rabbit"
+    balance "100000"
+    affiliate "true"
+  end
+
+  factory :affiliate_payment do
+    affiliate
+    user
+    amount "20000"
+  end
+
+  factory :bonus do
+    bonus_code
+    user
+    amount 30000
+  end
+
+  factory :bonus_code do
+    code "RELOAD25"
+    percentage 25
+    rollover 20
+    maximum 20000
+    length 90
+  end
+
+  factory :credit do
+    user
+    admin
+    amount 4000
+  end
+
+  factory :deposit do
+    user
+    bonus_code "RELOAD25"
+    amount 50000
+  end
+
+  factory :withdrawal do
+    user
+    amount 60000
+    kind "ACH"
+  end
+
 
 end

@@ -68,12 +68,12 @@ class Withdrawal < ActiveRecord::Base
     end
   end
 
-  def net_amount
-    self.amount_dollars - self.fee_dollars
-  end
-
   def get_fee
     self.fee = (self.amount * 0.035).round
+  end
+
+  def net_amount
+    self.amount_dollars - self.fee_dollars
   end
 
   def balance?
