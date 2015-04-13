@@ -4,7 +4,7 @@
 #
 #  id           :integer          not null, primary key
 #  amount       :integer
-#  state        :integer
+#  state        :integer          default("0")
 #  affiliate_id :integer
 #  user_id      :integer
 #  created_at   :datetime         not null

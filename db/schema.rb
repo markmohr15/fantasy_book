@@ -11,15 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150407191641) do
+ActiveRecord::Schema.define(version: 20150413042506) do
 
   create_table "affiliate_payments", force: :cascade do |t|
     t.integer  "amount",       limit: 4
-    t.integer  "state",        limit: 4
+    t.integer  "state",        limit: 4, default: 0
     t.integer  "affiliate_id", limit: 4
     t.integer  "user_id",      limit: 4
-    t.datetime "created_at",             null: false
-    t.datetime "updated_at",             null: false
+    t.datetime "created_at",                         null: false
+    t.datetime "updated_at",                         null: false
   end
 
   add_index "affiliate_payments", ["affiliate_id"], name: "index_affiliate_payments_on_affiliate_id", using: :btree
@@ -146,6 +146,11 @@ ActiveRecord::Schema.define(version: 20150407191641) do
     t.string   "name",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "texts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transfers", force: :cascade do |t|
