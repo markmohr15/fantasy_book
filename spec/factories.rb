@@ -148,5 +148,22 @@ FactoryGirl.define do
     kind "ACH"
   end
 
+  factory :mass_email do
+    message "rspec testing is fun"
+    subject "test"
+    group 1
+    send_at (Time.now + 1.hour).change(min: 0)
+
+    factory :mass_email_with_users do
+      transient do
+        users_count 2
+      end
+
+      after(:create) do |mass_email, evaluator|
+        create_list(:mass_email, evaluator.users_count, mass_email: mass_email)
+      end
+    end
+  end
+
 
 end
