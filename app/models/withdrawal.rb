@@ -43,9 +43,9 @@ class Withdrawal < ActiveRecord::Base
     if self.user.email_notif?
       MailgunMailer.withdrawal_request(self).deliver_later
     end
-    if self.user.sms_notif?
-      Text.withdrawal_request(self)
-    end
+    #if self.user.sms_notif?
+     # Text.withdrawal_request(self)
+    #end
   end
 
   def process
@@ -53,18 +53,18 @@ class Withdrawal < ActiveRecord::Base
       if self.user.email_notif?
         MailgunMailer.withdrawal_approved(self).deliver_later
       end
-      if self.user.sms_notif?
-        Text.withdrawal_approved(self)
-      end
+      #if self.user.sms_notif?
+       # Text.withdrawal_approved(self)
+      #end
     elsif self.state == "Rejected"
       self.user.balance += self.amount
       self.user.save
       if self.user.email_notif?
         MailgunMailer.withdrawal_rejected(self).deliver_later
       end
-      if self.user.sms_notif?
-        Text.withdrawal_rejected(self)
-      end
+      #if self.user.sms_notif?
+       # Text.withdrawal_rejected(self)
+      #end
     end
   end
 

@@ -81,9 +81,9 @@ class Prop < ActiveRecord::Base
         if wager.user.email_notif?
           MailgunMailer.contest_graded(wager).deliver_later
         end
-        if wager.user.sms_notif?
-          Text.contest_graded(wager)
-        end
+        #if wager.user.sms_notif?
+         # Text.contest_graded(wager)
+        #end
       end
     elsif self.state == "Regrade"
       self.ungrade_wagers
@@ -94,9 +94,9 @@ class Prop < ActiveRecord::Base
         if wager.user.email_notif?
           MailgunMailer.contest_graded(wager).deliver_later
         end
-        if wager.user.sms_notif?
-          Text.contest_graded(wager)
-        end
+        #if wager.user.sms_notif?
+         # Text.contest_graded(wager)
+        #end
       end
     end
   end
@@ -176,9 +176,9 @@ class Prop < ActiveRecord::Base
       if wager.user.email_notif?
         MailgunMailer.contest_started(wager).deliver_later
       end
-      if wager. user.sms_notif?
-        Text.contest_started(wager)
-      end
+      #if wager. user.sms_notif?
+       # Text.contest_started(wager)
+      #end
     end
   end
 

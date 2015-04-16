@@ -57,9 +57,9 @@ class MassEmail < ActiveRecord::Base
       if recipient.email_notif?
         MailgunMailer.mass_email(self, recipient).deliver_later
       end
-      if recipient.sms_notif?
-        Text.mass_sms(self, recipient)
-      end
+      #if recipient.sms_notif?
+       # Text.mass_sms(self, recipient)
+      #end
     end
   end
 

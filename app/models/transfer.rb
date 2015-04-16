@@ -42,9 +42,9 @@ class Transfer < ActiveRecord::Base
     if self.sender.email_notif?
       MailgunMailer.transfer_request(self).deliver_later
     end
-    if self.sender.sms_notif?
-      Text.transfer_request(self)
-    end
+    #if self.sender.sms_notif?
+     # Text.transfer_request(self)
+    #end
   end
 
   def process
@@ -54,24 +54,24 @@ class Transfer < ActiveRecord::Base
       if self.sender.email_notif?
         MailgunMailer.transfer_approved(self).deliver_later
       end
-      if self.sender.sms_notif?
-        Text.transfer_approved(self)
-      end
+      #if self.sender.sms_notif?
+       # Text.transfer_approved(self)
+      #end
       if self.receiver.email_notif?
         MailgunMailer.transfer_sent(self).deliver_later
       end
-      if self.receiver.sms_notif?
-        Text.transfer_sent(self)
-      end
+      #if self.receiver.sms_notif?
+       # Text.transfer_sent(self)
+      #end
     elsif self.state == "Rejected"
       self.sender.balance += self.amount
       self.sender.save
       if self.sender.email_notif?
         MailgunMailer.transfer_rejected(self).deliver_later
       end
-      if self.sender.sms_notif?
-        Text.transfer_rejected(self)
-      end
+      #if self.sender.sms_notif?
+       # Text.transfer_rejected(self)
+      #end
     end
   end
 

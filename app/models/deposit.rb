@@ -63,9 +63,9 @@ class Deposit < ActiveRecord::Base
     if self.user.email_notif?
       MailgunMailer.deposit_made(self).deliver_later
     end
-    if self.user.sms_notif?
-      Text.deposit_made(self)
-    end
+    #if self.user.sms_notif?
+     # Text.deposit_made(self)
+    #end
   end
 
 end
