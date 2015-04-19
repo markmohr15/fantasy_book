@@ -1,0 +1,493 @@
+.table {
+  table-layout: auto; 
+}
+  
+.fbg-logo {
+  padding-top: 0;
+}
+
+.navbar-left {
+  margin-right: 0;
+  float: left;
+  text-transform: uppercase;
+  font-family: 'Oswald', sans-serif;
+}
+
+.navbar-right {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+}
+
+.col-md-7.wrapper {
+  padding: 0;
+}
+
+.matchups {
+  width: 100%;
+  display: flex;
+  display:-webkit-flex;
+  text-align: center;
+  padding: 0;
+  border: 5px solid #ffb01d;
+  background: #6e6e6e;
+  color: #dfdfdf;
+}
+
+.matchup-left {
+  background-color: #27e261;
+  float: left;
+  padding-bottom: 10px;
+  -webkit-flex-grow:2;
+  flex-grow: 2;
+}
+
+.matchup-right {
+  background-color: rgba(255, 255, 255, 0.94);
+  float: right;
+  opacity: 0.5;
+  padding-bottom: 10px;
+  -webkit-flex-grow:2;    
+  flex-grow: 2;
+}
+
+.open-side, .closed-side {
+  font-weight: 600; 
+  padding-top: 10px;
+  text-transform: uppercase; 
+}
+
+.open-side { 
+  color:#000;
+}
+
+.closed-side {
+  color: rgba(255, 0, 0, 0.56);
+}
+
+.matchup-info {
+  -webkit-flex-grow:1;
+  flex-grow: 1;
+  font-family: 'Oswald', sans-serif;
+  padding-top: 20px;
+}
+
+.available-cost {
+  float: right;
+  color: #000;
+  font-size: 0.8em;
+  font-weight: 600;
+  position: absolute;
+  top: 12px;
+  left: 72%;
+}
+
+.contenders {
+  color: #000000;
+  font-weight: 600;
+  width: 50%;
+  float: left;
+  border-style: none;
+}
+
+.contenders-info {
+  background-color: #fff;
+  padding-top: 4px;
+  margin: 8px 0 0 0;
+}
+
+.opponents-info {
+  background-color: rgba(102, 102, 102, 0.22);
+  padding-top: 4px;
+  margin: 8px 0 0 0;
+}
+
+.fb-top-nav {
+  background-color: #000;
+  padding: 10px 10px 0 10px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1em;
+  color: #999;
+  text-transform: uppercase;
+  text-align: center;
+  border-right: 2px solid #000;
+}
+
+.fb-top-nav a {
+  display:block;
+  color: #DBDBDB;
+}
+
+.fb-top-nav:hover {
+   background: #000;
+   transition: background .25s ease-in-out;
+   -moz-transition: background .25s ease-in-out;
+   -webkit-transition: background .25s ease-in-out;
+  }
+
+.main-content {
+  background: #969696;
+}
+
+.group {
+  background-color: #333;
+  padding: 10px;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.1em;
+  color: #999;
+  text-transform: uppercase;
+  text-align: center;
+  height: auto;
+  border-right: 2px solid #000;
+}
+  
+  .group:hover {
+   background: #000;
+   transition: background .25s ease-in-out;
+   -moz-transition: background .25s ease-in-out;
+   -webkit-transition: background .25s ease-in-out;
+  }
+
+.fb-top-nav img {
+   padding-right: 5px;
+   width: 25px;
+}
+
+.timestamp {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5em;
+  color: #6c6c6c;
+  font-weight: 100;
+  height: auto;
+  padding-top: 10px;
+  text-transform: lowercase;
+}
+
+.zone {
+  padding-left: 3px;
+  font-size: .8em;
+}
+
+.game-filter {
+  padding-bottom: 10px;
+  padding-top:5px;
+  background: #000;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2em;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border-left: 0;
+  border-right: 4px solid #666;
+  border-bottom: 1px solid #666;
+}
+
+.game-filter a {
+  display:block;
+  width:100%;
+}
+
+.game-filter:hover {
+  background: #333;
+  transition: background .25s ease-in-out;
+  -moz-transition: background .25s ease-in-out;
+  -webkit-transition: background .25s ease-in-out;
+}
+
+td.even-line {
+  padding-right: 5px!important;
+}
+
+td.odd-line {
+  padding-left: 5px!important;
+}
+
+td.prop-timer {
+  text-align:center;
+ }
+ 
+ a:hover {
+  color: rgb(186, 159, 26)!important;
+  text-decoration: none!important;
+}
+
+.button {
+  background-color: #3C3C3C;
+  font-family: 'Oswald', sans-serif;
+  height: 78px;
+  border: 0;
+  letter-spacing: .0685em;
+}
+.button a {
+  color:#fff;
+  text-transform: uppercase;
+}
+
+.fb-like.fb_iframe_widget {
+  padding-top: 10px;
+}
+
+.odd-choice {
+text-align:center;
+}
+
+a.refresh {
+  float: left;
+  width:80%;
+  margin-top: 9px;
+  border: 2px solid #666;
+  border-radius: 7px;
+  margin-left: 10px;
+  padding: 4px!important;
+}
+
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+  line-height: 1.42857143;
+}
+
+.notice {
+  width:100%;
+  text-transform: uppercase;
+  text-align: center;
+  height: 50px;
+  font-size: .9em;
+  padding-top: 5px;
+  background-color: #fff;
+  font-family: 'Oswald', sans-serif;
+  }
+
+.notice-disclaimer {
+  color: rgb(186, 159, 26);
+}
+
+.enter-button {
+  font-family: 'Oswald', sans-serif;
+  color: #fff;
+  background-color: #ffb01d;
+  border: 0;
+  padding: 5px 25px;
+  margin: 10px;
+}
+
+#search {
+  display: flex;
+  padding-bottom: 10px;
+  text-align: center;
+  height: 46px;
+}
+
+.prop-search {
+  display: table;
+  text-align:  center;
+}
+
+.prop-type {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 1.2em;
+  color: #000;
+  border-top: 2px solid rgba(255, 255, 255, 0.21);
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: .1em;
+}
+
+.prop-time {
+  font-family: 'Oswald', sans-serif;
+  font-weight: 300;
+  color: #000;
+  text-align: center;
+}
+
+.prop-sports {
+  margin: 0!important;
+  font-size: 1.1em;
+  font-family: 'Oswald', sans-serif;
+  letter-spacing: .0125em;
+  padding-right: 0;
+  padding-left: 0;
+  display: inline-table;
+  border-bottom: 4px solid rgba(255, 255, 255, 0.2);
+
+}
+
+.prop-sports a {
+  padding: 10px;
+}
+
+.available-odd, .bold, .available-even {
+  text-align: center;
+  }
+
+.ticket {
+  background-color: #F4CC66;
+  border-bottom: 12px solid #666;
+}
+
+.ticket h5 {
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+}
+
+input[type="submit"] {
+  font-family: 'Oswald', sans-serif;
+  color: #868686;
+  border-radius: 5px;
+  padding: 4px 22px;
+  background-color: rgb(255, 255, 255);
+}
+
+input#q, input#password {
+  border-radius: 5px;
+  padding: 4px 22px; 
+  }
+  
+  nav.navbar.navbar-default.navbar-inverse.navbar-fixed-bottom {
+  border-top: 3px solid #999;
+  border-bottom: 0;
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.2em;
+  text-transform: uppercase;
+}
+
+li.span3 {
+  float: left;
+  height: 30px;
+}
+
+.spam3 .team {
+font-size:.8em
+
+}
+
+span.team {
+  font-size: .6em; 
+}
+
+.game-thumbnails {
+  color: #999;
+  font-size: 1.3em;
+  line-height: .9;
+  list-style: none;
+  text-align: center;
+}
+
+.game-thumbnail {
+  text-align: center;
+}
+
+li.span3 {
+  float: left;
+  height: 30px;
+  padding-left: 75px;
+}
+
+li.dropdown {
+  list-style: none;
+}
+
+.NCAAM {
+  text-align: center;
+  padding: 10px;
+  margin-top: 20px;
+  border: 1px solid #666;
+  border-radius: 8px;
+}
+
+@media only screen and (max-width: 992px) {
+  .prop-sports {
+    display: none;
+  }
+}
+
+ @media only screen and (max-width: 768px) {
+  
+  .matchups {
+    display:block;
+  }
+  
+  .matchup-left, .matchup-right {
+  float: none;
+  }
+
+  .prop-sports {
+    display: none;
+  }
+  .nav.navbar.navbar-default.navbar-inverse.navbar-fixed-bottom {
+    display: none; 
+  }
+}
+
+@media only screen and (max-width: 479px) {
+
+.matchup-left, .matchup-right {
+  float: none;
+}
+
+.table {
+  vertical-align: middle;
+  table-layout: fixed;
+  word-wrap: break-word;
+  font-size: 10px;
+}
+
+.col-md-7 {
+  padding-right: 0px!important;
+  padding-left: 0px!important;
+}
+
+.wager-btn {
+  font-size: 9px;
+}
+
+.carousel-inner {
+  padding-top: 4px;
+}
+
+.footer .navbar-left {
+  font-size: 0.6em;
+  height: 45px;
+}
+
+li.span3.gt {
+  font-size: 0.8em;
+}
+
+.container .footer {
+  padding: 5px!important;
+  margin: 5px!important;
+}
+
+.game-thumbnail {
+  float: left;
+  text-align: center;
+}
+  
+.game-thumbnails {
+  color: #999;
+  font-size: 1em;
+  line-height: .9;
+  list-style: none;
+}
+
+ul.game-thumbnails {
+  margin: 0;
+
+}
+
+li.span3 {
+  float: left;
+  height: 18px;
+  padding-left: 0;
+}
+
+nav.navbar.navbar-default.navbar-inverse.navbar-fixed-bottom {
+  border-top: 3px solid #999;
+  border-bottom: 0;
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+}
+
+#team-games {
+  height: 20px;
+}
+
+}
