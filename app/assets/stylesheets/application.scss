@@ -88,8 +88,11 @@
   }
 }
 
+.stripe {
+  text-align: center;
+}
 
-.transfer-form, .withdrawal-form {
+.transfer-form, .withdrawal-form, .deposit-form {
   label {
     float: left;
   }

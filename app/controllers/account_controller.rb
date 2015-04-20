@@ -3,7 +3,7 @@ class AccountController < ApplicationController
   before_action :user_required
 
   def deposit
-    render
+    @deposits = Deposit.where(user_id: current_user.id).order('created_at DESC')
   end
 
   def charge_card
