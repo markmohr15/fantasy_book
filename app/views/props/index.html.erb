@@ -34,21 +34,22 @@
   <div class="col-md-7 wrapper">
     <div class="col-md-7 note">
     <div class="row">
-    <div class="notice-disclaimer"><p>Notice: All matchup contests are offered by customers. </p>
+    <div class="col-md-6 notice-disclaimer"><p>Notice: All matchup contests are offered by customers. </p>
     </div>
-    </div>
-    </div>
-    <div class="col-md-5 prop-search">
+
+    <div class="col-md-1 prop-search">
     <%= form_tag props_path, id: "search", method: :get, remote: true do %>
       <%= text_field_tag :q, "", placeholder: "Prop Search (enter a team or player name)" %>
       <%= submit_tag "Search" %>
     <% end %>
     </div>
-
-
-    <div class="matchups">
-      <%= render "proplist" %>
     </div>
+  </div>
+
+
+
+      <%= render "proplist" %>
+
   </div>
 
   <div class ="col-md-3 ticket">

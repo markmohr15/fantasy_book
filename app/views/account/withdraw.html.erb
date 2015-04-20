@@ -10,8 +10,8 @@
       <%= text_field_tag :fee, nil, value: params[:fee], readonly: "readonly" %> <br /><br />
       <%= label_tag :net, "Net Amount" %>
       <%= text_field_tag :net, nil, value: params[:net], readonly: "readonly" %> <br /><br />
-      <%= label_tag :method, "Method" %>
-      <%= select_tag :method, options_for_select(@options, params[:method]) %> <br /><br />
+      <%= label_tag :kind, "Method" %>
+      <%= select_tag :kind, options_for_select(@options, params[:method]) %> <br /><br />
       <div class="form-actions"> <%= submit_tag "Withdraw" %> </div>
     <% end %>
     </div>
@@ -32,7 +32,7 @@
           <td><%= withdrawal.created_at.strftime("%m/%d/%y") %> </td>
           <td><%= withdrawal.state %> </td>
           <td><%= number_to_currency withdrawal.net_amount %> </td>
-          <td><%= withdrawal.method %> </td>
+          <td><%= withdrawal.kind %> </td>
         </tr>
       <% end %>
     </table>

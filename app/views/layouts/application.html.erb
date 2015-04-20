@@ -37,19 +37,20 @@
           <li> <%= link_to "Rules", rules_path %> </li>
           <li> <%= link_to "Privacy Policy", privacy_policy_path %> </li>
           <li> <%= link_to "Terms of Use", terms_path %> </li>
+          <% if current_user %>
+            <li> <%= link_to "Sign Out", destroy_user_session_path, method: :delete %> </li>
+          <% else %>
+            <li> <%= link_to "Sign In", new_user_session_path %> </li>
+          <li> <%= link_to "Sign Up", new_user_registration_path %> </li>
+          <% end %>
         </ul>
         <ul class="nav navbar-nav navbar-left">
         <% if current_user %>
           <li> Welcome, <%= current_user.username %> </li>
-          <li> Balance: <%= number_to_currency current_user.balance_dollars %> </li>
           <li> <%= link_to "My Fantasy", my_fantasy_my_action_path %> </li>
-          <li> <%= link_to "My Account", edit_user_registration_path %> </li>
+          <li> <%= link_to "My Account", my_account_balance_path %> </li>
           <li> <%= link_to "Deposit", my_account_deposit_path %> </li>
-          <li> <%= link_to "Withdraw", my_account_withdraw_path %> </li>
-          <li> <%= link_to "Sign Out", destroy_user_session_path, method: :delete %> </li>
-        <% else %>
-          <li> <%= link_to "Sign In", new_user_session_path %> </li>
-          <li> <%= link_to "Sign Up", new_user_registration_path %> </li>
+          <li> Balance: <%= number_to_currency current_user.balance_dollars %> </li>
         <% end %>
         </ul>
       </div>
@@ -153,9 +154,7 @@
   <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <% @sports.each do |sport| %>
-                <li><%= link_to sport.name, {controller: "props", action: "index", sport_id: sport.id}, method: :get %> </li>
-                <% end %>
+
                 </ul>
               </li>
   </div>
@@ -171,6 +170,8 @@
   <% end %>
 
 <%= yield %>
+
+</div>
 
 </body>
 </html>

@@ -2,6 +2,11 @@
 @import "bootstrap";
 @import "bootstrap-datetimepicker";
 
+.navbar-left {
+  color: #777;
+  line-height: 20px;
+}
+
 .countdown {
   color: #FFFFFF;
 }
@@ -91,7 +96,7 @@
   span {
     float: right;
   }
-  input, select#method {
+  input, select#kind {
     float: right;
     width: 150px;
     font-size: small;

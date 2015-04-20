@@ -3,10 +3,11 @@
     <thead>
       <tr>
         <th> Date Awarded </th>
+        <th> Expires </th>
         <th> Status </th>
         <th> Amount </th>
         <th> Released </th>
-        <th> Earned </th>
+        <th> Unpaid * </th>
         <th> Remaining </th>
         <th> Rollover Req. </th>
         <th> Type </th>
@@ -15,6 +16,7 @@
     <% @bonuses.each do |bonus| %>
       <tr>
         <td> <%= bonus.created_at.strftime("%m/%d/%y") %> </td>
+        <td> <%= bonus.exp_date.strftime("%m/%d/%y") %> </td>
         <td> <%= bonus.state %> </td>
         <td> <%= number_to_currency bonus.amount_dollars %> </td>
         <td> <%= number_to_currency bonus.released_dollars %> </td>
@@ -26,5 +28,5 @@
     <% end %>
   </table>
 
-  <p> Note: Bonuses are released in ten dollar increments. </p>
+  <p> * Bonuses are released in ten dollar increments. </p>
 </div>
