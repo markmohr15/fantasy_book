@@ -276,6 +276,7 @@ body {
 
 .col-md-7.wrapper {
   padding: 0;
+
 }
 
 .matchups {
@@ -529,6 +530,7 @@ a.refresh {
   padding-bottom: 10px;
   text-align: center;
   height: 46px;
+  float: right;
 }
 
 .prop-search {
@@ -3192,7 +3194,7 @@ pre code {
     width: 66.66666667%;
   }
   .col-md-7 {
-    width: 58.33333333%;
+    //width: 58.33333333%;
   }
   .col-md-6 {
     width: 50%;
