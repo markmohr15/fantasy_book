@@ -17,56 +17,152 @@
 
 </head>
 <body>
-  <nav class="navbar navbar-default navbar-inverse" role="navigation">
-    <div class="container">
-      <div class="navbar-left">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
         <%= link_to root_path do %>
-          <%= image_tag "fb-silver2.png", title: "FantasyBook Logo", width: "221", height: "109" %>
-        <% end %>
-        <%= button_tag(type: "button") do %>
-          <% link_to "Fantasy Contests", props_path %>
+          <%= image_tag "FantasyBook.guru.png", title: "FantasyBook Logo", class: "fbg-logo", alt: "FantasyBook.guru" %>
         <% end %>
       </div>
 
-      <div class="navbar-right">
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
+          <li> <%= link_to "Contact Us", contact_us_path %> </li>
+          <li> <%= link_to "Rules", rules_path %> </li>
+          <li> <%= link_to "Privacy Policy", privacy_policy_path %> </li>
+          <li> <%= link_to "Terms of Use", terms_path %> </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-left">
         <% if current_user %>
-          <p class="navbar-text">Welcome, <%= current_user.username %> </p>
-          <p class="navbar-text"> Balance: <%= number_to_currency current_user.balance_dollars %> </p>
-          <p class="navbar-text">
-            <%= link_to "My Fantasy", my_fantasy_my_action_path %> |
-            <%= link_to "My Account", edit_user_registration_path %> |
-            <%= link_to "Deposit", my_account_deposit_path %> |
-            <%= link_to "Withdraw", my_account_withdraw_path %> |
-            <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-          </p>
+          <li> Welcome, <%= current_user.username %> </li>
+          <li> Balance: <%= number_to_currency current_user.balance_dollars %> </li>
+          <li> <%= link_to "My Fantasy", my_fantasy_my_action_path %> </li>
+          <li> <%= link_to "My Account", edit_user_registration_path %> </li>
+          <li> <%= link_to "Deposit", my_account_deposit_path %> </li>
+          <li> <%= link_to "Withdraw", my_account_withdraw_path %> </li>
+          <li> <%= link_to "Sign Out", destroy_user_session_path, method: :delete %> </li>
         <% else %>
-          <p class="navbar-text">
-            <%= link_to "Sign In", new_user_session_path %> |
-            <%= link_to "Sign Up", new_user_registration_path %> </p>
+          <li> <%= link_to "Sign In", new_user_session_path %> </li>
+          <li> <%= link_to "Sign Up", new_user_registration_path %> </li>
         <% end %>
+        </ul>
       </div>
     </div>
   </nav>
 
   <nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom" role="navigation">
-    <div class="container">
+    <div class="container footer">
+    <div class="row">
+      <div class="border col-md-12 ">
+          <div class="row-fluid">
+    <div class="carousel slide" id="team-games">
+        <div class="carousel-inner">
+          <div class="item active">
+                <ul class="game-thumbnails">
+                    <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                     <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                    <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                     <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                </ul>
+          </div>
+          <div class="item">
+                <ul class="game-thumbnails">
+                    <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                     <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                    <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                     <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+
+                </ul>
+          </div>
+        </div>
+        <a data-slide="prev" href="#team-games" class="left carousel-control teams">‹</a>
+        <a data-slide="next" href="#team-games" class="right carousel-control teams">›</a>
+    </div>
+</div>
+   </div>
+    </div>
+
       <div class="navbar-left">
         <p class="navbar-text">
           <%= link_to "Contact Us", contact_us_path %> |
           <%= link_to "Rules", rules_path %> |
           <%= link_to "Privacy Policy", privacy_policy_path %> |
           <%= link_to "Terms of Use", terms_path %> |
-          <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.fantasybook.guru" data-text="Check out daily fantasy matchups at this new site." data-count="none">Recommend Us</a> |
+          <iframe id="twitter-widget-0" scrolling="no" frameborder="0" allowtransparency="true" src="./FantasyBook_files/tweet_button.23a4a4933995b86880bb787f8ff6a082.en.html" class="twitter-share-button twitter-tweet-button twitter-share-button twitter-count-none" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 57px; height: 20px;"></iframe> |
 
-          <a href="https://twitter.com/intent/tweet?screen_name=fantasybooklive" class="twitter-mention-button" data-related="fantasybooklive">Tweet to @fantasybooklive</a>
+          <iframe id="twitter-widget-1" scrolling="no" frameborder="0" allowtransparency="true" src="./FantasyBook_files/tweet_button.23a4a4933995b86880bb787f8ff6a082.en(1).html" class="twitter-mention-button twitter-tweet-button twitter-mention-button twitter-count-none" title="Twitter Tweet Button" data-twttr-rendered="true" style="width: 57px; height: 20px;"></iframe>
 
-          <div class="fb-like" data-href="https://www.facebook.com/pages/Fantasybookguru/1503513283269643" data-layout="button" data-action="like" data-show-faces="true" data-share="false"></div>
+          </p><div class="fb-like fb_iframe_widget" data-href="https://www.facebook.com/pages/Fantasybookguru/1503513283269643" data-layout="button" data-action="like" data-show-faces="true" data-share="false" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=like&amp;app_id=&amp;container_width=584&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FFantasybookguru%2F1503513283269643&amp;layout=button&amp;locale=en_US&amp;sdk=joey&amp;share=false&amp;show_faces=true"><span style="vertical-align: bottom; width: 48px; height: 20px;"><iframe name="f13007d1c" width="1000px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./FantasyBook_files/like.html" style="border: none; visibility: visible; width: 48px; height: 20px;" class=""></iframe></span></div>
 
-          <div class="fb-like" data-href="https://www.facebook.com/pages/Fantasybookguru/1503513283269643" data-layout="button" data-action="recommend" data-show-faces="true" data-share="true"></div> <br/>
-        </p>
+          <div class="fb-like fb_iframe_widget" data-href="https://www.facebook.com/pages/Fantasybookguru/1503513283269643" data-layout="button" data-action="recommend" data-show-faces="true" data-share="true" fb-xfbml-state="rendered" fb-iframe-plugin-query="action=recommend&amp;app_id=&amp;container_width=584&amp;href=https%3A%2F%2Fwww.facebook.com%2Fpages%2FFantasybookguru%2F1503513283269643&amp;layout=button&amp;locale=en_US&amp;sdk=joey&amp;share=true&amp;show_faces=true"><span style="vertical-align: top; width: 0px; height: 0px; overflow: hidden;"><iframe name="f39c0ac08" width="1000px" height="1000px" frameborder="0" allowtransparency="true" scrolling="no" title="fb:like Facebook Social Plugin" src="./FantasyBook_files/like(1).html" style="border: none; visibility: visible; width: 0px; height: 0px;"></iframe></span></div> <br>
+        <p></p>
       </div>
     </div>
   </nav>
+
+  <div class="container-fluid padding-large-horizontal">
+
+<div class="row">
+  <div class="border col-xs-3 fb-top-nav"><a href="/">Matchup Contest</a>
+  <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <% @sports.each do |sport| %>
+                <li><%= link_to sport.name, {controller: "props", action: "index", sport_id: sport.id}, method: :get %> </li>
+                <% end %>
+                </ul>
+              </li>
+  </div>
+  <div class="border col-xs-3 group">Live Draft - coming soon </div>
+  <div class="border col-xs-3 group">Multi-Entry - coming soon</div>
+  <div class="border col-xs-3 group">Survivor Contests - coming soon </div>
+</div>
 
   <% if flash[:alert] %>
     <div class="alert">

@@ -4,7 +4,12 @@ class ApplicationController < ActionController::Base
 
   protect_from_forgery with: :exception
   before_action :configure_permitted_parameters, if: :devise_controller?
+  before_action :set_variables
   layout :layout_by_resource
+
+  def set_variables
+    @sports = Sport.all
+  end
 
   def layout_by_resource
     if devise_controller? && resource_name == :user && action_name == 'edit'

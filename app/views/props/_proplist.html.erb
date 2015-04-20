@@ -1,8 +1,7 @@
-  <table class="table table-responsive">
     <% @dates.each do |date| %>
         <% @props.each do |prop| %>
           <% if prop.time.to_date === date %>
-            <tbody class="<%= cycle 'white', 'gray'%>">
+            <tbody>
             <tr>
               <td colspan="5" class="prop-type bold"> Matchup Contest </td>
             </tr>
@@ -31,7 +30,7 @@
 <script type='text/javascript'>
   $(document).ready(function(){
 
-    var odds = $('.prop-table').find('.available-odd'), i;
+    var odds = $('.matchups').find('.available-odd'), i;
     for (var i = 0; i < odds.length; i ++) {
       if ($(odds[i]).text() == " Available: $0.00 ") {
         $(odds[i]).removeClass('bold')
@@ -39,7 +38,7 @@
     }
 
 
-    var evens = $('.prop-table').find('.available-even'), i;
+    var evens = $('.matchups').find('.available-even'), i;
     for (var i = 0; i < odds.length; i ++) {
       if ($(evens[i]).text() == " Available: $0.00 ") {
         $(evens[i]).removeClass('bold')
@@ -47,7 +46,7 @@
     }
 
     setInterval(function () {
-      var countdowns = $('.prop-table').find('.prop-timer'), i;
+      var countdowns = $('.matchups').find('.prop-timer'), i;
       for (var i = 0; i < countdowns.length; i ++) {
         var target_date = $(countdowns[i]).data('time')
         var hours, minutes, seconds;
@@ -75,7 +74,7 @@
     }, 1000);
 
     setInterval(function () {
-      var wagers = $('.prop-table').find('.wager-btn');
+      var wagers = $('.matchups').find('.wager-btn');
       $.each(wagers, function(index, value) {
         $.ajax({
           url: "/pc",

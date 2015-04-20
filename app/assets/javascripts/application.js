@@ -39,7 +39,7 @@ $(function(){
     $(this).parent("form").submit();
   })
 
-  $('.prop-table').on('click', '.wager-btn',(function() {
+  $('.matchups').on('click', '.wager-btn',(function() {
     if (document.cookie.indexOf("signed_in") >= 0) {
       $(this).toggleClass("green");
       prop_choice = $(this);
