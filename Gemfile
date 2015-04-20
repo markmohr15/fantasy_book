@@ -16,7 +16,7 @@ gem "devise"
 gem "inherited_resources", github: "josevalim/inherited_resources", branch: "rails-4-2"
 gem "activeadmin", github: "lazaronixon/activeadmin", branch: "master"
 gem "aasm", "3.4"
-gem "bootstrap-sass", "~> 3.3.3"
+gem "bootstrap-sass", "~> 3.3.4"
 gem "just-datetime-picker"
 gem "rails_12factor"
 gem "momentjs-rails", '>= 2.9.0'

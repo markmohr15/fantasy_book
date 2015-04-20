@@ -81,13 +81,13 @@ GEM
     arbre (1.0.2)
       activesupport (>= 3.0.0)
     arel (6.0.0)
-    autoprefixer-rails (5.0.0.3)
+    autoprefixer-rails (5.1.9)
       execjs
       json
     bcrypt (3.1.9)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bootstrap-sass (3.3.3)
+    bootstrap-sass (3.3.4.1)
       autoprefixer-rails (>= 5.0.0.1)
       sass (>= 3.2.19)
     bootstrap3-datetimepicker-rails (4.0.0)
@@ -326,7 +326,7 @@ DEPENDENCIES
   aasm (= 3.4)
   activeadmin!
   annotate (~> 2.6.5)
-  bootstrap-sass (~> 3.3.3)
+  bootstrap-sass (~> 3.3.4)
   bootstrap3-datetimepicker-rails (~> 4.0.0)
   byebug
   capybara
