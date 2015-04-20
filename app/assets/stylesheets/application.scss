@@ -599,9 +599,11 @@ input[type="submit"] {
 input#q, input#password {
   border-radius: 5px;
   padding: 4px 22px;
-  padding-left: 5px;
-  padding-right: 5px;
   }
+
+input#q {
+  width: 160px;
+}
 
   nav.navbar.navbar-default.navbar-inverse.navbar-fixed-bottom {
   border-top: 3px solid #999;
