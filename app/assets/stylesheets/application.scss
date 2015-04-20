@@ -654,6 +654,10 @@ li.dropdown {
   border-radius: 8px;
 }
 
+.col-lg-7.note, .col-lg-7.notice-disclaimer {
+width: 100%;
+}
+
 @media only screen and (max-width: 1280px) {
   .vs {
   text-transform: uppercase;
