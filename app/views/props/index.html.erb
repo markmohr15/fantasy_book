@@ -37,7 +37,7 @@
     <div class=" col-lg-7 notice-disclaimer"><span>Notice: All matchup contests are offered by customers. </span>
 
     <%= form_tag props_path, id: "search", method: :get, remote: true do %>
-      <%= text_field_tag :q, "", placeholder: "Prop Search (enter a team or player name)" %>
+      <%= text_field_tag :q, "", placeholder: "Search by team/player" %>
       <%= submit_tag "Search" %>
     <% end %>
       </div>
