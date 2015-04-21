@@ -61,7 +61,7 @@
             if ($('.ticket').find('.delete-wager').length == 1) {
               $('.actions').addClass('hidden')
             }
-            var propChoices = $('.wager-btn'), i;
+            var propChoices = $('.enter-button'), i;
             for (var i = 0; i < propChoices.length; i ++) {
               if (<%= wager.prop_choice_id %> == $(propChoices[i]).data('propchoiceid')) {
               $(propChoices[i]).toggleClass("green");
