@@ -39,7 +39,7 @@ $(function(){
     $(this).parent("form").submit();
   })
 
-  $('.matchups').on('click', '.wager-btn',(function() {
+  $('.matchups').on('click', '.enter-button',(function() {
     if (document.cookie.indexOf("signed_in") >= 0) {
       $(this).toggleClass("green");
       prop_choice = $(this);
@@ -77,14 +77,11 @@ $(function(){
     name = responseData.name
     odds = responseData.odds;
     available = responseData.available;
-    td = $(prop_choice).closest('td');
-    container = $(prop_choice).closest('tr');
-    if ($(td)[0].classList.contains('odd')) {
+    container = $(prop_choice).closest('.choice');
+    if ($(prop_choice)[0].classList.contains('first')) {
       spread = responseData.prop.opt1_spread;
-      pageLine = container.find('.odd-line');
     } else {
       spread = responseData.prop.opt2_spread;
-      pageLine = container.find('.even-line')
     }
     if ($(prop_choice)[0].classList.contains('green')) {
       var row = $('tbody.new-wager-row').clone().removeClass('hidden new-wager-row');
@@ -97,18 +94,7 @@ $(function(){
       $('tbody.actions').before(row);
       $('tbody.actions').removeClass("hidden");
       if (state == "Open") {
-          if (displayLine.trim() == $(pageLine).text().trim()) {
-            // do nothing
-        } else {
-            wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
-            for (var i = 0; i < wagerList.length - 1; i ++) {
-              if (propChoiceId == $(wagerList[i]).val()) {
-              var container = $('.ticket').find(wagerList[i]).closest('tbody')
-              container.find('.failure').text("Prop odds have changed.")
-              container.find('.failure').removeClass("hidden")
-              }
-            }
-        }
+          //do nothing
       } else {
           wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
             for (var i = 0; i < wagerList.length - 1; i ++) {
@@ -143,7 +129,7 @@ $(function(){
     if (wagerList.length == 1) {
       $('.actions').addClass("hidden");
     }
-    var propChoices = $('.wager-btn'), i;
+    var propChoices = $('.enter-button'), i;
     for (var i = 0; i < propChoices.length; i ++) {
       if (choiceId == $(propChoices[i]).data('propchoiceid')) {
         $(propChoices[i]).toggleClass("green");

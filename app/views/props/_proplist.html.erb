@@ -2,21 +2,21 @@
         <% @props.each do |prop| %>
           <% if prop.time.to_date === date %>
             <div class="col-md-7 matchups">
-            <div class="col-md-3 matchup-left"><div class="open-side">Matchup Side Open</div>
+            <div class="col-md-3 matchup-left choice"><div class="open-side">Matchup Side Open</div>
             <div class="available-cost available-odd">Available: <%= number_to_currency prop.prop_choices.first.available_dollars %> </div>
               <div class="contenders-info">
-                <div class="contenders" data-propchoiceid="<%= prop.prop_choices.first.id %>"><%= prop.prop_choices.first.name %> </div>
-                <div class="enter-contest"><button name="button" type="button" class="enter-button" data-propchoiceid="<%= prop.prop_choices.first.id %>">Enter Contest</button></div>
+                <div class="contenders" data-propchoiceid="<%= prop.prop_choices.first.id %>"><%= prop.prop_choices.first.name %> <div class="odd-line"> <%= prop.prop_choices.first.display_spread %> </div> </div>
+                <div class="enter-contest"><button name="button" type="button" class="enter-button first" data-propchoiceid="<%= prop.prop_choices.first.id %>">Enter Contest</button></div>
               </div>
               </div>
             <div class="col-md-1 matchup-info"><%= prop.time.strftime("%B %-d, %Y %n %l:%M %P EST") %>
               <div class="vs">Vs</div>
               <div class="prop-timer" data-time="<%= prop.time.to_i * 1000  %>"> </div>
             </div>
-            <div class="col-md-3 matchup-right"><div class="closed-side">Matchup Side Closed</div>
+            <div class="col-md-3 matchup-right choice"><div class="closed-side">Matchup Side Closed</div>
             <div class="opponents-info">
-            <div class="contenders" data-propchoiceid="<%= prop.prop_choices.last.id %>"> <%= prop.prop_choices.last.name %> </div>
-            <div class="enter-contest"><button name="button" type="button" class="enter-button" data-propchoiceid="<%= prop.prop_choices.last.id %>" >Enter Contest</button></div>
+            <div class="contenders" data-propchoiceid="<%= prop.prop_choices.last.id %>"> <%= prop.prop_choices.last.name %> <div class="odd-line"> <%= prop.prop_choices.last.display_spread %> </div> </div>
+            <div class="enter-contest"><button name="button" type="button" class="enter-button last" data-propchoiceid="<%= prop.prop_choices.last.id %>" >Enter Contest</button></div>
             </div>
             </div>
             </div>
