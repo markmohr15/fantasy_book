@@ -1,12 +1,12 @@
 Rails.application.routes.draw do
 
   ActiveAdmin.routes(self)
-  devise_for :users, :skip => [:sessions, :registrations]
+  devise_for :users, skip: [:sessions, :registrations], controllers: {passwords: "passwords"}
   as :user do
-    get "signin", to: "devise/sessions#new", as: :new_user_session
+    get "signin", to: "sessions#new", as: :new_user_session
     post "signin", to: "devise/sessions#create", as: :user_session
     delete "signout", to: "devise/sessions#destroy", as: :destroy_user_session
-    get "signup", to: "devise/registrations#new", as: :new_user_registration
+    get "signup", to: "registrations#new", as: :new_user_registration
     get "my_account/account_details", to: "devise/registrations#edit", as: :edit_user_registration
     post "users", to: "devise/registrations#create", as: :user_registration
     patch "users", to: "devise/registrations#update"
