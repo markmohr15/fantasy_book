@@ -176,7 +176,7 @@ class Prop < ActiveRecord::Base
       if wager.user.email_notif?
         MailgunMailer.contest_started(wager).deliver_later
       end
-      #if wager. user.sms_notif?
+      #if wager.user.sms_notif?
        # Text.contest_started(wager)
       #end
     end

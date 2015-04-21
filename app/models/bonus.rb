@@ -2,17 +2,18 @@
 #
 # Table name: bonuses
 #
-#  id            :integer          not null, primary key
-#  user_id       :integer
-#  amount        :integer
-#  pending       :integer
-#  rollover      :integer
-#  created_at    :datetime         not null
-#  updated_at    :datetime         not null
-#  state         :integer
-#  released      :integer          default("0")
-#  bonus_code_id :integer
-#  exp_date      :date
+#  id             :integer          not null, primary key
+#  user_id        :integer
+#  amount         :integer
+#  pending        :integer
+#  rollover       :integer
+#  created_at     :datetime         not null
+#  updated_at     :datetime         not null
+#  state          :integer
+#  released       :integer          default("0")
+#  bonus_code_id  :integer
+#  exp_date       :date
+#  delayed_job_id :integer
 #
 # Indexes
 #
@@ -35,6 +36,8 @@ class Bonus < ActiveRecord::Base
 
   before_validation :set_amounts, on: :create
   before_save :release, on: :edit
+  after_save :expire_bonus, if: Proc.new {|a| a.exp_date_changed?}
+  after_save :get_dj_id, if: Proc.new {|a| a.exp_date_changed?}
 
   def available?
     unless self.bonus_code.nil?
@@ -124,6 +127,23 @@ class Bonus < ActiveRecord::Base
     counter
   end
 
+  def get_dj_id
+    Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
+    self.delayed_job_id = Delayed::Job.where(queue: "ExpireBonus").last.id
+    self.save
+  end
+
+  handle_asynchronously :get_dj_id, queue: "Get_DJ_ID", :run_at => Proc.new { 5.seconds.from_now }
+
+  def expire_bonus
+    if self.state == "Pending"
+      self.state = "Expired"
+      self.save
+    end
+  end
+
+  handle_asynchronously :expire_bonus, queue: "ExpireBonus", :run_at => Proc.new { |i| i.exp_date + 28.hours }
+
   aasm column: :state do
     state :Pending, initial: true
 
@@ -132,10 +152,6 @@ class Bonus < ActiveRecord::Base
     end
 
     state :Complete
-
-    event :expire_bonus do
-      transitions from: :Pending, to: :Expired
-    end
 
     state :Expired
 

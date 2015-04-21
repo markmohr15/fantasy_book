@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150413042506) do
+ActiveRecord::Schema.define(version: 20150421161855) do
 
   create_table "affiliate_payments", force: :cascade do |t|
     t.integer  "amount",       limit: 4
@@ -39,16 +39,17 @@ ActiveRecord::Schema.define(version: 20150413042506) do
   end
 
   create_table "bonuses", force: :cascade do |t|
-    t.integer  "user_id",       limit: 4
-    t.integer  "amount",        limit: 4
-    t.integer  "pending",       limit: 4
-    t.integer  "rollover",      limit: 4
-    t.datetime "created_at",                          null: false
-    t.datetime "updated_at",                          null: false
-    t.integer  "state",         limit: 4
-    t.integer  "released",      limit: 4, default: 0
-    t.integer  "bonus_code_id", limit: 4
+    t.integer  "user_id",        limit: 4
+    t.integer  "amount",         limit: 4
+    t.integer  "pending",        limit: 4
+    t.integer  "rollover",       limit: 4
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.integer  "state",          limit: 4
+    t.integer  "released",       limit: 4, default: 0
+    t.integer  "bonus_code_id",  limit: 4
     t.date     "exp_date"
+    t.integer  "delayed_job_id", limit: 4
   end
 
   add_index "bonuses", ["bonus_code_id"], name: "index_bonuses_on_bonus_code_id", using: :btree
