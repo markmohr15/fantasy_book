@@ -15,50 +15,125 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 
+  <link href='http://fonts.googleapis.com/css?family=Oswald' rel='stylesheet' type='text/css'>
+
 </head>
 <body>
-  <nav class="navbar navbar-default navbar-inverse" role="navigation">
-    <div class="container">
-      <div class="navbar-left">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
         <%= link_to root_path do %>
-          <%= image_tag "fb-silver2.png", title: "FantasyBook Logo", width: "221", height: "109" %>
-        <% end %>
-        <%= button_tag(type: "button") do %>
-          <% link_to "Fantasy Contests", props_path %>
+          <%= image_tag "FantasyBook.guru.png", title: "FantasyBook Logo", class: "fbg-logo", alt: "FantasyBook.guru" %>
         <% end %>
       </div>
 
-      <div class="navbar-right">
+      <div id="navbar" class="navbar-collapse collapse">
+        <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
-          <p class="navbar-text">Welcome, <%= current_user.username %> </p>
-          <p class="navbar-text"> Balance: <%= number_to_currency current_user.balance_dollars %> </p>
-          <p class="navbar-text">
-            <%= link_to "My Fantasy", my_fantasy_my_action_path %> |
-            <%= link_to "My Account", edit_user_registration_path %> |
-            <%= link_to "Deposit", my_account_deposit_path %> |
-            <%= link_to "Withdraw", my_account_withdraw_path %> |
-            <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
-          </p>
+          <li> Welcome, <%= current_user.username %> </li>
+          <li> <%= link_to "My Fantasy", my_fantasy_my_action_path %> </li>
+          <li> <%= link_to "My Account", my_account_balance_path %> </li>
+          <li> <%= link_to "Deposit", my_account_deposit_path %> </li>
+          <li> <%= link_to my_account_balance_path do %>
+               Balance: <%= number_to_currency current_user.balance_dollars %>
+              <% end %> </li>
+          <li> <%= link_to "Sign Out", destroy_user_session_path, method: :delete %> </li>
         <% else %>
-          <p class="navbar-text">
-            <%= link_to "Sign In", new_user_session_path %> |
-            <%= link_to "Sign Up", new_user_registration_path %> </p>
+          <li> <%= link_to "Sign In", new_user_session_path %> </li>
+          <li> <%= link_to "Sign Up", new_user_registration_path %> </li>
         <% end %>
-      </div>
-    </div>
-  </nav>
 
-  <nav class="navbar navbar-default" role="navigation">
-    <div class="container">
-      <ul class="nav nav-tabs">
-        <li role="presentation" class="<%= 'active' if current_page?(my_fantasy_my_action_path) %>"> <%= link_to "My Action", my_fantasy_my_action_path %></li>
-        <li role="presentation" class="<%= 'active' if current_page?(my_fantasy_my_history_path) %>"> <%= link_to "My History", my_fantasy_my_history_path %></li>
-      </ul>
+          <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true">Contact<span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+          <li> <%= link_to "Contact Us", contact_us_path %> </li>
+          <li> <%= link_to "Rules", rules_path %> </li>
+          <li> <%= link_to "Privacy Policy", privacy_policy_path %> </li>
+          <li> <%= link_to "Terms of Use", terms_path %> </li>
+        </ul>
+
+      </div>
     </div>
   </nav>
 
   <nav class="navbar navbar-default navbar-inverse navbar-fixed-bottom" role="navigation">
-    <div class="container">
+    <div class="container footer">
+    <div class="row">
+      <div class="border col-md-12 ">
+          <div class="row-fluid">
+    <div class="carousel slide" id="team-games">
+        <div class="carousel-inner">
+          <div class="item active">
+                <ul class="game-thumbnails">
+                    <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                     <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                    <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                     <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                </ul>
+          </div>
+          <div class="item">
+                <ul class="game-thumbnails">
+                    <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                     <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                    <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+                     <li class="span3 gt">
+                        <div class="game-thumbnail">
+                            <span class="team">William & Mary 33</span>
+                            <span class="team">Hofstra 28</span>
+                        </div>
+                    </li>
+
+                </ul>
+          </div>
+        </div>
+        <a data-slide="prev" href="#team-games" class="left carousel-control teams">‹</a>
+        <a data-slide="next" href="#team-games" class="right carousel-control teams">›</a>
+    </div>
+</div>
+   </div>
+    </div>
+
       <div class="navbar-left">
         <p class="navbar-text">
           <%= link_to "Contact Us", contact_us_path %> |
@@ -68,9 +143,32 @@
           <a href="https://twitter.com/share" class="twitter-share-button" data-url="http://www.fantasybook.guru" data-text="Check out daily fantasy matchups at this new site." data-count="none">Recommend Us</a> |
 
           <a href="https://twitter.com/intent/tweet?screen_name=fantasybooklive" class="twitter-mention-button" data-related="fantasybooklive">Tweet to @fantasybooklive</a>
-
         </p>
       </div>
+  </nav>
+
+<div class="row">
+  <div class="border col-xs-3 fb-top-nav"><a href="/">Matchup Contest</a>
+      <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <% @sports.each do |sport|  %>
+              <li> <%= link_to sport.name, {controller: "props", action: "index", sport_id: sport.id}, method: :get %> </li>
+            <% end %>
+          </ul>
+      </li>
+  </div>
+  <div class="border col-xs-3 group">Live Draft - coming soon </div>
+  <div class="border col-xs-3 group">Multi-Entry - coming soon</div>
+  <div class="border col-xs-3 group">Survivor Contests - coming soon </div>
+</div>
+
+  <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+      <ul class="nav nav-tabs">
+        <li role="presentation" class="<%= 'active' if current_page?(my_fantasy_my_action_path) %>"> <%= link_to "My Action", my_fantasy_my_action_path %></li>
+        <li role="presentation" class="<%= 'active' if current_page?(my_fantasy_my_history_path) %>"> <%= link_to "My History", my_fantasy_my_history_path %></li>
+      </ul>
     </div>
   </nav>
 
