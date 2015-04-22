@@ -8,11 +8,14 @@ class AccountController < ApplicationController
 
   def charge_card
     @amount = params[:amount_dollars].to_f * 100
-
-    customer = Stripe::Customer.create(
-      :email => 'example@stripe.com',
-      :card  => params[:stripeToken]
-    )
+    if current_user.stripe_customer_id.blank?
+      customer = Stripe::Customer.create(
+        :email => 'example@stripe.com',
+        :card  => params[:stripeToken]
+      )
+    else
+      customer = Stripe::Customer.retrieve(current_user.stripe_customer_id)
+    end
 
     if charge = Stripe::Charge.create(
       :customer    => customer.id,
@@ -23,6 +26,9 @@ class AccountController < ApplicationController
       deposit = Deposit.new(deposit_params)
       deposit.user_id = current_user.id
       deposit.kind = "Credit Card"
+      deposit.stripe_id = charge.id
+      current_user.stripe_customer_id = customer.id
+      current_user.save
       deposit.save
     end
 

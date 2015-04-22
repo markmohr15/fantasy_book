@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150421161855) do
+ActiveRecord::Schema.define(version: 20150422160311) do
 
   create_table "affiliate_payments", force: :cascade do |t|
     t.integer  "amount",       limit: 4
@@ -90,6 +90,7 @@ ActiveRecord::Schema.define(version: 20150421161855) do
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
     t.string   "bonus_code", limit: 255
+    t.string   "stripe_id",  limit: 255
   end
 
   add_index "deposits", ["user_id"], name: "index_deposits_on_user_id", using: :btree
@@ -193,6 +194,7 @@ ActiveRecord::Schema.define(version: 20150421161855) do
     t.boolean  "sms_notif",              limit: 1,   default: false
     t.string   "referral_code",          limit: 255
     t.boolean  "affiliate",              limit: 1,   default: false
+    t.string   "stripe_customer_id",     limit: 255
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

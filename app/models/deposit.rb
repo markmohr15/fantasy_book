@@ -9,6 +9,7 @@
 #  created_at :datetime         not null
 #  updated_at :datetime         not null
 #  bonus_code :string(255)
+#  stripe_id  :string(255)
 #
 # Indexes
 #
