@@ -294,7 +294,6 @@ body {
 }
 
 .matchup-left {
-  background-color: #27e261;
   float: left;
   padding-bottom: 10px;
   -webkit-flex-grow:2;
@@ -302,12 +301,19 @@ body {
 }
 
 .matchup-right {
-  background-color: rgba(255, 255, 255, 0.94);
   float: right;
-  opacity: 0.5;
   padding-bottom: 10px;
   -webkit-flex-grow:2;
   flex-grow: 2;
+}
+
+.open {
+  background-color: #27e261;
+}
+
+.closed {
+  background-color: rgba(255, 255, 255, 0.94);
+  opacity: 0.5;
 }
 
 .open-side, .closed-side {
@@ -349,13 +355,13 @@ body {
   border-style: none;
 }
 
-.contenders-info {
+.open-info {
   background-color: #fff;
   padding-top: 4px;
   margin: 8px 0 0 0;
 }
 
-.opponents-info {
+.closed-info {
   background-color: rgba(102, 102, 102, 0.22);
   padding-top: 4px;
   margin: 8px 0 0 0;

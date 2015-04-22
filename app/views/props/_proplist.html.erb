@@ -2,9 +2,9 @@
         <% @props.each do |prop| %>
           <% if prop.time.to_date === date %>
             <div class="col-md-7 matchups">
-            <div class="col-md-3 matchup-left choice"><div class="open-side">Matchup Side Open</div>
+            <div class="col-md-3 matchup-left choice open"><div class="side open-side">Matchup Side Open</div>
             <div class="available-cost available-odd">Available: <%= number_to_currency prop.prop_choices.first.available_dollars %> </div>
-              <div class="contenders-info">
+              <div class="info open-info">
                 <div class="contenders" data-propchoiceid="<%= prop.prop_choices.first.id %>"><%= prop.prop_choices.first.name %> <div class="odd-line"> <%= prop.prop_choices.first.display_spread %> </div> </div>
                 <div class="enter-contest"><button name="button" type="button" class="enter-button first" data-propchoiceid="<%= prop.prop_choices.first.id %>">Enter Contest</button></div>
               </div>
@@ -13,9 +13,10 @@
               <div class="vs">Vs</div>
               <div class="prop-timer" data-time="<%= prop.time.to_i * 1000  %>"> </div>
             </div>
-            <div class="col-md-3 matchup-right choice"><div class="closed-side">Matchup Side Closed</div>
-            <div class="opponents-info">
-            <div class="contenders" data-propchoiceid="<%= prop.prop_choices.last.id %>"> <%= prop.prop_choices.last.name %> <div class="odd-line"> <%= prop.prop_choices.last.display_spread %> </div> </div>
+            <div class="col-md-3 matchup-right choice open"><div class="side open-side">Matchup Side Open</div>
+            <div class="available-cost available-even">Available: <%= number_to_currency prop.prop_choices.last.available_dollars %> </div>
+            <div class="info open-info">
+            <div class="contenders" data-propchoiceid="<%= prop.prop_choices.last.id %>"> <%= prop.prop_choices.last.name %> <div class="even-line"> <%= prop.prop_choices.last.display_spread %> </div> </div>
             <div class="enter-contest"><button name="button" type="button" class="enter-button last" data-propchoiceid="<%= prop.prop_choices.last.id %>" >Enter Contest</button></div>
             </div>
             </div>
@@ -31,16 +32,39 @@
 
     var odds = $('.matchups').find('.available-odd'), i;
     for (var i = 0; i < odds.length; i ++) {
-      if ($(odds[i]).text() == " Available: $0.00 ") {
-        $(odds[i]).removeClass('bold')
+      if ($(odds[i]).text() == "Available: $0.00 ") {
+        $(odds[i]).text("")
+        choice = $(odds[i]).closest('.choice')
+        side = $(choice).find(".open-side")
+        info = $(choice).find(".open-info")
+        btn = $(choice).find(".enter-button")
+        $(side).text("Matchup Side Closed")
+        $(side).removeClass("open-side")
+        $(side).addClass("closed-side")
+        $(choice).removeClass("open")
+        $(choice).addClass("closed")
+        $(info).removeClass("open-info")
+        $(info).addClass("closed-info")
+        $(btn).prop('disabled', true)
       }
     }
 
-
     var evens = $('.matchups').find('.available-even'), i;
     for (var i = 0; i < odds.length; i ++) {
-      if ($(evens[i]).text() == " Available: $0.00 ") {
-        $(evens[i]).removeClass('bold')
+      if ($(evens[i]).text() == "Available: $0.00 ") {
+        $(evens[i]).text("")
+        choice = $(evens[i]).closest('.choice')
+        side = $(choice).find(".open-side")
+        info = $(choice).find(".open-info")
+        btn = $(choice).find(".enter-button")
+        $(side).text("Matchup Side Closed")
+        $(side).removeClass("open-side")
+        $(side).addClass("closed-side")
+        $(choice).removeClass("open")
+        $(choice).addClass("closed")
+        $(info).removeClass("open-info")
+        $(info).addClass("closed-info")
+        $(btn).prop('disabled', true)
       }
     }
 
@@ -73,7 +97,7 @@
     }, 1000);
 
     setInterval(function () {
-      var wagers = $('.matchups').find('.wager-btn');
+      var wagers = $('.matchups').find('.enter-button');
       $.each(wagers, function(index, value) {
         $.ajax({
           url: "/pc",
@@ -91,34 +115,58 @@
 
     function updateAvailable (responseData, value) {
           available = responseData.available_dollars;
-          display_line = responseData.display_line;
-          td = $(value).closest('td');
-          container = $(td).closest('tbody');
-          if ($(td)[0].classList.contains("odd")) {
-            var odd = container.find('.available-odd')
-            var oddChoice = container.find('.odd-choice')
-            odd.html("Available: $" + available.toFixed(2))
+          display_spread = responseData.display_spread;
+          if (value.classList.contains("first")) {
+            container = value.closest(".choice")
+            var odd = $(container).find('.available-odd')
+            var side = $(container).find('.side')
+            var info = $(container).find('.info')
             if (available == 0) {
-              $(odd).removeClass("bold")
-              container.find('.odd-line').text(display_line)
-              $(oddChoice).prop('disabled', true);
+              $(odd).text("")
+              $(side).text("Matchup Side Closed")
+              $(side).removeClass("open-side")
+              $(side).addClass("closed-side")
+              $(container).removeClass("open")
+              $(container).addClass("closed")
+              $(info).removeClass("open-info")
+              $(info).addClass("closed-info")
+              $(value).prop('disabled', true)
             } else {
-              $(odd).addClass("bold")
-              container.find('.odd-line').text(display_line)
-              $(oddChoice).prop('disabled', false);
+              $(odd).text("Available: $" + available.toFixed(2))
+              $(side).text("Matchup Side Open")
+              $(side).addClass("open-side")
+              $(side).removeClass("closed-side")
+              $(container).addClass("open")
+              $(container).removeClass("closed")
+              $(info).addClass("open-info")
+              $(info).removeClass("closed-info")
+              $(value).prop('disabled', false);
             }
           } else {
-            var even = container.find('.available-even')
-            var evenChoice = container.find('.even-choice')
+            container = value.closest(".choice")
+            var even = $(container).find('.available-even')
+            var side = $(container).find('.side')
+            var info = $(container).find('.info')
             even.html("Available: $" + available.toFixed(2))
             if (available == 0) {
-              $(even).removeClass("bold")
-              container.find('.even-line').text(display_line)
-              $(evenChoice).prop('disabled', true);
+              $(even).text("")
+              $(side).text("Matchup Side Closed")
+              $(side).removeClass("open-side")
+              $(side).addClass("closed-side")
+              $(container).removeClass("open")
+              $(container).addClass("closed")
+              $(info).removeClass("open-info")
+              $(info).addClass("closed-info")
+              $(value).prop('disabled', true);
             } else {
-              $(even).addClass("bold")
-              container.find('.even-line').text(display_line)
-              $(evenChoice).prop('disabled', false);
+              $(side).text("Matchup Side Open")
+              $(side).addClass("open-side")
+              $(side).removeClass("closed-side")
+              $(container).addClass("open")
+              $(container).removeClass("closed")
+              $(info).addClass("open-info")
+              $(info).removeClass("closed-info")
+              $(value).prop('disabled', false);
             }
           }
     }
