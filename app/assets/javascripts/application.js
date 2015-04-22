@@ -39,6 +39,26 @@ $(function(){
     $(this).parent("form").submit();
   })
 
+  $("#bonus_code").on("keyup", function() {
+    bc = $(this).val()
+    $.ajax({
+      url: "/bc",
+      type: "GET",
+      data: {bonus_code_name: bc},
+      success: function (data) {
+          handleBcData(data);
+      },
+      error: function (xhr, status, error) {
+        console.log(status + error);
+      }
+    })
+  })
+
+  function handleBcData (responseData) {
+    valid = "Bonus Code" + "<span style='color:red;'> &nbsp" + responseData + "</span>"
+    $('#bc_label').html(valid)
+  }
+
   $('.matchups').on('click', '.enter-button',(function() {
     if (document.cookie.indexOf("signed_in") >= 0) {
       $(this).toggleClass("green");

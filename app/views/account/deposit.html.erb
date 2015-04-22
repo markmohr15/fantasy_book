@@ -4,7 +4,7 @@
       <%= form_tag my_account_deposit_path do %>
         <%= label_tag :amount_dollars, "Amount" %>
         <%= text_field_tag :amount_dollars, nil, value: params[:amount_dollars] %> <br /><br />
-        <%= label_tag :bonus_code, "Bonus Code" %>
+        <%= label_tag :bonus_code, "Bonus Code", id: "bc_label" %>
         <%= text_field_tag :bonus_code, nil, value: params[:bonus_code] %> <br /><br />
         <div class="stripe">
         <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"

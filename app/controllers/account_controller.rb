@@ -95,6 +95,21 @@ class AccountController < ApplicationController
     @aps = AffiliatePayment.where(affiliate_id: current_user.id).order("created_at DESC")
   end
 
+  def bc
+    respond_to do |format|
+      format.json do
+        bonus_code_name = params[:bonus_code_name]
+        @check = BonusCode.find_by code: bonus_code_name
+        if @check.nil?
+          response = "Invalid Code"
+        else
+          response = ""
+        end
+        render json: response.to_json
+      end
+    end
+  end
+
   private
 
   def transfer_params
