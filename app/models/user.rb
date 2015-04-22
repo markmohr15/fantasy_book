@@ -29,6 +29,7 @@
 #  sms_notif              :boolean          default("0")
 #  referral_code          :string(255)
 #  affiliate              :boolean          default("0")
+#  stripe_customer_id     :string(255)
 #
 # Indexes
 #

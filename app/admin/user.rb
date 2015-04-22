@@ -48,6 +48,7 @@ ActiveAdmin.register User do
         user.affiliate.to_s
       end
       row :referral_code
+      row :stripe_customer_id
       row :current_sign_in_at
       row :last_sign_in_at
       row :current_sign_in_ip
@@ -61,14 +62,16 @@ ActiveAdmin.register User do
     table_for user.credits do
       column "Amount", :amount_dollars
       column :admin
-      column :created_at
+      column "Date", :created_at
     end
   end
 
   sidebar "Bonuses", only: [:show] do
     table_for user.bonuses do
       column "Amount", :amount_dollars
-      column "Type", :kind
+      column "Type" do |bonus|
+        bonus.description
+      end
       column "Status", :state
     end
   end
