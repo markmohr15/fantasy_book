@@ -283,7 +283,10 @@ body {
 }
 
 .col-md-7.wrapper {
-  padding: 0;
+  padding-left: 0;
+  padding-top: 0;
+  padding-top: 0;
+  padding-bottom: 35px;
 }
 
 .col-md-7.matchups {
@@ -809,7 +812,6 @@ a {
 .container-fluid {
   padding-right: 15px;
   padding-left: 15px;
-  padding-bottom: 30px;
   margin-right: auto;
   margin-left: auto;
   background: #333;
