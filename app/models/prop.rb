@@ -14,6 +14,7 @@
 #  winner         :integer
 #  user_id        :integer
 #  delayed_job_id :integer
+#  tv             :string(255)      default("")
 #
 # Indexes
 #

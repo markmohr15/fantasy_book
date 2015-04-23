@@ -58,6 +58,8 @@ class User < ActiveRecord::Base
 
   validates :username, presence: true,  if: :player?
   validates :username, uniqueness: true, case_sensitive: false, if: :player?
+  validates :email, presence: true, if: :player?
+  validates :email, uniqueness: true, case_sensitive: false
   validates :address, presence: true, if: :player?
   validates :city, presence: true, if: :player?
   validates :state, presence: true, if: :player?

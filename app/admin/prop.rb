@@ -46,6 +46,9 @@ ActiveAdmin.register Prop do
       row "Event Time" do
         prop.time
       end
+      row "TV" do
+        prop.tv
+      end
       row "User" do |wager|
         link_to(wager.user.username, admin_user_path(wager.user.id))
       end
@@ -73,6 +76,7 @@ ActiveAdmin.register Prop do
       f.input :proposition, required: true, input_html: { value: "Vs."}
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
+      f.input :tv
       f.input :ampm_time, label: "12 Hour Time", input_html: { readonly: true }
       f.input :user, label: "VIP Acct", as: :select, collection: User.where(role: 3).order("username").collect {|u| ["#{u.username}", u.id]}, required: true, include_blank: false
       f.input :opt1_spread, label: "Team 1 Spread", step: 0.1, :wrapper_html => { id: "opt1-spread" }
@@ -110,7 +114,7 @@ ActiveAdmin.register Prop do
   end
 
   permit_params :sport_id, :state, :proposition, :time_date,
-  :time_time_hour, :time_time_minute, :user_id, :opt1_spread, :winner,
+  :time_time_hour, :time_time_minute, :tv, :user_id, :opt1_spread, :winner,
    prop_choices_attributes: [:id, :odds, :player1, :player1new, :player2,
    :player2new, :player3, :player3new, :player4, :player4new, :player5,
    :player5new, :available_dollars]
