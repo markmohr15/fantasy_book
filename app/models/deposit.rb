@@ -43,6 +43,13 @@ class Deposit < ActiveRecord::Base
       if Deposit.where(user_id: self.user_id).count == 1
         AffiliatePayment.create(amount: self.amount * 0.10, affiliate_id: referrer.id,
           user_id: self.user_id, state: "Pending")
+        if self.amount > 20000
+          bonus_amt = 20000
+        else
+          bonus_amt = self.amount
+        end
+        Bonus.create(user_id: self.user_id, amount: bonus_amt, rollover: 20,
+          exp_date: Time.now + 90.days)
       else
         AffiliatePayment.create(amount: self.amount * 0.03, affiliate_id: referrer.id,
           user_id: self.user_id, state: "Approved")

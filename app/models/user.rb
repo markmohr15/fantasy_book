@@ -106,4 +106,17 @@ class User < ActiveRecord::Base
     counter
   end
 
+  def has_affiliate?
+    if self.referral_code.nil?
+      false
+    else
+      referrer = User.find_by username: self.referral_code
+      if referrer.affiliate?
+        true
+      else
+        false
+      end
+    end
+  end
+
 end
