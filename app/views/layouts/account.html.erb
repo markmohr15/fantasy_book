@@ -157,7 +157,7 @@
             <li> <%= link_to "All", root_path %> </li>
             <% @sports.each do |sport|  %>
               <% if sport.has_active_matchups? %>
-                <li> <%= link_to sport.name, {controller: "props", action: "index", sport_id: sport.id}, method: :get %> </li>
+                <li> <%= link_to sport.name, {controller: "/props", action: "index", sport_id: sport.id}, method: :get %> </li>
               <% end %>
             <% end %>
           </ul>
