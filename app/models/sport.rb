@@ -15,4 +15,8 @@ class Sport < ActiveRecord::Base
 
   validates :name, presence: true
 
+  def has_active_matchups?
+    Prop.where(sport_id: self.id, state: 1).exists?
+  end
+
 end

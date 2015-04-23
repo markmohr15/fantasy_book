@@ -12,6 +12,7 @@
             <div class="col-md-1 matchup-info"><p> <%= prop.sport.name %> </p><%= prop.time.strftime("%B %-d, %Y %n %l:%M %P EST") %>
               <div class="vs">Vs</div>
               <div class="prop-timer" data-time="<%= prop.time.to_i * 1000  %>"> </div>
+              <div class="tv"> <%= prop.tv %> </div>
             </div>
             <div class="col-md-3 matchup-right choice open"><div class="side open-side">Matchup Side Open</div>
             <div class="available-cost available-even">Available: <%= number_to_currency prop.prop_choices.last.available_dollars %> </div>
