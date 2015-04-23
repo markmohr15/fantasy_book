@@ -7,6 +7,10 @@
   line-height: 20px;
 }
 
+nav.navbar.navbar-default {
+  margin-bottom: 0px;
+}
+
 .prop-timer {
   color: red;
 }
@@ -805,6 +809,7 @@ a {
 .container-fluid {
   padding-right: 15px;
   padding-left: 15px;
+  padding-bottom: 30px;
   margin-right: auto;
   margin-left: auto;
   background: #333;
