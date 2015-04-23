@@ -9,7 +9,7 @@
                 <div class="enter-contest"><button name="button" type="button" class="enter-button first" data-propchoiceid="<%= prop.prop_choices.first.id %>">Enter Contest</button></div>
               </div>
               </div>
-            <div class="col-md-1 matchup-info"><%= prop.time.strftime("%B %-d, %Y %n %l:%M %P EST") %>
+            <div class="col-md-1 matchup-info"><p> <%= prop.sport.name %> </p><%= prop.time.strftime("%B %-d, %Y %n %l:%M %P EST") %>
               <div class="vs">Vs</div>
               <div class="prop-timer" data-time="<%= prop.time.to_i * 1000  %>"> </div>
             </div>
