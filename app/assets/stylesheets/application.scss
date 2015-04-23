@@ -816,6 +816,14 @@ a {
   vertical-align: middle;
 }
 
+.matchup-left, .matchup-right, .matchup-info {
+flex-basis: 0;
+}
+
+.col-lg-7.notice-disclaimer {
+  width: 100%;
+}
+
 
 
 
