@@ -25,7 +25,8 @@ nav.navbar.navbar-default {
 }
 
 .prop-timer {
-  color: red;
+  color: rgb(255, 0, 0);
+  text-shadow: 0px 1px 11px rgba(0, 0, 0, 0.48);
 }
 
 .countdown {
@@ -51,6 +52,8 @@ nav.navbar.navbar-default {
 
   input {
     width: 250px;
+    border-radius: 5px;
+    padding: 5px;
   }
 }
 
@@ -297,7 +300,7 @@ body {
 
 .col-md-7.wrapper {
   padding-left: 0;
-  padding-top: 0;
+  padding-right: 0;
   padding-top: 0;
   padding-bottom: 35px;
 }
@@ -383,6 +386,7 @@ body {
   background-color: #fff;
   padding-top: 4px;
   margin: 8px 0 0 0;
+  display: flex;
 }
 
 .closed-info {
@@ -530,7 +534,7 @@ a.refresh {
   padding: 4px!important;
 }
 
-.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tbody > tr > td, .table > tfoot > tr > td {
+.table > thead > tr > th, .table > tbody > tr > th, .table > tfoot > tr > th, .table > thead > tr > td, .table > tfoot > tr > td {
   line-height: 1.42857143;
 }
 
@@ -621,7 +625,7 @@ a.refresh {
 
 input[type="submit"] {
   font-family: 'Oswald', sans-serif;
-  color: #868686;
+  color: rgb(186, 159, 26)!important;
   border-radius: 5px;
   padding: 4px 22px;
   background-color: rgb(255, 255, 255);
@@ -813,7 +817,8 @@ body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
   line-height: 1.42857143;
-  color: #333;
+  background-color: #333;
+  color: #999;
   //background: 343434ff&noise=ababab&density=39&opacity=18;
 }
 
@@ -834,11 +839,18 @@ a {
 .table > tbody > tr > th,
 .table > tfoot > tr > th,
 .table > thead > tr > td,
-.table > tbody > tr > td,
 .table > tfoot > tr > td {
   padding: 1px 0;
   line-height: 1.42857143;
   vertical-align: middle;
+}
+
+.table > tbody > tr > td{
+  padding: 1px 0;
+  line-height: 2;
+  padding-left: 10px;
+  vertical-align: middle;
+  color: #999;
 }
 
 .matchup-left, .matchup-right, .matchup-info {
@@ -849,8 +861,62 @@ flex-basis: 0;
   width: 100%;
 }
 
+h1, h2, h3 {
+  font-family: 'Oswald', sans-serif;
+  padding: 10px;
+  color: #999;
+}
 
+#error_explanation ul {
+  color: rgb(186, 159, 26)!important;
+  text-align: left;
+}
 
+.navbar-default {
+  background-color: #666;
+  border: 0;
+  border-bottom: 1px solid #666;
+}
+
+.nav-tabs {
+  border-bottom: 2px solid #999;
+}
+
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+  background-color: #999;
+  border: 1px solid #999;
+}
+
+.nav>li>a:hover, .nav>li>a:focus {
+  background-color: #999;
+  color: #FFF!important;
+}
+
+.table-striped>tbody>tr:nth-of-type(odd) {
+  background-color: rgba(116, 116, 116, 0.62);
+}
+
+.social {
+  float: right;
+  display: -webkit-inline-box;
+}
+
+.facebook, .twitter {
+  padding: 5px;
+}
+
+.facebook a, .twitter a {
+  padding: 5px;
+  border: 2px solid #333;
+}
+
+.facebook a:hover, .twitter a:hover {
+  color: #fff;
+  border-radius: 6px;
+  border: 2px solid #666;
+  text-shadow: 2px 2px 2px #fff;
+  box-sizing: border-box;
+}
 
 
 
@@ -3605,7 +3671,6 @@ th {
 .table > tbody > tr > th,
 .table > tfoot > tr > th,
 .table > thead > tr > td,
-.table > tbody > tr > td,
 .table > tfoot > tr > td {
   padding: 1px 0;
   line-height: 1.42857143;
@@ -3651,9 +3716,6 @@ th {
 .table-bordered > thead > tr > th,
 .table-bordered > thead > tr > td {
   border-bottom-width: 2px;
-}
-.table-striped > tbody > tr:nth-of-type(odd) {
-  background-color: #f9f9f9;
 }
 .table-hover > tbody > tr:hover {
   background-color: #f5f5f5;
@@ -5230,7 +5292,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a:hover,
 .nav > li > a:focus {
   text-decoration: none;
-  background-color: #eee;
 }
 .nav > li.disabled > a {
   color: #777;
@@ -5257,9 +5318,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav > li > a > img {
   max-width: none;
 }
-.nav-tabs {
-  border-bottom: 1px solid #ddd;
-}
+
 .nav-tabs > li {
   float: left;
   margin-bottom: -1px;
@@ -5278,8 +5337,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .nav-tabs > li.active > a:focus {
   color: #555;
   cursor: default;
-  background-color: #fff;
-  border: 1px solid #ddd;
   border-bottom-color: transparent;
 }
 .nav-tabs.nav-justified {
@@ -5732,7 +5789,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   }
 }
 .navbar-default {
-  background-color: #f8f8f8;
   border-color: #e7e7e7;
 }
 .navbar-default .navbar-brand {
