@@ -34,7 +34,7 @@
   <div class="col-md-7 wrapper">
     <div class="col-lg-7 note">
     <div class="row">
-    <div class=" col-lg-7 notice-disclaimer"><span>Notice: All matchup contests are offered by customers. </span>
+    <div class=" col-lg-7 notice-disclaimer"><div class="notice-area">Notice: All matchup contests are offered by customers. </div>
 
     <%= form_tag props_path, id: "search", method: :get, remote: true do %>
       <%= text_field_tag :q, "", placeholder: "Search by team/player" %>
