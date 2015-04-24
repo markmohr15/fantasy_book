@@ -86,6 +86,7 @@ nav.navbar.navbar-default {
 
 .account-details {
   width: 400px;
+  padding-top: 30px;
   label {
     float: left;
   }
@@ -96,9 +97,14 @@ nav.navbar.navbar-default {
   }
   input {
     font-size: small;
+    border-radius: 5px;
+    padding: 12px;
+    font-size: 1.6rem;
   }
   input[type="submit"] {
     float: none;
+    padding: 14px;
+    line-height: 0;
   }
   select {
     font-size: 25px;
@@ -373,12 +379,12 @@ body {
 
 .available-cost {
   float: right;
-  color: #000;
-  font-size: 0.8em;
-  font-weight: 600;
   position: absolute;
   top: 12px;
   left: 72%;
+  color: #000;
+  font-size: 0.8em;
+  font-weight: 600;
 }
 
 .contenders {
@@ -400,6 +406,7 @@ body {
   background-color: rgba(102, 102, 102, 0.22);
   padding-top: 4px;
   margin: 8px 0 0 0;
+  display: flex;
 }
 
 .fb-top-nav {
@@ -566,7 +573,7 @@ a.refresh {
   background-color: #ffb01d;
   border: 0;
   padding: 5px 25px;
-  margin: 10px;
+  margin: 25px 20px 5px 20px;
 }
 
 #search {
@@ -574,6 +581,7 @@ a.refresh {
   padding-bottom: 10px;
   text-align: center;
   height: 46px;
+  width: 30%;
   float: right;
 }
 
@@ -906,7 +914,8 @@ h1, h2, h3 {
 
 .social {
   float: right;
-  display: -webkit-inline-box;
+  display: -webkit-inline-box;
+  padding-top: 5px;
 }
 
 .facebook, .twitter {
@@ -934,6 +943,19 @@ p.wager-info {
   padding-bottom: 5px;
 }
 
+.col-md-3.ticket {
+  color: #666;
+}
+
+.col-lg-7.notice-disclaimer {
+  width: 100%;
+}
+
+.notice-area {
+  width: 70%;
+  float: left;
+  padding: 12px;
+}
 
 
 
@@ -1160,16 +1182,9 @@ p.wager-info {
   background-repeat: repeat-x;
 }
 .navbar-default {
-  background-image: -webkit-linear-gradient(top, #fff 0%, #f8f8f8 100%);
   background-image:      -o-linear-gradient(top, #fff 0%, #f8f8f8 100%);
-  background-image: -webkit-gradient(linear, left top, left bottom, from(#fff), to(#f8f8f8));
-  background-image:         linear-gradient(to bottom, #fff 0%, #f8f8f8 100%);
   filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#ffffffff', endColorstr='#fff8f8f8', GradientType=0);
   filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-  background-repeat: repeat-x;
-  border-radius: 4px;
-  -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
-          box-shadow: inset 0 1px 0 rgba(255, 255, 255, .15), 0 1px 5px rgba(0, 0, 0, .075);
 }
 .navbar-default .navbar-nav > .open > a,
 .navbar-default .navbar-nav > .active > a {
