@@ -3,10 +3,13 @@
           <% if prop.time.to_date === date %>
             <div class="col-md-7 matchups">
             <div class="col-md-3 matchup-left choice open"><div class="side open-side">Matchup Side Open</div>
-            <div class="available-cost available-odd">Available: <%= number_to_currency prop.prop_choices.first.available_dollars %> </div>
+
               <div class="info open-info">
                 <div class="contenders" data-propchoiceid="<%= prop.prop_choices.first.id %>"><%= prop.prop_choices.first.name %> <div class="odd-line"> <%= prop.prop_choices.first.display_spread %> </div> </div>
-                <div class="enter-contest"><button name="button" type="button" class="enter-button first" data-propchoiceid="<%= prop.prop_choices.first.id %>">Enter Contest</button></div>
+                <div class="enter-contest">
+                <div class="available-cost available-odd">Available: <%= number_to_currency prop.prop_choices.first.available_dollars %> </div><button name="button" type="button" class="enter-button first" data-propchoiceid="<%= prop.prop_choices.first.id %>">Enter Contest</button></div>
+
+
               </div>
               </div>
             <div class="col-md-1 matchup-info"><p> <%= prop.sport.name %> </p><%= prop.time.strftime("%B %-d, %Y %n %l:%M %P EST") %>
