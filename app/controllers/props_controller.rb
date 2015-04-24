@@ -1,5 +1,5 @@
 class PropsController < ApplicationController
-  layout "application"
+  layout "prop"
 
   def index
     if params[:q].present?
