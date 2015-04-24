@@ -16,6 +16,7 @@ nav.navbar.navbar-default {
 }
 
 .padding-large-horizontal {
+  padding-top: 25px;
   padding-bottom: 35px;
 }
 
@@ -378,10 +379,6 @@ body {
 }
 
 .available-cost {
-  float: right;
-  position: absolute;
-  top: 12px;
-  left: 72%;
   color: #000;
   font-size: 0.8em;
   font-weight: 600;
@@ -573,7 +570,7 @@ a.refresh {
   background-color: #ffb01d;
   border: 0;
   padding: 5px 25px;
-  margin: 25px 20px 5px 20px;
+  margin: 0px 10px 7px 10px;
 }
 
 #search {
@@ -581,7 +578,7 @@ a.refresh {
   padding-bottom: 10px;
   text-align: center;
   height: 46px;
-  width: 30%;
+  width: 50%;
   float: right;
 }
 
@@ -653,7 +650,7 @@ input#q, input#password {
   }
 
 input#q {
-  width: 160px;
+  width: 100%;
 }
 
   nav.navbar.navbar-default.navbar-inverse.navbar-fixed-bottom {
@@ -920,6 +917,7 @@ h1, h2, h3 {
 
 .facebook, .twitter {
   padding: 5px;
+  float: left;
 }
 
 .facebook a, .twitter a {
@@ -952,10 +950,17 @@ p.wager-info {
 }
 
 .notice-area {
-  width: 70%;
+  width: 50%;
   float: left;
   padding: 12px;
 }
+
+li.welcome {
+  padding-top: 15px;
+}
+
+
+
 
 
 

@@ -48,7 +48,7 @@
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav navbar-right">
         <% if current_user %>
-          <li> Welcome, <%= current_user.username %> </li>
+          <li class="welcome"> Welcome, <%= current_user.username %> </li>
           <li> <%= link_to "My Fantasy", my_fantasy_my_action_path %> </li>
           <li> <%= link_to "My Account", my_account_balance_path %> </li>
           <li> <%= link_to "Deposit", my_account_deposit_path %> </li>
