@@ -223,6 +223,7 @@ input#password {
   border-radius: 5px;
   padding: 4px 22px;
   margin-bottom: 15px;
+  width: 176px
 }
 
 .wager-risk, .wager-win {
@@ -644,7 +645,7 @@ input[type="submit"] {
   background-color: rgb(255, 255, 255);
 }
 
-input#q, input#password {
+input#q {
   border-radius: 5px;
   padding: 4px 22px;
   }
@@ -957,6 +958,10 @@ p.wager-info {
 
 li.welcome {
   padding-top: 15px;
+}
+
+.navbar-header {
+  padding-top: 9px;
 }
 
 
