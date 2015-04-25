@@ -820,6 +820,31 @@ nav.navbar.navbar-default.navbar-inverse.navbar-fixed-bottom {
   height: 20px;
 }
 
+.notice-area {
+  width: 50%;
+  float: left;
+  padding: 4px;
+}
+
+.matchup-info {
+  padding-top: 5px;
+  line-height: 2.2rem;
+}
+
+.matchups {
+  border: 2px solid #ffb01d;
+}
+
+.group, .fb-top-nav {
+  font-size: 1.2rem!important;
+}
+
+.table-responsive {
+  padding: 10px;
+  font-size: 1.3rem;
+  word-wrap: inherit;
+}
+
 }
 
 a:hover {
