@@ -76,8 +76,8 @@ ActiveAdmin.register Prop do
       f.input :proposition, required: true, input_html: { value: "Vs."}
       f.input :sport, include_blank: false
       f.input :time, as: :just_datetime_picker, required: true
-      f.input :tv
       f.input :ampm_time, label: "12 Hour Time", input_html: { readonly: true }
+      f.input :tv
       f.input :user, label: "VIP Acct", as: :select, collection: User.where(role: 3).order("username").collect {|u| ["#{u.username}", u.id]}, required: true, include_blank: false
       f.input :opt1_spread, label: "Team 1 Spread", step: 0.1, :wrapper_html => { id: "opt1-spread" }
     end

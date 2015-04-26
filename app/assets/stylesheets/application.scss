@@ -580,8 +580,9 @@ a.refresh {
   padding-bottom: 10px;
   text-align: center;
   height: 46px;
-  width: 50%;
+  width: 40%;
   float: right;
+  margin-left: 5px;
 }
 
 .prop-search {
@@ -640,10 +641,11 @@ a.refresh {
 
 input[type="submit"] {
   font-family: 'Oswald', sans-serif;
-  color: rgb(186, 159, 26)!important;
+  color: #ba9f1a !important;
   border-radius: 5px;
   padding: 4px 22px;
-  background-color: rgb(255, 255, 255);
+  padding: 0;
+  width: 90px;
 }
 
 input#q {
@@ -800,7 +802,6 @@ li.span3.gt {
 
 ul.game-thumbnails {
   margin: 0;
-
 }
 
 li.span3 {
@@ -823,7 +824,6 @@ nav.navbar.navbar-default.navbar-inverse.navbar-fixed-bottom {
 .notice-area {
   width: 50%;
   float: left;
-  padding: 4px;
 }
 
 .matchup-info {
@@ -843,6 +843,43 @@ nav.navbar.navbar-default.navbar-inverse.navbar-fixed-bottom {
   padding: 10px;
   font-size: 1.3rem;
   word-wrap: inherit;
+}
+
+}
+
+@media only screen and (max-device-width : 550px) {
+
+.social {
+  padding-top: 0;
+  width: 50px;
+}
+
+.social img {
+  width: 75%;
+}
+
+.facebook, .twitter {
+  padding: 0 0 4px 0;
+  float: left;
+}
+
+.facebook a, .twitter a {
+  padding: 0;
+  border: 0;
+}
+
+input#q {
+  border-radius: 5px;
+  padding: 4px 5px;
+}
+
+.navbar-text {
+  margin-top: 0;
+  text-align: center;
+}
+
+.matchup-info {
+  padding-top: 10px;
 }
 
 }
@@ -937,9 +974,12 @@ h1, h2, h3 {
 }
 
 .social {
-  float: right;
-  display: -webkit-inline-box;
+  display: inline-flex;
   padding-top: 5px;
+}
+
+.social img {
+  width: 50%;
 }
 
 .facebook, .twitter {
@@ -976,18 +1016,33 @@ p.wager-info {
   width: 100%;
 }
 
-.notice-area {
-  width: 50%;
-  float: left;
-  padding: 12px;
-}
-
 li.welcome {
   padding-top: 15px;
 }
 
 .navbar-header {
   padding-top: 9px;
+}
+
+.navbar-default .navbar-toggle {
+  border-color: #666;
+}
+
+.container-fluid.padding-large-horizontal.frontpage {
+  padding-top: 0px;
+}
+
+.navbar-toggle {
+  position: relative;
+  float: right;
+  padding: 9px 10px;
+  margin-top: 0px;
+  margin-right: 0px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
 }
 
 
@@ -5653,18 +5708,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     margin-left: -15px;
   }
 }
-.navbar-toggle {
-  position: relative;
-  float: right;
-  padding: 9px 10px;
-  margin-top: 8px;
-  margin-right: 15px;
-  margin-bottom: 8px;
-  background-color: transparent;
-  background-image: none;
-  border: 1px solid transparent;
-  border-radius: 4px;
-}
 .navbar-toggle:focus {
   outline: 0;
 }
@@ -5886,9 +5929,6 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
 .navbar-default .navbar-nav > .disabled > a:focus {
   color: #ccc;
   background-color: transparent;
-}
-.navbar-default .navbar-toggle {
-  border-color: #ddd;
 }
 .navbar-default .navbar-toggle:hover,
 .navbar-default .navbar-toggle:focus {
