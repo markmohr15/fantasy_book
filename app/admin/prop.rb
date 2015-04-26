@@ -119,4 +119,14 @@ ActiveAdmin.register Prop do
    :player2new, :player3, :player3new, :player4, :player4new, :player5,
    :player5new, :available_dollars]
 
+  controller do
+    before_filter state: :index do
+      params[:q] = {state_eq: 1} if params[:commit].blank?
+    end
+  end
+
+  action_item :new, only: :show do
+    link_to "New Prop", new_admin_prop_path
+  end
+
 end
