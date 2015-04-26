@@ -32,7 +32,10 @@ class MassEmail < ActiveRecord::Base
   end
 
   def delete_dj
-    Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
+    return if self.delayed_job_id.blank?
+    if Delayed::Job.where(id: self.delayed_job_id).exists?
+      Delayed::Job.find(self.delayed_job_id).destroy
+    end
   end
 
   def get_dj_id

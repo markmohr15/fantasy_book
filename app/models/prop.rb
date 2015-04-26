@@ -160,7 +160,11 @@ class Prop < ActiveRecord::Base
   end
 
   def get_dj_id
-    Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
+    if self.delayed_job_id
+      if Delayed::Job.where(id: a.delayed_job_id).exists?
+        Delayed::Job.find(self.delayed_job_id).destroy
+      end
+    end
     self.delayed_job_id = Delayed::Job.where(queue: "CloseWagering").last.id
     self.save
   end
@@ -170,7 +174,6 @@ class Prop < ActiveRecord::Base
   def close_wagering
     if self.state == "Offline" || self.state == "Open"
       self.state = "Closed"
-      self.delayed_job_id = nil
       self.save
     end
     wagers = Wager.where(prop_id: self.id)
