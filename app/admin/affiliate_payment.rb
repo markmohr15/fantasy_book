@@ -16,6 +16,7 @@ ActiveAdmin.register AffiliatePayment do
     column "Status" do |ap|
       ap.state
     end
+    actions
   end
 
   show do
