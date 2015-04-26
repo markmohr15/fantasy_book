@@ -8,9 +8,10 @@ class AccountController < ApplicationController
 
   def charge_card
     @amount = params[:amount_dollars].to_f * 100
+
     if current_user.stripe_customer_id.blank?
       customer = Stripe::Customer.create(
-        :email => 'example@stripe.com',
+        :email => current_user.email,
         :card  => params[:stripeToken]
       )
     else
