@@ -1,5 +1,7 @@
 <div class="container padding-large-horizontal">
 
-  <p> Thanks, you deposited <%= number_to_currency @amount / 100.0 %>.  Good Luck! </p>
+  <p> Thanks, you deposited <%= number_to_currency @amount / 100.0 %>.  Your balance is now <%= number_to_currency (current_user.balance_dollars + @amount / 100) %>. Good Luck! </p>
+
+  <p> Note: Refreshing the screen may result in your card being charged again.  </p>
 
 </div>
