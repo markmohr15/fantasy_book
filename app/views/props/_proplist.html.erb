@@ -38,7 +38,7 @@
     var odds = $('.matchups').find('.available-odd'), i;
     for (var i = 0; i < odds.length; i ++) {
       if ($(odds[i]).text().trim() == "Min: $5.00  Max: $0.00") {
-        $(odds[i]).text("")
+        $(odds[i]).css("visibility", "hidden");
         choice = $(odds[i]).closest('.choice')
         side = $(choice).find(".open-side")
         info = $(choice).find(".open-info")
@@ -57,7 +57,7 @@
     var evens = $('.matchups').find('.available-even'), i;
     for (var i = 0; i < odds.length; i ++) {
       if ($(evens[i]).text().trim() == "Min: $5.00  Max: $0.00") {
-        $(evens[i]).text("")
+        $(evens[i]).css("visibility", "hidden");
         choice = $(evens[i]).closest('.choice')
         side = $(choice).find(".open-side")
         info = $(choice).find(".open-info")
@@ -127,7 +127,7 @@
             var side = $(container).find('.side')
             var info = $(container).find('.info')
             if (available == 0) {
-              $(odd).text("")
+              $(odd).css("visibility", "hidden");
               $(side).text("Matchup Side Closed")
               $(side).removeClass("open-side")
               $(side).addClass("closed-side")
@@ -138,6 +138,7 @@
               $(value).prop('disabled', true)
             } else {
               $(odd).html("Min: $5.00 <br/> Max: $" + available.toFixed(2))
+              $(odd).css("visibility", "visible");
               $(side).text("Matchup Side Open")
               $(side).addClass("open-side")
               $(side).removeClass("closed-side")
@@ -153,7 +154,7 @@
             var side = $(container).find('.side')
             var info = $(container).find('.info')
             if (available == 0) {
-              $(even).text("")
+              $(even).css("visibility", "hidden");
               $(side).text("Matchup Side Closed")
               $(side).removeClass("open-side")
               $(side).addClass("closed-side")
@@ -164,6 +165,7 @@
               $(value).prop('disabled', true);
             } else {
               $(even).html("Min: $5.00 <br/> Max: $" + available.toFixed(2))
+              $(even).css("visibility", "visible");
               $(side).text("Matchup Side Open")
               $(side).addClass("open-side")
               $(side).removeClass("closed-side")
