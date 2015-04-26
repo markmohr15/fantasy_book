@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   layout :layout_by_resource
 
   def set_variables
-    @sports = Sport.all
+    @sport_filters = Sport.all
   end
 
   def layout_by_resource
