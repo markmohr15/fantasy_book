@@ -3,10 +3,10 @@ require "rails_helper"
 RSpec.feature "Navigation" do
   let(:user) { create :user, affiliate: true }
 
-  scenario "clicking Fantasy Contests takes you to the correct page" do
+  scenario "clicking Matchup Contest takes you to the correct page" do
     visit root_path
 
-    click_on "Fantasy Contests"
+    click_on "Matchup Contest"
 
     expect(current_path).to eq root_path
   end
@@ -51,7 +51,7 @@ RSpec.feature "Navigation" do
     click_on "Log in"
     click_on "My Account"
 
-    expect(current_path).to eq edit_user_registration_path
+    expect(current_path).to eq my_account_balance_path
 
     within(".nav-tabs") do
       click_on "Deposit"
