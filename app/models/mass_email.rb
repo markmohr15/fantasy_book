@@ -61,6 +61,8 @@ class MassEmail < ActiveRecord::Base
        # Text.mass_sms(self, recipient)
       #end
     end
+    self.delayed_job_id = nil
+    self.save
   end
 
   handle_asynchronously :notify, queue: "Notify", :run_at => Proc.new { |i| i.send_at }
