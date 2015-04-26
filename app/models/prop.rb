@@ -160,7 +160,8 @@ class Prop < ActiveRecord::Base
   end
 
   def get_dj_id
-    Delayed::Job.find(self.delayed_job_id).destroy if self.delayed_job_id
+    job = Delayed::Job.find(self.delayed_job_id) if self.delayed_job_id
+    job.destroy unless job.nil?
     self.delayed_job_id = Delayed::Job.where(queue: "CloseWagering").last.id
     self.save
   end
