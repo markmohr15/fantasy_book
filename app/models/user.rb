@@ -66,6 +66,7 @@ class User < ActiveRecord::Base
   validates :zip, presence: true, if: :player?
   validates :country, presence: true, if: :player?
   validates :name, presence: true
+  validates :phone, presence: true, if: :player?
 
   store_cents :balance
   accepts_nested_attributes_for :credits
@@ -90,7 +91,7 @@ class User < ActiveRecord::Base
   end
 
   def verify_referral_code
-    return if self.referral_code.nil?
+    return if self.referral_code.blank?
     rc = User.find_by username: self.referral_code
     if rc.nil?
       self.referral_code = nil
@@ -107,7 +108,7 @@ class User < ActiveRecord::Base
   end
 
   def has_affiliate?
-    if self.referral_code.nil?
+    if self.referral_code.blank?
       false
     else
       referrer = User.find_by username: self.referral_code
