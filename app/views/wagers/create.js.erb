@@ -72,6 +72,23 @@
       }
     <% end %>
   <% end %>
+
+  $.ajax({
+      url: "/balance",
+      type: "GET",
+      data: {user: <%= current_user.id %>},
+      success: function (data) {
+          handleBalanceData(data);
+      },
+      error: function (xhr, status, error) {
+        console.log(status + error);
+      }
+    });
+
+    function handleBalanceData (responseData) {
+      $('#balance_header').html("<a href='/my_account/balance'> Balance: $" + responseData.balance_dollars.toFixed(2) + "<a/>")
+    }
+
 <% end %>
 
 

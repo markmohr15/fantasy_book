@@ -53,7 +53,7 @@
           <li> <%= link_to "My Fantasy", my_fantasy_my_action_path %> </li>
           <li> <%= link_to "My Account", my_account_balance_path %> </li>
           <li> <%= link_to "Deposit", my_account_deposit_path %> </li>
-          <li> <%= link_to my_account_balance_path do %>
+          <li id="balance_header"> <%= link_to my_account_balance_path do %>
                Balance: <%= number_to_currency current_user.balance_dollars %>
               <% end %> </li>
           <li> <%= link_to "Sign Out", destroy_user_session_path, method: :delete %> </li>

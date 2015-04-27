@@ -51,4 +51,14 @@ class ApplicationController < ActionController::Base
   def unauthorized
     redirect_to root_url, alert: t("sessions.unauthorized")
   end
+
+  def balance
+    respond_to do |format|
+      format.json do
+        user = params[:user]
+        @user = User.find_by id: user
+        render json: @user.to_json(methods: [:balance_dollars])
+      end
+    end
+  end
 end
