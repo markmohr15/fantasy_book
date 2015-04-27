@@ -118,8 +118,12 @@
       </div>
   </nav>
 
-<div class="row">
-  <div class="border col-xs-3 fb-top-nav"><a href="/">Matchup Contest</a>
+<div class="contest row">
+  <div class="border col-xs-3 fb-top-nav">
+    <%= link_to root_path do %>
+      <%= image_tag "matchup-icon.png", class: "contest-icon" %>
+      Matchup Contests
+    <% end %>
       <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="true"><span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
@@ -132,9 +136,12 @@
           </ul>
       </li>
   </div>
-  <div class="border col-xs-3 group">Live Draft - coming soon </div>
-  <div class="border col-xs-3 group">Multi-Entry - coming soon</div>
-  <div class="border col-xs-3 group">Survivor Contests - coming soon </div>
+  <div class="border col-xs-3 group">
+    <%= image_tag "live-draft-icon.png", class: "contest-icon" %>Live Draft - coming soon </div>
+  <div class="border col-xs-3 group">
+  <%= image_tag "multi-entry-icon.png", class: "contest-icon" %> Multi-Entry - coming soon</div>
+  <div class="border col-xs-3 group">
+  <%= image_tag "survivor-icon.png", class: "contest-icon" %> Survivor Contests - coming soon </div>
 </div>
 
   <nav class="navbar navbar-default" role="navigation">

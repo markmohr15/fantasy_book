@@ -1008,7 +1008,7 @@ h1, h2, h3 {
 }
 
 .social {
-  display: inline-flex;
+  display: inline-flex;
   padding-top: 5px;
 }
 
@@ -1087,6 +1087,15 @@ li.welcome {
 
 .caret {
   display: inline;
+}
+
+.fb-top-nav img, .contest-icon {
+ padding-right: 5px;
+ width: 25px;
+}
+
+.contest {
+  background: rgb(32, 137, 32);
 }
 
 
