@@ -1,7 +1,7 @@
 ActiveAdmin.register Wager, as: "Matchup" do
   filter :state, label: "Status", as: :select, collection: Wager.states, input_html: { value: "Pending" }
   filter :id
-  filter :user, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}
+  filter :user, as: :select, collection: User.where("role = ?", 1).order("username").collect {|u| ["#{u.username}", u.id]}
   filter :prop_id
   menu priority: 5
   #custom risk filter
@@ -93,6 +93,11 @@ ActiveAdmin.register Wager, as: "Matchup" do
    :spread, :odds, :spread_line, :odds_juice
 
   controller do
+
+    def scoped_collection
+      Wager.joins(:user).where('users.role' => 1)
+    end
+
     before_filter state: :index do
         params[:q] = {state_eq: "Pending"} if params[:commit].blank?
     end

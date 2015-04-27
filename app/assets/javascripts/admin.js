@@ -4,10 +4,12 @@ $(function() {
         var time = $('.just-datetime-picker-time')
         var hour = $(time[0]).val()
         var minute = $(time[1]).val()
-        if (hour == 00)
+        if (hour == 00) {
              $('#prop_ampm_time').val("12:" + minute + " am")
-        else if (hour < 13) {
+        } else if (hour < 12) {
             $('#prop_ampm_time').val(hour + ":" + minute + " am")
+        } else if (hour == 12) {
+            $('#prop_ampm_time').val(hour + ":" + minute + " pm")
         } else {
             $('#prop_ampm_time').val(hour - 12 + ":" + minute + " pm")
         }

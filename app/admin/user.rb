@@ -90,7 +90,7 @@ ActiveAdmin.register User do
       f.input :city
       f.input :state, as: :select, collection: (us_states)
       f.input :zip
-      f.input :country, as: :select, collection: ["USA", "Canada", "Mexico"]
+      f.input :country, as: :select, collection: ["United States", "Canada", "Mexico"]
       f.input :phone
       f.input :email_notif, as: :radio, collection: [["Yes", true], ["No", false]], label: "Email Notification"
       f.input :sms_notif, as: :radio, collection: [["Yes", true], ["No", false]], label: "SMS Notification"
