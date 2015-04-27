@@ -143,7 +143,9 @@ class Wager < ActiveRecord::Base
   end
 
   def open?
-    if self.prop.state != "Open" || self.prop.time.past?
+    if self.prop.state != "Open"
+      errors[:base] << "Prop is not open for wagering."
+    elsif self.prop.time.past?
       errors[:base] << "Prop is not open for wagering."
     end
   end
@@ -224,6 +226,15 @@ class Wager < ActiveRecord::Base
     bonus = Bonus.find_by(user_id: self.user_id, state: "Pending")
     return if bonus.nil?
     bonus.process_bonus(self.win)
+  end
+
+  def opponent
+    if self.prop.prop_choices.first == self.prop_choice
+      other_side = self.prop.prop_choices.last.name
+    else
+      other_side = self.prop.prop_choices.first.name
+    end
+    other_side
   end
 
 end
