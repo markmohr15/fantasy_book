@@ -39,7 +39,7 @@ class AccountController < ApplicationController
   end
 
   def withdraw
-    @options = ["ACH", "Check"]
+    @options = ["Check"]
     @withdrawals = Withdrawal.where(user_id: current_user.id).order('created_at DESC')
     unless params[:amount_dollars].blank?
       withdrawal = Withdrawal.new withdrawal_params
