@@ -117,6 +117,9 @@ $(function(){
           //do nothing
       } else {
           wagerList = $('.ticket').find('.wager-prop-choice-id'), i;
+          if (wagerList.length == 2) {
+            $('.actions').addClass("hidden")
+          }
             for (var i = 0; i < wagerList.length - 1; i ++) {
               if (propChoiceId == $(wagerList[i]).val()) {
               var container = $('.ticket').find(wagerList[i]).closest('tbody')
