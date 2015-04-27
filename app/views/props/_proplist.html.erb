@@ -79,7 +79,7 @@
         var target_date = $(countdowns[i]).data('time')
         var hours, minutes, seconds;
         var current_date = new Date().getTime();
-        var seconds_left = (target_date - current_date) / 1000;
+        var seconds_left = (target_date - current_date) / 1000 + 20;  //20 sec diff between heroku time and Javascript time.
         hours = parseInt(seconds_left / 3600);
         seconds_left = seconds_left % 3600;
         minutes = parseInt(seconds_left / 60);
