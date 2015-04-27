@@ -20,6 +20,7 @@ Rails.application.routes.draw do
   get "/terms_of_use", to: "pages#terms", as: :terms
   get "/my_account/deposit", to: "account#deposit"
   post "/my_account/deposit", to: "account#charge_card"
+  #post "my_account/balance", to: "account#paypal", as: :paypal
   match "/my_account/withdraw", to: "account#withdraw", via: [:get, :post]
   match "/my_account/transfer", to: "account#transfer", via: [:get, :post]
   get "/my_account/balance", to: "account#balance"
@@ -35,6 +36,7 @@ Rails.application.routes.draw do
   get "pc", to: "props#pc"
   get "prop", to: "props#prop"
   get "bc", to: "account#bc"
+  get "balance", to: "application#balance"
   post "/notifications/notify", to: "twilio#notify"
 
   root to: "props#index"
