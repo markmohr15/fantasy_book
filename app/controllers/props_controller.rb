@@ -10,7 +10,6 @@ class PropsController < ApplicationController
       @props = Prop.where(state: 1)
     end
 
-    @sports = Sport.all
     @dates = []
     timeRange = Time.now.to_date..Time.now.to_date + 14.days
     timeRange.each do |x|
