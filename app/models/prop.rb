@@ -63,15 +63,20 @@ class Prop < ActiveRecord::Base
 
   def self.search(search_string)
     players = Player.where('name LIKE ? or team LIKE ?', "%#{search_string}%", "%#{search_string}%")
-    choice_collection = []
+    prop_collection = []
     props = []
+    all_prop_choices = PropChoice.joins(:prop).where('props.state' => 1)
     players.each do |player|
-      choice_collection << PropChoice.where("choice LIKE '%?%'", player)
+      all_prop_choices.each do |pc|
+        if pc.choice.include? player.id
+          prop_collection << pc.prop.id
+        end
+      end
     end
-    choice_collection.flatten.each do |choice|
-      props << choice.prop_id
-    end
-    self.where("id in (?) OR proposition LIKE ?", props, "%#{search_string}%").where(state: 1)
+    #choice_collection.flatten.each do |choice|
+     # props << choice.prop_id if choice.prop.state == "Open"
+    #end
+    self.where("id in (?)", prop_collection)
   end
 
   def check_state
