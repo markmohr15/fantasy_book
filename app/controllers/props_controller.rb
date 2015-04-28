@@ -3,23 +3,13 @@ class PropsController < ApplicationController
 
   def index
     if params[:q].present?
-      @props = Prop.search(params[:q])
+      @props = Prop.search(params[:q]).order('time')
     elsif params[:sport_id].present?
-      @props = Prop.where(sport_id: params[:sport_id], state: 1)
+      @props = Prop.where(sport_id: params[:sport_id], state: 1).order('time')
     else
-      @props = Prop.where(state: 1)
+      @props = Prop.where(state: 1).order('time')
     end
 
-    @dates = []
-    timeRange = Time.now.to_date..Time.now.to_date + 14.days
-    timeRange.each do |x|
-      @props.all.each do |y|
-        if x === y.time.to_date
-          @dates << x
-        end
-      end
-    end
-    @dates = @dates.uniq
     respond_to do |format|
       format.html
       format.js

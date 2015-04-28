@@ -161,7 +161,7 @@ class Prop < ActiveRecord::Base
 
   def get_dj_id
     if self.delayed_job_id
-      if Delayed::Job.where(id: a.delayed_job_id).exists?
+      if Delayed::Job.where(id: self.delayed_job_id).exists?
         Delayed::Job.find(self.delayed_job_id).destroy
       end
     end

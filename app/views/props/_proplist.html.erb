@@ -1,6 +1,4 @@
-    <% @dates.each do |date| %>
         <% @props.each do |prop| %>
-          <% if prop.time.to_date === date %>
             <div class="col-md-7 matchups">
 
             <div class="col-md-3 matchup-left choice open"><div class="side open-side">Matchup Side Open</div>
@@ -26,11 +24,7 @@
             </div>
             </div>
             </div>
-          <% end %>
         <% end %>
-    <% end %>
-
-
 
 <script type='text/javascript'>
   $(document).ready(function(){
