@@ -170,7 +170,6 @@ $(function() {
     })
 
     function handlePropData (responseData) {
-        console.log(responseData);
         pc1 = responseData.prop_choices[0].id
         pc2 = responseData.prop_choices[1].id
         $('input#wager_prop_choice_id_team_1').val(pc1)
@@ -193,7 +192,6 @@ $(function() {
     })
 
     function handlePropChoiceData (responseData) {
-        console.log(responseData);
         odds = responseData.odds
         opt1_spread = responseData.prop.opt1_spread
         opt2_spread = responseData.prop.opt2_spread

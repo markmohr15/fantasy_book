@@ -88,7 +88,6 @@ $(function(){
   }));
 
   function handleData (responseData) {
-    console.log(responseData);
     state = responseData.prop.state;
     proposition = responseData.display_proposition;
     displayLine = responseData.display_line;
