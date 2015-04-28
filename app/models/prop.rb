@@ -27,7 +27,7 @@ class Prop < ActiveRecord::Base
 
   belongs_to :sport
   belongs_to :user
-  has_many :wagers
+  has_many :wagers, dependent: :restrict_with_error
   has_many :prop_choices
   accepts_nested_attributes_for :prop_choices, allow_destroy: true
 
