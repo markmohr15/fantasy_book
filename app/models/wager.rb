@@ -45,6 +45,8 @@ class Wager < ActiveRecord::Base
   after_create :contra, if: :player?
   after_create :deduct_available, if: :player?
   before_save :check_bonus, if: :never_graded?
+  before_destroy :return_risk
+  before_destroy :delete_vip_wager, if: :player?
 
   aasm column: :state do
     state :Pending, initial: true
@@ -76,6 +78,11 @@ class Wager < ActiveRecord::Base
 
   def player?
     self.user.role == "player"
+  end
+
+  def delete_vip_wager
+    vip_wager = Wager.find_by("id > ? AND risk = ? AND prop_id = ?", self.id, self.win, self.prop_id)
+    vip_wager.destroy
   end
 
   def never_graded?
