@@ -244,4 +244,12 @@ class Wager < ActiveRecord::Base
     other_side
   end
 
+  def display_entry
+    if self.spread == 0
+      odds_juice
+    else
+      spread_line.to_s + " FP " + odds_juice.to_s
+    end
+  end
+
 end
