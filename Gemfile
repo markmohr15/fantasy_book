@@ -26,6 +26,7 @@ gem "delayed_job_active_record"
 gem "stripe", "~> 1.17.0"
 gem "twilio-ruby", "~> 3.12"
 gem "paypal-express"
+gem "thin"
 
 group :development, :test do
   # Call "byebug" anywhere in the code to stop execution and get a debugger console
