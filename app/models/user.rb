@@ -93,7 +93,7 @@ class User < ActiveRecord::Base
   def verify_referral_code
     return if self.referral_code.blank?
     rc = User.find_by username: self.referral_code
-    if rc.nil?
+    if rc.nil? || rc == self
       self.referral_code = nil
     end
   end
