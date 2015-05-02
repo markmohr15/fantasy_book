@@ -18,6 +18,12 @@ ActiveAdmin.register Wager, as: "Matchup" do
     column "Status", :state do |matchup|
       matchup.aasm.current_state
     end
+    column "Pick" do |matchup|
+      matchup.prop_choice.name
+    end
+    column "Opponent" do |matchup|
+      matchup.opponent
+    end
     column "Risk" do |matchup|
       number_to_currency matchup.risk_dollars
     end
