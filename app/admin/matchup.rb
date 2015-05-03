@@ -77,7 +77,7 @@ ActiveAdmin.register Wager, as: "Matchup" do
   end
 
   form do |f|
-   # f.semantic_errors *f.object.errors.keys
+    f.semantic_errors *f.object.errors.keys
     f.inputs "Matchup Details" do
       f.input :user, required: true, as: :select, collection: User.where("role = ? or role = ?", 1, 3).order("username").collect {|u| ["#{u.username}", u.id]}, include_blank: false
       f.input :prop_id, as: :select, collection: Prop.where("state = ?", 1).collect {|p| ["#{p.prop_choices.first.name} Vs. #{p.prop_choices.last.name}", p.id]}, required: true

@@ -33,6 +33,7 @@ class Prop < ActiveRecord::Base
 
   validates :sport_id, presence: true
   validates :time, presence: true
+  validates :opt1_spread, presence: true
 
   just_define_datetime_picker :time
   display_line :opt1_spread
@@ -108,8 +109,7 @@ class Prop < ActiveRecord::Base
   end
 
   def get_opt2_spread
-    return if self.opt1_spread.blank?
-    if self.opt1_spread == 0
+    if self.opt1_spread == 0 || self.opt1_spread.blank?
       self.opt2_spread = 0
     else
       self.opt2_spread = self.opt1_spread * -1.0
