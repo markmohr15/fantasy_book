@@ -13,8 +13,14 @@ ActiveAdmin.register Prop do
       prop.aasm.current_state
     end
     column "Event Time", :time
+    column "Team One" do |prop|
+      prop.prop_choices.first.name
+    end
     column "Team 1 Available" do |prop|
       prop.prop_choices.first.available_dollars
+    end
+    column "Team 2" do |prop|
+      prop.prop_choices.last.name
     end
     column "Team 2 Available" do |prop|
       prop.prop_choices.last.available_dollars
