@@ -25,7 +25,9 @@ ActiveAdmin.register Prop do
     column "Team 2 Available" do |prop|
       prop.prop_choices.last.available_dollars
     end
-    column :winner
+    column "Choice 1 Spread" do |prop|
+      prop.opt1_spread
+    end
     column :created_at
     actions
   end

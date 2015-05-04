@@ -24,6 +24,9 @@ ActiveAdmin.register Wager, as: "Matchup" do
     column "Opponent" do |matchup|
       matchup.opponent
     end
+    column "Spread" do |matchup|
+      matchup.spread_line
+    end
     column "Risk" do |matchup|
       number_to_currency matchup.risk_dollars
     end
